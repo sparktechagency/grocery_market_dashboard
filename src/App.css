@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+/* Override AntD Checkbox check color */
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #38bd5e  !important ; 
+  border-color: #38bd5e important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: white !important; 
+}
+
+/* .ant-checkbox{
+    background-color: #38bd5e  !important
+}
+
+.ant-checkbox-input {
+    color: #38bd5e !important;
+}
+
+.ant-checkbox-label{
+    color: #38bd5e !important;
+} */
+
+.ant-table-cell{
+  color: #38bd5e;
+}

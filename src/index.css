@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ant-table-tbody .custom-price-cell{
+  color: #38bd5e;
+  font-family: bold !important;
+  font-size: 24px !important;
+}
+
+.ant-space-item span{
+    color: #333333 !important;
+    font-family: bold !important;
+  font-size: 16px !important;
+}
+
+.ant-image .css-dev-only-do-not-override-1m2bkf9   {
+aspect-ratio: 1 !important;
+    width: 80px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.ant-table-cell {
+    padding-bottom: 1 !important;
+    padding-top: 1 !important;
+}
+
+.ant-image , .ant-image-mask {
+     border-radius: 100%;
+     padding: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    color: white;
+     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.anticon-eye > svg {
+    fill: white !important;
+}
+
+.ant-table-tbody .custom-availability-inStock-cell {
+  color: "#007621";
+  font-weight: 500;
+  font-size: 16px !important;
+}
+/* --------------------------------------------------------------------- */
+.ant-table-tbody .custom-availability-outStock-cell {
+  color: "#FF0000";
+  font-weight: 500;
+  font-size: 16px !important;
+  padding: 4px !important;
+  border-radius: 100%;
+  background-color: "#FFE5E5";
+}
+
+.custom-available-cell{
+    color: black;
+  font-weight: 600;
+  font-size: 16px !important
+} 
