@@ -7,6 +7,9 @@ import MainBothDashboard from "../MainLayout/MainBothDashboard";
 import StoreDashboard from "../Store/StoreDashboard";
 import StoreDashboardSidebar from "../Store/StoreDashboardSidebar";
 import Inventory from "../Store/pages/Inventory";
+import OrderManagement from "../Store/pages/OrderManagement";
+import Shoppers from "../Store/pages/Shoppers";
+import Promotions from "../Store/pages/Promotions";
 
 export const router = createBrowserRouter([
     {
@@ -21,7 +24,19 @@ export const router = createBrowserRouter([
             {
                 path: "/inventory",
                 element: <Inventory />
-            }
+            },
+            {
+                path: "/orderManagement",
+                element: <OrderManagement />
+            },
+            {
+                path: "/shoppers",
+                element: <Shoppers />
+            },
+            {
+                path: "/promotions",
+                element: <Promotions />
+            },
         ]
     },
     {

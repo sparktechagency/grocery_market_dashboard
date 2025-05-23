@@ -24,19 +24,19 @@ const menuItems = [
         activeIcon: IconInventoryWhite,
     },
     {
-        path: "",
+        path: "/orderManagement",
         title: "Order management",
         icon: IconManageBlack,
         activeIcon: IconManageWhite,
     },
     {
-        path: "",
+        path: "/shoppers",
         title: "Shoppers",
         icon: IconShoppersBlack,
         activeIcon: IconShoppersWhite,
     },
     {
-        path: "",
+        path: "/promotions",
         title: "Promotions",
         icon: IconPromotionsBlack,
         activeIcon: IconPromotionsWhite,

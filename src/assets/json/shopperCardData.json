@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Theresa Webb",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png",
+    "address": "Road no. 10, Block C, Dhaka",
+    "phone": "(505) 555-0125",
+    "totalDeliveries": 200
+  },
+  {
+    "id": 2,
+    "name": "Ronald Richards",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png",
+    "address": "Sector 11, Uttara, Dhaka",
+    "phone": "(404) 123-9876",
+    "totalDeliveries": 150
+  },
+  {
+    "id": 3,
+    "name": "Courtney Henry",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png",
+    "address": "House 45, Dhanmondi, Dhaka",
+    "phone": "(312) 456-7890",
+    "totalDeliveries": 180
+  },
+  {
+    "id": 4,
+    "name": "Cody Fisher",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png",
+    "address": "Flat 6A, Banani, Dhaka",
+    "phone": "(213) 789-4561",
+    "totalDeliveries": 230
+  },
+  {
+    "id": 5,
+    "name": "Annette Black",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png",
+    "address": "Plot 13, Mirpur DOHS, Dhaka",
+    "phone": "(555) 101-2020",
+    "totalDeliveries": 170
+  },
+  {
+    "id": 6,
+    "name": "Albert Flores",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png",
+    "address": "Sector 3, Bashundhara, Dhaka",
+    "phone": "(111) 222-3333",
+    "totalDeliveries": 250
+  },
+  {
+    "id": 7,
+    "name": "Esther Howard",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png",
+    "address": "New Market Area, Dhaka",
+    "phone": "(777) 888-9999",
+    "totalDeliveries": 210
+  },
+  {
+    "id": 8,
+    "name": "Jenny Wilson",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png",
+    "address": "Road 15, Gulshan, Dhaka",
+    "phone": "(202) 303-4040",
+    "totalDeliveries": 300
+  },
+  {
+    "id": 9,
+    "name": "Savannah Nguyen",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png",
+    "address": "Lalmatia, Block D, Dhaka",
+    "phone": "(999) 888-7777",
+    "totalDeliveries": 195
+  },
+  {
+    "id": 10,
+    "name": "Kristin Watson",
+    "photo": "https://i.ibb.co/fVSkyzwC/edd4b661b231cb76d474e6223e74a43f88aab978.png0",
+    "address": "House 2, Mohakhali DOHS, Dhaka",
+    "phone": "(606) 707-8080",
+    "totalDeliveries": 165
+  }
+]

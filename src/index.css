@@ -28,7 +28,7 @@ aspect-ratio: 1 !important;
     padding-top: 1 !important;
 }
 
-.ant-image , .ant-image-mask {
+.ant-image  .ant-image-mask {
      border-radius: 100%;
      padding: 10px;
     width: 100%;
@@ -63,3 +63,76 @@ aspect-ratio: 1 !important;
   font-weight: 600;
   font-size: 16px !important
 } 
+
+.custom-tabs .ant-tabs-ink-bar {
+  display: none !important; 
+}
+/* 
+.ant-tabs-tab-active{
+  border: none !important;
+} */
+/* .ant-tabs-nav-list{
+  width: 100% !important;
+  border: 5px !important;
+} */
+
+
+
+.px-10.py-4.bg-gray-100.rounded-md.shadow-xl {
+    font-size: 28px;
+    font-weight: 600 !important;
+    /* background-color: #38bd5e; */
+}
+/* 
+
+/* Remove default ink bar (the sliding underline) */
+.ant-tabs-ink-bar {
+  display: none !important;
+  
+}
+
+:where(.css-dev-only-do-not-override-1m2bkf9).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: white;
+    text-shadow: 0 0 0.25px currentcolor;
+    background-color: #38bd5e !important;
+}
+
+/* Remove default border from tab */
+.ant-tabs-tab {
+  border-bottom: none !important;
+}
+
+/* Apply custom border to active tab */
+div.ant-tabs-tab.ant-tabs-tab-active {
+  border-bottom: none !important;
+  color: white !important;
+}
+
+:where(.css-dev-only-do-not-override-1m2bkf9).ant-tabs .ant-tabs-tab-btn {
+    outline: none;
+    transition: all 0.3s;
+    padding-right: 36px;
+    padding-left: 36px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+:where(.css-dev-only-do-not-override-1m2bkf9).ant-tabs  :hover {
+color: #23AA49 !important;
+}
+
+
+
+/* .ant-image .ant-image-img {
+  width: 90px !important;
+  height: 80px !important;
+  border: 2px, solid, #23AA49;
+ 
+} */
+ /* .ant-image-mask-info{
+  border: #23AA49 solid 1px ;
+  border-radius: 30px;
+ } */

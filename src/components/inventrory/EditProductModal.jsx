@@ -2,6 +2,7 @@
 import { Modal, Select, Switch } from 'antd';
 import { CloseCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { useState } from "react";
+import { Option } from 'lucide-react';
 
 const EditProductModal = ({ isModalOpen, setIsModalOpen, }) => {
     const handleCancel = () => {
@@ -9,12 +10,19 @@ const EditProductModal = ({ isModalOpen, setIsModalOpen, }) => {
     };
     const [color, setColor] = useState('#ffffff');
 
-    const [freeShipping, setFreeShipping] = useState(false);
-
     // const handleUpload = () => {
     //     setIsModalOpen(false);
     // };
 
+    const [preview, setPreview] = useState(null);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const imageURL = URL.createObjectURL(file);
+            setPreview(imageURL);
+        }
+    };
 
     return (
 
@@ -39,10 +47,31 @@ const EditProductModal = ({ isModalOpen, setIsModalOpen, }) => {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <p className="font-semibold mb-1">Image</p>
-                        <div className="border-2 border-dashed border-gray-400 rounded-md p-6 flex justify-center items-center text-gray-500">
-                            <UploadOutlined className="mr-2" /> Upload image
-                        </div>
+                        <label
+                            htmlFor="imageUpload"
+                            className="cursor-pointer w-full h-40 border-2 border-dashed border-gray-400 rounded-md flex items-center justify-center text-gray-500 hover:bg-gray-50 transition overflow-hidden"
+                        >
+                            {preview ? (
+                                <img
+                                    src={preview}
+                                    alt="Preview"
+                                    className="object-contain max-h-full"
+                                />
+                            ) : (
+                                <div className="flex items-center justify-center text-gray-500">
+                                    <UploadOutlined className="mr-2" /> Upload image
+                                </div>
+                            )}
+                            <input
+                                type="file"
+                                id="imageUpload"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                className="hidden"
+                            />
+                        </label>
                     </div>
+
                     <div>
                         <p className="font-semibold mb-1">Choose color</p>
                         <p className="text-sm text-gray-500 mb-1">
@@ -74,21 +103,41 @@ const EditProductModal = ({ isModalOpen, setIsModalOpen, }) => {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <p className="font-semibold mb-1">Category</p>
-                        <Select defaultValue="Fruits & Vegetables" className="w-full" />
+                        <Select defaultValue="Fruits & Vegetables" className="w-full" >
+                            <Option>Fruits & vegetables</Option>
+                            <Option>Beverage</Option>
+                            <Option>Bakery</Option>
+                            <Option>Meat</Option>
+                            <Option>Cleaning product</Option>
+                            <Option>Drinks</Option>
+                        </Select>
                     </div>
                     <div>
                         <p className="font-semibold mb-1">Expiry date</p>
-                        <Select defaultValue="3 days" className="w-full" />
+                        <Select defaultValue="3 days" className="w-full" >
+                            <Option>3 days</Option>
+                            <Option>7 days</Option>
+                            <Option>15 days</Option>
+                            <Option>1 month</Option>
+                            <Option>6 month</Option>
+                            <Option>1 year</Option>
+
+                        </Select>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                     <div className="flex gap-2">
-                        <div className="flex items-center border rounded p-2 bg-gray-100">
+                        <div className="flex items-center border w-full rounded p-2 bg-gray-100">
                             <span className="mr-2">lbs -</span>
                             <span>50</span>
                         </div>
-                        <Select defaultValue="lbs" />
+                        <Select defaultValue="lbs" >
+                            <Option>lbs</Option>
+                            <Option>kg</Option>
+                            <Option>g</Option>
+                            <Option>pc</Option>
+                        </Select>
                     </div>
                     <div>
                         <p className="font-semibold mb-1">Tags</p>
@@ -168,7 +217,7 @@ const EditProductModal = ({ isModalOpen, setIsModalOpen, }) => {
 
             {/* Footer */}
             <div className="p-4 flex justify-end">
-                <button className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
+                <button onClick={handleCancel} className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
                     Save changes
                 </button>
             </div>
