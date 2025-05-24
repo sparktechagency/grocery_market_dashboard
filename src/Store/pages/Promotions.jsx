@@ -57,7 +57,7 @@ const Promotions = () => {
 
     return (
         <div>
-            <p className='font-PoppinsMedium text-xl text-black'>Promotional banners</p>
+            <p className='font-PoppinsMedium text-xl text-black mb-6'>Promotional banners</p>
 
             <div className='grid grid-cols-4 gap-3'>
                 {
@@ -69,7 +69,7 @@ const Promotions = () => {
                     ))
                 }
             </div>
-            <button onClick={() => setIsModalOpen(true)} className='font-PoppinsMedium text-lg text-white bg-primary py-4 px-28 rounded-lg mt-10  '>Add More</button>
+            <button onClick={() => setIsModalOpen(true)} className='font-PoppinsMedium text-lg text-white bg-primary py-3 px-28 rounded-lg mt-10  '>Add More</button>
 
             {/* ================ shoppers successful modal =============== */}
             <Modal
@@ -97,7 +97,7 @@ const Promotions = () => {
 
                     <Button
                         type="primary"
-                        className="bg-green-600  hover:text-white hover:bg-green-700 w-full h-10 text-base font-semibold mt-8"
+                        className="bg-green-600 hover:text-white hover:bg-green-700 w-full h-10 text-base font-semibold mt-8"
                         disabled={!fileList.length}
                     >
                         Upload

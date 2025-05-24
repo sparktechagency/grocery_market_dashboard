@@ -42,7 +42,7 @@ const menuItems = [
         activeIcon: IconPromotionsWhite,
     },
     {
-        path: "",
+        path: "/subscriptions",
         title: "Subscriptions",
         icon: IconSubscriptionsBlack,
         activeIcon: IconSubscriptionsWhite,

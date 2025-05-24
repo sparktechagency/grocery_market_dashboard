@@ -10,6 +10,7 @@ import Inventory from "../Store/pages/Inventory";
 import OrderManagement from "../Store/pages/OrderManagement";
 import Shoppers from "../Store/pages/Shoppers";
 import Promotions from "../Store/pages/Promotions";
+import Subscriptions from "../Store/pages/Subscriptions";
 
 export const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
             {
                 path: "/promotions",
                 element: <Promotions />
+            },
+            {
+                path: "/subscriptions",
+                element: <Subscriptions />
             },
         ]
     },
