@@ -55,19 +55,19 @@ const menuItems = [
         activeIcon: IconSettingsWhite,
         children: [
             {
-                path: "/settings/aboutUS",
+                path: "/settings/",
                 title: "Change Password",
                 icon: IconKeyBlack,
                 activeIcon: IconKeyWhite,
             },
             {
-                path: "/settings/termsAndCondintion",
+                path: "/settings/shop_setting",
                 title: "Shop settings",
                 icon: IconShopBlack,
                 activeIcon: IconShopWhite,
             },
             {
-                path: "/settings/chagePassword",
+                path: "/settings/about_us",
                 title: "About Us",
                 icon: IconAboutBlack,
                 activeIcon: IconAboutWhite,
@@ -170,7 +170,7 @@ const StoreDashboardSidebar = () => {
                                                     fontSize: "16px",
                                                     marginBottom: "10px",
                                                     backgroundColor: isSubActive
-                                                        ? "#4B5320"
+                                                        ? "#23AA49"
                                                         : "transparent",
                                                 }}
                                             >

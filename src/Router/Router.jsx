@@ -11,6 +11,8 @@ import OrderManagement from "../Store/pages/OrderManagement";
 import Shoppers from "../Store/pages/Shoppers";
 import Promotions from "../Store/pages/Promotions";
 import Subscriptions from "../Store/pages/Subscriptions";
+import Settings from "../Store/pages/Settings";
+import AboutUs from "../Store/pages/AboutUs";
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +43,14 @@ export const router = createBrowserRouter([
             {
                 path: "/subscriptions",
                 element: <Subscriptions />
+            },
+            {
+                path: "/settings/shop_setting",
+                element: <Settings />
+            },
+            {
+                path: "/settings/about_us",
+                element: <AboutUs />
             },
         ]
     },
