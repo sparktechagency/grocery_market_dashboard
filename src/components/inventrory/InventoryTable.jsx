@@ -68,17 +68,7 @@ const InventoryTable = () => {
             key: "availability",
             align: "center",
             className: "custom-availability-inStock-cell"
-            // render: (availability) => (
-            //     <span
-            //         className={
-            //             availability === "In-stock"
-            //                 ? "custom-availability-inStock-cell"
-            //                 : "custom-availability-outStock-cell"
-            //         }
-            //     >
-            //         {availability}
-            //     </span>
-            // ),
+
         },
         {
             title: "Available",

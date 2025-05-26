@@ -12,7 +12,7 @@ const { Header, Sider, Content } = Layout;
 
 const menuItems = [
     {
-        path: "/dashboard",
+        path: "/",
         title: "Dashboard",
         icon: IconDashboardBlack,
         activeIcon: IconDashboardWhite,
@@ -55,7 +55,7 @@ const menuItems = [
         activeIcon: IconSettingsWhite,
         children: [
             {
-                path: "/settings/",
+                path: "/settings/change_pass",
                 title: "Change Password",
                 icon: IconKeyBlack,
                 activeIcon: IconKeyWhite,
@@ -73,7 +73,7 @@ const menuItems = [
                 activeIcon: IconAboutWhite,
             },
             {
-                path: "/settings/chagePassword",
+                path: "/settings/faq",
                 title: "FAQ",
                 icon: IconFAQBlack,
                 activeIcon: IconFAQWhite,
@@ -86,11 +86,11 @@ const StoreDashboardSidebar = () => {
     const location = useLocation();
 
     const handleNotifications = () => {
-        navigate("settings/changePassword");
+        navigate("settings/notification");
     };
 
     const handleLogout = () => {
-        navigate('/auth/login')
+        navigate('/login')
     }
 
     const getTitle = () => {
@@ -220,7 +220,7 @@ const StoreDashboardSidebar = () => {
                             Logout</span>
                         <span>{IconRightBlackArrow}</span>
                     </Button>
-                    <Button onClick={() => handleLogout()} className="gap-3 w-full flex justify-between items-center  p-6 bg-lowGray text-base font-popping font-semibold text-black ">
+                    <Button onClick={() => navigate("/settings/change_pass")} className="gap-3 w-full flex justify-between items-center  p-6 bg-lowGray text-base font-popping font-semibold text-black ">
                         <span className="flex gap-3">
 
 

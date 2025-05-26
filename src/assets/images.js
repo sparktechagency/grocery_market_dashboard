@@ -1,1 +1,1 @@
-export const ImgProfile = "./images/profileImage.jpg";
+export const ImgProfile = "https://i.ibb.co/kc1QfZW/profile.jpg";

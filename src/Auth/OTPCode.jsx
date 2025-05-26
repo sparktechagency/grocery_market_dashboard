@@ -8,7 +8,7 @@ const OTPCode = () => {
     const navigation = useNavigate();
 
     const handleSubmit = () => {
-        navigation("/dashboardLayout")
+        navigation("/")
     }
 
 

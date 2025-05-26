@@ -13,6 +13,9 @@ import Promotions from "../Store/pages/Promotions";
 import Subscriptions from "../Store/pages/Subscriptions";
 import Settings from "../Store/pages/Settings";
 import AboutUs from "../Store/pages/AboutUs";
+import FAQ from "../Store/pages/FAQ";
+import ChangePassword from "../Store/pages/ChangePassword";
+import NotificationComponents from "../Store/pages/NotificationComponents";
 
 export const router = createBrowserRouter([
     {
@@ -21,7 +24,7 @@ export const router = createBrowserRouter([
         errorElement: <ErrorCommon />,
         children: [
             {
-                path: "dashboard",
+                path: "/",
                 element: <StoreDashboard />
             },
             {
@@ -45,12 +48,24 @@ export const router = createBrowserRouter([
                 element: <Subscriptions />
             },
             {
+                path: "/settings/change_pass",
+                element: <ChangePassword />
+            },
+            {
                 path: "/settings/shop_setting",
                 element: <Settings />
             },
             {
                 path: "/settings/about_us",
                 element: <AboutUs />
+            },
+            {
+                path: "/settings/faq",
+                element: <FAQ />
+            },
+            {
+                path: "/settings/notification",
+                element: <NotificationComponents />
             },
         ]
     },
