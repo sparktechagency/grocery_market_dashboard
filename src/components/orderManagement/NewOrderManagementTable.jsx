@@ -212,6 +212,7 @@ const NewOrderManagementTable = () => {
                 dataSource={data}
                 pagination={true}
 
+
             />
 
 

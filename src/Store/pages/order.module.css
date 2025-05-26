@@ -1,0 +1,22 @@
+.wrapper :global(.ant-tabs .ant-tabs-tab-btn) {
+    outline: none;
+    transition: all 0.5s !important;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.hoverUnActiveTabs :global(.ant-tabs .ant-tabs-tab:hover) {
+  color:  #38bd5e !important;
+}
+/* .ant-tabs .ant-tabs-tab-btn {
+    outline: none;
+    transition: all 0.5s !important;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 28px;
+    font-weight: 600;
+}
+.ant-tabs .ant-tabs-tab:hover {
+  color:  #38bd5e !important;
+} */

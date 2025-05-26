@@ -93,7 +93,7 @@ aspect-ratio: 1 !important;
   
 }
 
-:where(.css-dev-only-do-not-override-1m2bkf9).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: white;
     text-shadow: 0 0 0.25px currentcolor;
     background-color: #38bd5e !important;
@@ -110,7 +110,7 @@ div.ant-tabs-tab.ant-tabs-tab-active {
   color: white !important;
 }
 
-:where(.css-dev-only-do-not-override-1m2bkf9).ant-tabs .ant-tabs-tab-btn {
+/* .ant-tabs .ant-tabs-tab-btn {
     outline: none;
     transition: all 0.3s;
     padding-right: 36px;
@@ -120,11 +120,9 @@ div.ant-tabs-tab.ant-tabs-tab-active {
     border-radius: 10px;
     font-size: 28px;
     font-weight: 600;
-}
+} */
 
-:where(.css-dev-only-do-not-override-1m2bkf9).ant-tabs  :hover {
-color: #23AA49 !important;
-}
+
 
 
 

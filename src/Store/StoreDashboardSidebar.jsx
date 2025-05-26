@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Layout, Menu } from "antd";
-import { Link, useNavigate, useLocation, Outlet } from "react-router-dom";
+import { Link, useNavigate, useLocation, Outlet, useSearchParams } from "react-router-dom";
 import ImageLogo from "../assets/images/logo/logo.jpg"
 import ImageProfile from "../assets/images/profileImage.jpg";
 
@@ -10,7 +10,9 @@ import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite,
 
 const { Header, Sider, Content } = Layout;
 
-const menuItems = [
+
+
+const adminItems = [
     {
         path: "/",
         title: "Dashboard",
@@ -81,7 +83,80 @@ const menuItems = [
         ],
     },
 ];
+const shopperItems = [
+    {
+        path: "/",
+        title: "Shopper Dashboard",
+        icon: IconDashboardBlack,
+        activeIcon: IconDashboardWhite,
+    },
+    {
+        path: "/inventory",
+        title: "Inventory",
+        icon: IconInventoryBlack,
+        activeIcon: IconInventoryWhite,
+    },
+    {
+        path: "/orderManagement",
+        title: "Order management",
+        icon: IconManageBlack,
+        activeIcon: IconManageWhite,
+    },
+    {
+        path: "/shoppers",
+        title: "Shoppers",
+        icon: IconShoppersBlack,
+        activeIcon: IconShoppersWhite,
+    },
+    {
+        path: "/promotions",
+        title: "Promotions",
+        icon: IconPromotionsBlack,
+        activeIcon: IconPromotionsWhite,
+    },
+    {
+        path: "/subscriptions",
+        title: "Subscriptions",
+        icon: IconSubscriptionsBlack,
+        activeIcon: IconSubscriptionsWhite,
+    },
+
+    {
+        path: "/settings",
+        title: "Settings",
+        icon: IconSettingsBlack,
+        activeIcon: IconSettingsWhite,
+        children: [
+            {
+                path: "/settings/change_pass",
+                title: "Change Password",
+                icon: IconKeyBlack,
+                activeIcon: IconKeyWhite,
+            },
+            {
+                path: "/settings/shop_setting",
+                title: "Shop settings",
+                icon: IconShopBlack,
+                activeIcon: IconShopWhite,
+            },
+            {
+                path: "/settings/about_us",
+                title: "About Us",
+                icon: IconAboutBlack,
+                activeIcon: IconAboutWhite,
+            },
+            {
+                path: "/settings/faq",
+                title: "FAQ",
+                icon: IconFAQBlack,
+                activeIcon: IconFAQWhite,
+            },
+        ],
+    },
+];
 const StoreDashboardSidebar = () => {
+    const [isAdmin, setIsAdmin] = React.useState(false)
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -113,6 +188,8 @@ const StoreDashboardSidebar = () => {
     };
 
 
+    const MainMenu = isAdmin ? adminItems : shopperItems
+
 
 
     return (
@@ -138,7 +215,7 @@ const StoreDashboardSidebar = () => {
                     mode="inline"
                     defaultSelectedKeys={["1"]}
                 >
-                    {menuItems.map((item, index) => {
+                    {MainMenu.map((item, index) => {
                         const isActive = location.pathname === item.path;
                         if (item.children) {
                             return (

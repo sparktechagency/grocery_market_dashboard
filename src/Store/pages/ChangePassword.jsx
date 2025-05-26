@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Modal, Tabs, Upload } from "antd";
 import { IconDollar, IconEdit } from "../../assets/icon";
 import { ImgProfile } from "../../assets/images";
-
+import styles from "./order.module.css"
 
 // tabs 1
 const onFinish = (values) => {
@@ -233,7 +233,7 @@ const ChangePassword = () => {
             </div>
 
             {/* and tabs */}
-            <div className="mx-52">
+            <div className={`mx-52 ${styles.wrapper} ${styles.hoverUnActiveTabs} `} >
                 <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
             </div>
 
