@@ -1,29 +1,27 @@
 import React from "react";
 import { Button, Layout, Menu } from "antd";
-import { Link, useNavigate, useLocation, Outlet, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useLocation, Outlet } from "react-router-dom";
 import ImageLogo from "../assets/images/logo/logo.jpg"
 import ImageProfile from "../assets/images/profileImage.jpg";
 
 import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
-import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconSubscriptionsBlack, IconSubscriptionsWhite } from "../assets/icon";
+import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite } from "../assets/icon";
 
 const { Header, Sider, Content } = Layout;
 
-
-
 const adminItems = [
     {
-        path: "/",
+        path: "/supper_admin",
         title: "Dashboard",
         icon: IconDashboardBlack,
         activeIcon: IconDashboardWhite,
     },
     {
-        path: "/inventory",
-        title: "Inventory",
-        icon: IconInventoryBlack,
-        activeIcon: IconInventoryWhite,
+        path: "/store_management",
+        title: "Store Management",
+        icon: IconStoreManagementBlack,
+        activeIcon: IconStoreManagementWhite,
     },
     {
         path: "/orderManagement",
@@ -32,16 +30,16 @@ const adminItems = [
         activeIcon: IconManageWhite,
     },
     {
+        path: "/ManageCategory",
+        title: "Manage Category",
+        icon: IconManageCategoryBlack,
+        activeIcon: IconManageCategoryWhite,
+    },
+    {
         path: "/shoppers",
         title: "Shoppers",
         icon: IconShoppersBlack,
         activeIcon: IconShoppersWhite,
-    },
-    {
-        path: "/promotions",
-        title: "Promotions",
-        icon: IconPromotionsBlack,
-        activeIcon: IconPromotionsWhite,
     },
     {
         path: "/subscriptions",
@@ -61,12 +59,6 @@ const adminItems = [
                 title: "Change Password",
                 icon: IconKeyBlack,
                 activeIcon: IconKeyWhite,
-            },
-            {
-                path: "/settings/shop_setting",
-                title: "Shop settings",
-                icon: IconShopBlack,
-                activeIcon: IconShopWhite,
             },
             {
                 path: "/settings/about_us",
@@ -155,7 +147,7 @@ const shopperItems = [
     },
 ];
 const StoreDashboardSidebar = () => {
-    const [isAdmin, setIsAdmin] = React.useState(false)
+    const [isAdmin, setIsAdmin] = React.useState(true)
 
     const navigate = useNavigate();
     const location = useLocation();

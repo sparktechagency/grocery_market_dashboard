@@ -16,6 +16,8 @@ import AboutUs from "../Store/pages/AboutUs";
 import FAQ from "../Store/pages/FAQ";
 import ChangePassword from "../Store/pages/ChangePassword";
 import NotificationComponents from "../Store/pages/NotificationComponents";
+import StoreManagement from "../SupperAdmin/StoreManagement";
+import SupperAdminDashboard from "../SupperAdmin/SupperAdminDashboard";
 
 export const router = createBrowserRouter([
     {
@@ -66,6 +68,22 @@ export const router = createBrowserRouter([
             {
                 path: "/settings/notification",
                 element: <NotificationComponents />
+            },
+        ]
+    },
+    // ================================ supper admin route ==========
+
+    {
+        path: "/supper_admin",
+        element: <StoreDashboardSidebar />,
+        children: [
+            {
+                index: true,
+                element: <SupperAdminDashboard />
+            },
+            {
+                path: "store_management",
+                element: <StoreManagement />
             },
         ]
     },
