@@ -18,25 +18,25 @@ const adminItems = [
         activeIcon: IconDashboardWhite,
     },
     {
-        path: "/store_management",
+        path: "/supper_admin/store_management",
         title: "Store Management",
         icon: IconStoreManagementBlack,
         activeIcon: IconStoreManagementWhite,
     },
     {
-        path: "/",
+        path: "/supper_admin/admin_order_management",
         title: "Order management",
         icon: IconManageBlack,
         activeIcon: IconManageWhite,
     },
     {
-        path: "/",
+        path: "/supper_admin/manage_category",
         title: "Manage Category",
         icon: IconManageCategoryBlack,
         activeIcon: IconManageCategoryWhite,
     },
     {
-        path: "/shoppers",
+        path: "/supper_admin/admin_shopper",
         title: "Shoppers",
         icon: IconShoppersBlack,
         activeIcon: IconShoppersWhite,
@@ -147,7 +147,7 @@ const shopperItems = [
     },
 ];
 const StoreDashboardSidebar = () => {
-    const [isAdmin, setIsAdmin] = React.useState(false)
+    const [isAdmin, setIsAdmin] = React.useState(true);
 
     const navigate = useNavigate();
     const location = useLocation();

@@ -14,7 +14,6 @@ import img5 from "../../assets/images/productTwo.png"
 import img6 from "../../assets/images/productThree.png"
 import img7 from "../../assets/images/productFour.png"
 import ViewProductModal from './ViewProductModal';
-import AddModalProduct from './AddProductModal';
 import EditProductModal from './EditProductModal';
 
 const InventoryTable = () => {

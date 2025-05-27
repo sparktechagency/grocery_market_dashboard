@@ -18,6 +18,9 @@ import ChangePassword from "../Store/pages/ChangePassword";
 import NotificationComponents from "../Store/pages/NotificationComponents";
 import StoreManagement from "../SupperAdmin/StoreManagement";
 import SupperAdminDashboard from "../SupperAdmin/SupperAdminDashboard";
+import OrderManagementAdmin from "../SupperAdmin/OrderManagementAdmin";
+import ShopperAdmin from "../SupperAdmin/ShopperAdmin";
+import ManageCategory from "../SupperAdmin/ManageCategory";
 
 export const router = createBrowserRouter([
     {
@@ -84,6 +87,18 @@ export const router = createBrowserRouter([
             {
                 path: "store_management",
                 element: <StoreManagement />
+            },
+            {
+                path: "admin_order_management",
+                element: <OrderManagementAdmin />
+            },
+            {
+                path: "manage_category",
+                element: <ManageCategory />
+            },
+            {
+                path: "admin_shopper",
+                element: <ShopperAdmin />
             },
         ]
     },
