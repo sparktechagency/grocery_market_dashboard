@@ -42,7 +42,7 @@ const adminItems = [
         activeIcon: IconShoppersWhite,
     },
     {
-        path: "/subscriptions",
+        path: "/supper_admin/admin_subscriptions",
         title: "Subscriptions",
         icon: IconSubscriptionsBlack,
         activeIcon: IconSubscriptionsWhite,

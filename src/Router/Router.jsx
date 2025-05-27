@@ -21,6 +21,7 @@ import SupperAdminDashboard from "../SupperAdmin/SupperAdminDashboard";
 import OrderManagementAdmin from "../SupperAdmin/OrderManagementAdmin";
 import ShopperAdmin from "../SupperAdmin/ShopperAdmin";
 import ManageCategory from "../SupperAdmin/ManageCategory";
+import SubscriptionsAdmin from "../SupperAdmin/SubscriptionsAdmin";
 
 export const router = createBrowserRouter([
     {
@@ -99,6 +100,10 @@ export const router = createBrowserRouter([
             {
                 path: "admin_shopper",
                 element: <ShopperAdmin />
+            },
+            {
+                path: "admin_subscriptions",
+                element: <SubscriptionsAdmin />
             },
         ]
     },

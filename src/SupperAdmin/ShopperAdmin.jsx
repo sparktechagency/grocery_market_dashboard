@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IconSearch } from '../assets/icon'
 import img1 from "../assets/images/shopper.jpg";
 import img2 from "../assets/images/shopper.jpg";
@@ -7,10 +7,12 @@ import img4 from "../assets/images/shopper.jpg";
 import img5 from "../assets/images/shopper.jpg";
 import img6 from "../assets/images/shopper.jpg";
 import img7 from "../assets/images/shopper.jpg";
-import { Image, Popconfirm, Space, Table } from 'antd';
+import shopperImage from "../assets/images/shopperImg.jpg";
+import { Image, Modal, Popconfirm, Space, Table } from 'antd';
 
 
 const ShopperAdmin = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const columns = [
         {
@@ -61,7 +63,7 @@ const ShopperAdmin = () => {
             render: (record) => (
                 <Space size="middle">
                     {/* view icon */}
-                    <div >
+                    <div onClick={() => setIsModalOpen(true)}>
                         <svg
                             width="37"
                             height="37"
@@ -110,8 +112,12 @@ const ShopperAdmin = () => {
                 image: img1,
                 title: "Starbucks",
             },
-            address: "Benjamin Wilkison",
+            address: "4517 Washington Ave. Manchester, Kentucky 39495",
             total_delivery: "5KG",
+            status: <div className='flex justify-center items-center  gap-2 px-2  pt-2 rounded-lg bg-lowGreen'>
+                <div className='w-3 h-3 rounded-full bg-primary mb-3'></div>
+                <p className='text-primary font-medium text-base'>online</p>
+            </div>,
             price: "$250",
         },
         {
@@ -120,10 +126,12 @@ const ShopperAdmin = () => {
                 image: img2,
                 title: "Starbucks",
             },
-            address: "Benjamin Wilkison",
-
+            address: "6391 Elgin St. Celina, Delaware 10299",
             total_delivery: "5KG",
-            status: "$250",
+            status: <div className='flex justify-center items-center  gap-2 px-2  pt-2 rounded-lg bg-lowGreen'>
+                <div className='w-3 h-3 rounded-full bg-primary mb-3'></div>
+                <p className='text-primary font-medium text-base'>online</p>
+            </div>,
             price: "$250",
         },
         {
@@ -132,10 +140,13 @@ const ShopperAdmin = () => {
                 image: img3,
                 title: "Starbucks",
             },
-            address: "Benjamin Wilkison",
+            address: "6391 Elgin St. Celina, Delaware 10299",
 
             total_delivery: "5KG",
-            status: "$250",
+            status: <div className='flex justify-center items-center  gap-2 px-2  pt-2 rounded-lg bg-lowGray'>
+                <div className='w-3 h-3 rounded-full bg-lowBlack mb-3'></div>
+                <p className='text-lowBlack font-medium text-base'>Offline</p>
+            </div>,
             price: "$250",
         },
         {
@@ -144,10 +155,13 @@ const ShopperAdmin = () => {
                 image: img4,
                 title: "Starbucks",
             },
-            address: "Benjamin Wilkison",
+            address: "6391 Elgin St. Celina, Delaware 10299",
 
             total_delivery: "5KG",
-            status: "$250",
+            status: <div className='flex justify-center items-center  gap-2 px-2  pt-2 rounded-lg bg-lowGreen'>
+                <div className='w-3 h-3 rounded-full bg-primary mb-3'></div>
+                <p className='text-primary font-medium text-base'>online</p>
+            </div>,
             price: "$250",
         },
         {
@@ -156,10 +170,13 @@ const ShopperAdmin = () => {
                 image: img5,
                 title: "Starbucks",
             },
-            address: "Benjamin Wilkison",
+            address: "4517 Washington Ave. Manchester, Kentucky 39495",
 
             total_delivery: "5KG",
-            status: "$250",
+            status: <div className='flex justify-center items-center  gap-2 px-2  pt-2 rounded-lg bg-lowGreen'>
+                <div className='w-3 h-3 rounded-full bg-primary mb-3'></div>
+                <p className='text-primary font-medium text-base'>online</p>
+            </div>,
             price: "$250",
         },
         {
@@ -168,10 +185,13 @@ const ShopperAdmin = () => {
                 image: img6,
                 title: "Starbucks",
             },
-            address: "Benjamin Wilkison",
+            address: "8502 Preston Rd. Inglewood, Maine 98380",
 
             total_delivery: "5KG",
-            status: "$250",
+            status: <div className='flex justify-center items-center  gap-2 px-2  pt-2 rounded-lg bg-lowGreen'>
+                <div className='w-3 h-3 rounded-full bg-primary mb-3'></div>
+                <p className='text-primary font-medium text-base'>online</p>
+            </div>,
             price: "$250",
         },
         {
@@ -180,10 +200,13 @@ const ShopperAdmin = () => {
                 image: img7,
                 title: "Starbucks",
             },
-            address: "Benjamin Wilkison",
+            address: "4517 Washington Ave. Manchester, Kentucky 39495",
 
             total_delivery: "5KG",
-            status: "$250",
+            status: <div className='flex justify-center items-center  gap-2 px-2  pt-2 rounded-lg bg-lowGreen'>
+                <div className='w-3 h-3 rounded-full bg-primary mb-3'></div>
+                <p className='text-primary font-medium text-base'>online</p>
+            </div>,
             price: "$250",
         },
     ];
@@ -213,6 +236,43 @@ const ShopperAdmin = () => {
                 pagination={true}
             />
 
+
+            {/* =========== shopper details modal ============== */}
+
+            <Modal
+                open={isModalOpen}
+                onCancel={() => setIsModalOpen(false)}
+                footer={null}
+                closeIcon={false}
+                className="rounded-lg "
+            >
+                <div>
+                    <img className='w-48 h-52 rounded-lg mx-auto' src={shopperImage} alt="Shopper profile image" />
+                    <div className='mt-12 px-6'>
+                        <div className='flex justify-between items-center'>
+                            <p className='font-bold text-base text-black'>Name:</p>
+                            <p className='font-bold text-base text-black'>Benjamin Wilkison</p>
+                        </div>
+                        <div className='flex justify-between items-center'>
+                            <p className='font-bold text-base text-black'>Email:</p>
+                            <p className='font-medium text-base text-black'>example@gmail.com</p>
+                        </div>
+                        <div className='flex justify-between items-center'>
+                            <p className='font-bold text-base text-black'>Mobile:</p>
+                            <p className='font-medium text-base text-black'>5646984846</p>
+                        </div>
+                        <div className='flex justify-between items-center'>
+                            <p className='font-bold text-base text-black'>Address:</p>
+                            <p className='font-medium text-base text-black'>Fairbanks North Star</p>
+                        </div>
+                        <div className='flex justify-between items-center'>
+                            <p className='font-bold text-base text-black'>Deliveries:</p>
+                            <p className='font-medium text-base text-black'>200</p>
+                        </div>
+                    </div>
+                    <button onClick={() => setIsModalOpen(false)} type="button" className="text-white w-full bg-primary hover:bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Close</button>
+                </div>
+            </Modal>
 
         </div>
     )

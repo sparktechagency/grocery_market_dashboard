@@ -37,7 +37,7 @@ const Shoppers = () => {
                         name=""
                         id=""
                     />
-                    <button className="bg-primary p-3 -ml-1 border rounded-r-full">
+                    <button className="bg-primary p-2.5 -ml-1 border rounded-r-full">
                         {IconSearch}
                     </button>
                 </div>
