@@ -375,7 +375,7 @@ const StoreManagement = () => {
                 </Button>
             </Modal>
 
-            {/* ======================== view details modal ========================== */}
+            {/* ======================== view Shopper store details modal ========================== */}
 
             <Modal
                 open={isDetailsModalOpen}

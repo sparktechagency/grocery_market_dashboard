@@ -22,6 +22,7 @@ import OrderManagementAdmin from "../SupperAdmin/OrderManagementAdmin";
 import ShopperAdmin from "../SupperAdmin/ShopperAdmin";
 import ManageCategory from "../SupperAdmin/ManageCategory";
 import SubscriptionsAdmin from "../SupperAdmin/SubscriptionsAdmin";
+import SubscribeShopper from "../SupperAdmin/SubscribeShopper";
 
 export const router = createBrowserRouter([
     {
@@ -70,7 +71,7 @@ export const router = createBrowserRouter([
                 element: <FAQ />
             },
             {
-                path: "/settings/notification",
+                path: "/notification",
                 element: <NotificationComponents />
             },
         ]
@@ -104,6 +105,10 @@ export const router = createBrowserRouter([
             {
                 path: "admin_subscriptions",
                 element: <SubscriptionsAdmin />
+            },
+            {
+                path: "admin_subscriptions/subscribe_shopper",
+                element: <SubscribeShopper />
             },
         ]
     },
