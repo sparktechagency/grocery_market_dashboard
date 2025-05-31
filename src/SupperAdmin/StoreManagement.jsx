@@ -35,7 +35,7 @@ const StoreManagement = () => {
             key: "store_name",
             render: (store) => (
                 <Space className='gap-2'>
-                    <Image className='!rounded-full ' src={store?.image} alt="image" />
+                    <img className='!rounded-full h-14 w-14 ' src={store?.image} alt="image" />
                     <span >{store.title}</span>
                 </Space>
             ),

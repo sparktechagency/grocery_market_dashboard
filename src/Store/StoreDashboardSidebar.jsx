@@ -149,7 +149,7 @@ const shopperItems = [
 const StoreDashboardSidebar = () => {
 
     // ====================================================================== change state shopper and admin ============================
-    const [isAdmin, setIsAdmin] = React.useState(true);
+    const [isAdmin, setIsAdmin] = React.useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();

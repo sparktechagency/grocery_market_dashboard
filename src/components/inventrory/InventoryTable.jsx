@@ -49,7 +49,7 @@ const InventoryTable = () => {
             key: "product",
             render: (product) => (
                 <Space className='gap-2'>
-                    <Image className='!rounded-full ' src={product.image} alt="image" />
+                    <img className='!rounded-full h-14 w-14 ' src={product?.image} alt="image" />
                     <span >{product.title}</span>
                 </Space>
             ),

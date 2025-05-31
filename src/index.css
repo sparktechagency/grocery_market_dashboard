@@ -16,9 +16,10 @@
   font-size: 16px !important;
 }
 
-.ant-image .css-dev-only-do-not-override-1m2bkf9   {
+.ant-image  {
 aspect-ratio: 1 !important;
     width: 80px !important;
+    height: 80px !important;
     display: flex;
     justify-content: center;
     align-items: center;

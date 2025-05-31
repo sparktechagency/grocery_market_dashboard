@@ -30,7 +30,7 @@ const NewOrderManagementTable = () => {
             key: "Name",
             render: (name) => (
                 <Space>
-                    <Image style={{ borderRadius: "20px" }} width={40} src={name.image} alt="user Image" />
+                    <img className='!rounded-full h-14 w-14 ' src={name?.image} alt="image" />
                     <span className="ml-3 font-semibold text-black hover:null">{name.title}</span>
                 </Space>
             ),
