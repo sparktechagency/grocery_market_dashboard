@@ -6,7 +6,7 @@ import ImageProfile from "../assets/images/profileImage.jpg";
 
 import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
-import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite } from "../assets/icon";
+import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite } from "../assets/icon";
 
 const { Header, Sider, Content } = Layout;
 
@@ -75,6 +75,8 @@ const adminItems = [
         ],
     },
 ];
+
+
 const shopperItems = [
     {
         path: "/",
@@ -82,9 +84,9 @@ const shopperItems = [
         icon: IconDashboardBlack,
         activeIcon: IconDashboardWhite,
     },
-      {
+    {
         path: "/supper_admin/manage_category",
-        title: "Term",
+        title: "Manage Term",
         icon: IconManageCategoryBlack,
         activeIcon: IconManageCategoryWhite,
     },
@@ -93,6 +95,12 @@ const shopperItems = [
         title: "Order management",
         icon: IconManageBlack,
         activeIcon: IconManageWhite,
+    },
+    {
+        path: "/manageGeolocation",
+        title: "Manage geolocation",
+        icon: IconManageGeolocationBlack,
+        activeIcon: IconManageGeolocationWhite,
     },
     {
         path: "/shoppers",
@@ -139,6 +147,7 @@ const shopperItems = [
         ],
     },
 ];
+
 const StoreDashboardSidebar = () => {
 
     // ====================================================================== change state shopper and admin ============================

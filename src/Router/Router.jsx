@@ -17,14 +17,15 @@ import FAQ from "../Store/pages/FAQ";
 import ChangePassword from "../Store/pages/ChangePassword";
 import NotificationComponents from "../Store/pages/NotificationComponents";
 import StoreManagement from "../SupperAdmin/StoreManagement";
-import SupperAdminDashboard from "../SupperAdmin/SupperAdminDashboard";
 import OrderManagementAdmin from "../SupperAdmin/OrderManagementAdmin";
 import ShopperAdmin from "../SupperAdmin/ShopperAdmin";
 import ManageCategory from "../SupperAdmin/ManageCategory";
 import SubscriptionsAdmin from "../SupperAdmin/SubscriptionsAdmin";
 import SubscribeShopper from "../SupperAdmin/SubscribeShopper";
+import ManageGeolocation from "../SupperAdmin/ManageGeolocation";
 
 export const router = createBrowserRouter([
+ 
     {
         path: "/",
         element: <StoreDashboardSidebar />,
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
             {
                 path: "/orderManagement",
                 element: <OrderManagement />
+            },
+               {
+                path: "/manageGeolocation",
+                element: <ManageGeolocation />
             },
             {
                 path: "/shoppers",
@@ -76,16 +81,16 @@ export const router = createBrowserRouter([
             },
         ]
     },
-    // ================================ supper admin route ==========
 
+
+
+
+
+   //============================ This section not work ============= 
     {
         path: "/supper_admin",
         element: <StoreDashboardSidebar />,
         children: [
-            {
-                index: true,
-                element: <SupperAdminDashboard />
-            },
             {
                 path: "store_management",
                 element: <StoreManagement />
