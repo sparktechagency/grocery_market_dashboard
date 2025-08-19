@@ -7,6 +7,5 @@ import 'antd/dist/reset.css';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
-    {/* ----------------- hare is root layout ----------------- */}
   </StrictMode>,
 )
