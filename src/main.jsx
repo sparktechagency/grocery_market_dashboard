@@ -4,6 +4,7 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './Router/Router.jsx'
 import 'antd/dist/reset.css';
+// main
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
