@@ -78,15 +78,15 @@ const adminItems = [
 const shopperItems = [
     {
         path: "/",
-        title: "Shopper Dashboard",
+        title: "Dashboard",
         icon: IconDashboardBlack,
         activeIcon: IconDashboardWhite,
     },
-    {
-        path: "/inventory",
-        title: "Inventory",
-        icon: IconInventoryBlack,
-        activeIcon: IconInventoryWhite,
+      {
+        path: "/supper_admin/manage_category",
+        title: "Term",
+        icon: IconManageCategoryBlack,
+        activeIcon: IconManageCategoryWhite,
     },
     {
         path: "/orderManagement",
@@ -106,13 +106,6 @@ const shopperItems = [
         icon: IconPromotionsBlack,
         activeIcon: IconPromotionsWhite,
     },
-    {
-        path: "/subscriptions",
-        title: "Subscriptions",
-        icon: IconSubscriptionsBlack,
-        activeIcon: IconSubscriptionsWhite,
-    },
-
     {
         path: "/settings",
         title: "Settings",
