@@ -96,14 +96,14 @@ const ChangePassword = () => {
                         </Form>
                     </div>
 
-                    <div className="w-[420px] flex flex-col justify-center  items-center">
+                    {/* <div className="w-[420px] flex flex-col justify-center  items-center">
                         <div className="bg-white rounded-lg w-full flex flex-col justify-center items-center h-44 shadow-md ">
                             <span>{IconDollar}</span>
                             <h5 className="font-semibold text-xl text-black">Balance</h5>
                             <h2 className="font-bold text-3xl text-black">$500.30</h2>
                         </div>
                         <button onClick={() => setIsModalOpen(true)} className="bg-primary w-full py-3 mt-5 text-white rounded-lg">Withdraw</button>
-                    </div>
+                    </div> */}
                 </div>
             ),
         },

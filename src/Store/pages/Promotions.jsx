@@ -34,6 +34,9 @@ const Promotions = () => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+    const handleDelete = () => {
+       console.log('click---------')
+    };
 
 
     const promotionsCard = [
@@ -64,7 +67,10 @@ const Promotions = () => {
                     promotionsCard.map((item) => (
                         <div key={item?.id} className='relative '>
                             <img className='rounded-2xl ' src={item?.image} alt="card image" />
-                            <span className='absolute top-1 right-3  p-1.5 bg-white rounded-full flex items-center '>{IconCross}</span>
+                            <span 
+                            onClick={handleDelete}
+                            className='cursor-pointer absolute top-1 right-3  p-1.5 bg-white rounded-full flex items-center '
+                            >{IconCross}</span>
                         </div>
                     ))
                 }
@@ -95,13 +101,11 @@ const Promotions = () => {
                         )}
                     </Dragger>
 
-                    <Button
-                        type="primary"
-                        className="bg-green-600 hover:text-white hover:bg-green-700 w-full h-10 text-base font-semibold mt-8"
-                        disabled={!fileList.length}
+                    <button
+                        className='bg-green-600  hover:bg-green-700 w-full h-10 text-base rounded-xl text-white font-semibold mt-8'
                     >
                         Upload
-                    </Button>
+                    </button>
                 </div>
             </Modal>
 

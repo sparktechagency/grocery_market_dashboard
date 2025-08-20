@@ -126,12 +126,12 @@ const shopperItems = [
                 icon: IconKeyBlack,
                 activeIcon: IconKeyWhite,
             },
-            {
-                path: "/settings/shop_setting",
-                title: "Shop settings",
-                icon: IconShopBlack,
-                activeIcon: IconShopWhite,
-            },
+            // {
+            //     path: "/settings/shop_setting",
+            //     title: "Shop settings",
+            //     icon: IconShopBlack,
+            //     activeIcon: IconShopWhite,
+            // },
             {
                 path: "/settings/about_us",
                 title: "About Us",
@@ -165,18 +165,124 @@ const StoreDashboardSidebar = () => {
     }
 
     const getTitle = () => {
+        switch (location.pathname) {
+            case "/":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Hello, Rich
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            You can see the total overview of your app from here.
+                        </p>
+                    </>
+                );
+            case "/supper_admin/manage_category":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Manage term
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            You can manage your term from here.
+                        </p>
+                    </>
+                );
+            case "/orderManagement":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Order management
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            You can see all of your stores from here.
+                        </p>
+                    </>
+                );
+            case "/manageGeolocation":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Geolocation Management
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            Manage store locations to improve delivery coverage and customer access.
+                        </p>
+                    </>
+                );
+            case "/shoppers":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Shoppers
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            You can manage all of the shoppers of your system from here.
+                        </p>
+                    </>
+                );
+            case "/promotions":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Promotion
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            You can promotion your store/products through slider images from here.
+                        </p>
+                    </>
+                );
+            case "/settings/change_pass":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Your profile
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            You can manage your shop profile from here.
+                        </p>
+                    </>
+                );
+            case "/settings/about_us":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            About us
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            You can manage your shop’s about us section from here.
+                        </p>
+                    </>
+                );
+            case "/settings/faq":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            FAQ
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            You can manage your shop’s faq section from here.
+                        </p>
+                    </>
+                );
 
-        return (
-            <>
-                <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
-                    Hello, Rich
-                </h1>
-                <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
-                    You can see the total overview of your app from here
-                </p>
-            </>
-        )
-    }
+            case "/notification":
+                return (
+                    <h1 className="text-[#333333] font-semibold text-[24px]">
+                        <>
+                            <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                                Notifications
+                            </h1>
+                            <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                                You can manage your shop’s all notifications from here.
+                            </p>
+                        </>
+                    </h1>
+                );
+        }
+    };
+
+
 
     const getMenuIcon = (
         icon, activeIcon, isActive) => {

@@ -78,9 +78,9 @@ const Shoppers = () => {
                                 <div className="flex justify-between items-center gap-4">
                                     <p className="text-green-600 font-medium mt-2">200 total deliveries</p>
                                     {/* Assign Button */}
-                                    <button onClick={() => setIsModalOpen(true)} className="bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition">
+                                    {/* <button onClick={() => setIsModalOpen(true)} className="bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition">
                                         Assign
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
 

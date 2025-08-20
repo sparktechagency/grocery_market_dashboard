@@ -282,9 +282,9 @@ const NewOrderManagementTable = () => {
                     <img className="w-52 h-52 mx-auto " src={successGif} alt="Success gif" />
                     <div className="w-full text-center">
                         <h6 className="font-PoppinsMedium text-xl text-primary">Order accepted</h6>
-                        <Link to={"/shoppers"} onClick={() => setIsEditOpenModal(false)}>
-                            <button className="px-16 py-3 bg-primary text-white font-PoppinsSemiBold mt-6 rounded-lg ">Assign shopper</button>
-                        </Link>
+                        <button
+                            onClick={() => setIsEditOpenModal(false)}
+                            className="px-16 py-3 bg-primary text-white font-PoppinsSemiBold mt-6 rounded-lg ">Assign shopper</button>
                     </div>
                 </div>
 

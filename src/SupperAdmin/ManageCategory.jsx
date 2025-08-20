@@ -5,6 +5,7 @@ import { Option } from 'lucide-react'
 
 const ManageCategory = () => {
     const [isDetailsModalOpen, setIsModalDetailsOpen] = useState(false);
+    const [searchText, setSearchText] = useState('')
 
     const manageData = [
         {
@@ -48,29 +49,48 @@ const ManageCategory = () => {
             title: "Cleaning product"
         },
     ]
+
+    const handleChange = (e) => {
+        setSearchText(e.target.value);
+    }
+
+
+
+    console.log(searchText)
+
     return (
         <div>
 
             <div className="flex justify-between my-8  items-center">
 
-                <div className="flex items-center">
-                    <input
-                        type="search"
-                        className="w-[534px] p-4 border rounded-l-full border-[#D9D9D9]"
-                        placeholder="Search products"
-                        name=""
-                        id=""
-                    />
-                    <button className="bg-primary p-2.5 -ml-1 border rounded-r-full">
-                        {IconSearch}
-                    </button>
-                </div>
-                <div>
+                <div className='flex justify-between w-full'>
+                    <div className='flex items-center'>
+                        <input
+                            type="search"
+                            value={searchText}
+                            onChange={handleChange}
+                            className="w-[534px] p-4 border rounded-l-full border-[#D9D9D9] focus:outline-none"
+                            placeholder="Search products"
+                            name=""
+                            id=""
+                        />
+                        <button className="bg-primary p-2.5 -ml-1 border rounded-r-full">
+                            {IconSearch}
+                        </button>
+                    </div>
 
+
+                    <div className="">
+                        <button
+                            type="button" className="p-2.5 bg-primary text-[#ffff] px-10  rounded-full text-xl">+ Add more</button>
+                    </div>
                 </div>
             </div>
-            <div className='grid grid-cols-5 gap-3'>
 
+
+
+
+            <div className='grid grid-cols-5 gap-3'>
                 {
                     manageData.map((item, index) => (
                         <div className='flex justify-between items-center rounded-lg px-4 py-2 bg-white shadow-md'>

@@ -44,6 +44,8 @@ const yearlyData = [
 
 const StoreDashboard = () => {
     const [selectedValue, setSelectedValue] = useState("weekly");
+
+
     const cardData = [
         {
             id: 1,
@@ -86,14 +88,6 @@ const StoreDashboard = () => {
 
 
 
-    //   const formatYAxis = (tickItem) => {
-    //     return `${tickItem}`;
-    //   };
-
-    //   const handleSelectChange = (value) => {
-    //     setSelectedValue(value);
-    //     console.log("Selected", value);
-    //   };
     const selectOptions = [
         { value: "weekly", label: "Weekly" },
         { value: "monthly", label: "Monthly" },
@@ -114,9 +108,9 @@ const StoreDashboard = () => {
     return (
         <div>
             <div className="rounded-xl">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  mt-[12px]">
+                <div className="grid grid-cols-12 gap-6 mt-[12px]">
                     {cardData.map((card, index) => (
-                        <div key={index} className="bg-white w-[360px] py-6 flex justify-center items-center rounded-lg shadow-sm">
+                        <div key={index} className="bg-white col-span-4 py-6 flex justify-center items-center rounded-lg shadow-sm">
                             <div className="flex flex-col justify-center items-center text-center">
                                 <div className="mb-3 bg-lowGreen p-4 rounded-full">{card.icon}</div>
                                 <p className="py-1 font-roboto text-[#777777] font-normal text-base">{card.title}</p>
@@ -129,7 +123,7 @@ const StoreDashboard = () => {
 
             {/* ============================= react rechart ========================= */}
 
-            <div className=" rounded-2xl mt-2 p-2 text-gray-300 pr-14">
+            <div className=" rounded-2xl mt-2 p-2 text-gray-300 ">
                 <div className="flex justify-between items-center">
                     <h3 className="mb-5 text-[24px] font-roboto font-medium  text-black">
                         User statistics
@@ -141,7 +135,7 @@ const StoreDashboard = () => {
                     />
                 </div>
                 <div className="bg-white py-8 px-4">
-                    <ResponsiveContainer className=" " width="100%" height={400}>
+                    <ResponsiveContainer className=" " width="100%" height={440}>
                         <AreaChart data={getChartData()} syncId="anyId">
                             <defs>
                                 <linearGradient id="colorAmt" x1="0" y1="0" x2="0" y2="1">
