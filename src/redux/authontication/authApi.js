@@ -2,7 +2,7 @@ import { baseApi } from "../api/baseApi";
 
 const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-     
+
         otpSendApi: builder.mutation({
             query: (otpInof) => ({
                 url: `/auth/verify`,
@@ -33,7 +33,7 @@ const authApi = baseApi.injectEndpoints({
             }),
             providesTags: ['auth'],
         }),
-    
+
         updateProfileApi: builder.mutation({
             query: (updateInfo) => ({
                 url: `/auth/change-profile`,
@@ -66,10 +66,18 @@ const authApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['auth'],
         }),
-
+        // setting api
+        updatePasswordApi: builder.mutation({
+            query: (resetInfo) => ({
+                url: ``,
+                method: "POST",
+                body: resetInfo,
+            }),
+            invalidatesTags: ['auth'],
+        }),
 
     })
 })
 
 
-export const { usePostAuthApiMutation, useOtpSendApiMutation, useGetProfileApiQuery, useLogOutAuthApiMutation, useUpdateProfileApiMutation, useUpdateSinglePhotoApiMutation, useForgetPasswordApiMutation, useResetPasswordApiMutation, } = authApi;
+export const { usePostAuthApiMutation, useOtpSendApiMutation, useGetProfileApiQuery, useLogOutAuthApiMutation, useUpdateProfileApiMutation, useUpdateSinglePhotoApiMutation, useForgetPasswordApiMutation, useResetPasswordApiMutation,useUpdatePasswordApiMutation, } = authApi;
