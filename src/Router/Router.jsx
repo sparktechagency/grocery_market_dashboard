@@ -23,6 +23,7 @@ import ManageCategory from "../SupperAdmin/ManageCategory";
 import SubscriptionsAdmin from "../SupperAdmin/SubscriptionsAdmin";
 import SubscribeShopper from "../SupperAdmin/SubscribeShopper";
 import ManageGeolocation from "../SupperAdmin/ManageGeolocation";
+import CreateNewPassword from "../Auth/CreateNewPassword";
 
 export const router = createBrowserRouter([
  
@@ -128,6 +129,10 @@ export const router = createBrowserRouter([
     {
         path: "/otp",
         element: <OTPCode />
+    },
+    {
+        path: "/create-new-password",
+        element: <CreateNewPassword />
     },
 
 ])

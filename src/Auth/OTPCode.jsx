@@ -1,62 +1,124 @@
-import { Button, Form, Input } from 'antd';
-import Title from 'antd/es/skeleton/Title';
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+
+import { Button, Input } from "antd";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
+import { useForgetPasswordApiMutation, useOtpSendApiMutation } from "../redux/authontication/authApi";
+import AuthWrapper from "./AuthWrapper";
 
 const OTPCode = () => {
+    const navigate = useNavigate();
+    const [otpCode, setOtpCode] = useState("");
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const queryEmail = queryParams.get('email');
 
-    const navigation = useNavigate();
 
-    const handleSubmit = () => {
-        navigation("/")
+
+
+
+    const [otpSendApi] = useOtpSendApiMutation()
+    const [forgetPasswordApi] = useForgetPasswordApiMutation()
+
+    // Define the `onChange` handler with the correct type
+    const onChange = (value) => {
+        setOtpCode(value);
+    };
+
+    const handleVerify = async () => {
+        const formData = new FormData();
+        formData.append("otp", otpCode);
+
+        try {
+            const res = await otpSendApi(formData).unwrap();
+            const token = res?.token
+            const role = res?.user?.role
+
+
+            if (res?.status === true) {
+                localStorage.setItem("token", token);
+                localStorage.setItem("role", role);
+                toast.success(res?.message);
+                navigate(`/create-new-password?email=${queryEmail}`)
+            }
+
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    };
+
+
+    const handleResentOtp = async () => {
+        const formData = new FormData();
+        formData.append("email", queryEmail);
+
+        try {
+            const res = await forgetPasswordApi(formData).unwrap();
+            console.log(res)
+
+
+            if (res?.status === true) {
+                toast.success(res?.message);
+            }
+        } catch (error) {
+           toast.error('The email field is required.');
+        }
     }
 
 
-    const onChange = text => {
-        console.log('onChange:', text);
-    };
-    const onInput = value => {
-        console.log('onInput:', value);
-    };
-    const sharedProps = {
-        onChange,
-        onInput,
-    };
+    useEffect(() => {
+        document.title = "Dashboard Otp Code";
+    }, [location.pathname]);
+
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-lg p-12 bg-white rounded-xl shadow-lg">
-                <div className="text-center mb-6">
-                    <h4 className="font-semibold text-lowBlack text-2xl mb-1">
-                        Forgot password ?
-                    </h4>
-                    <p className="text-sm text-secondaryText px-4 my-3 ">We sent a reset link to contact@dscode...com
-                        enter 5 digit code that is mentioned in the email</p>
+        <>
+            <Helmet>
+                <title>Dashboard Otp Code</title>
+            </Helmet>
+            <AuthWrapper>
+                <div className="text-center mb-12 font-degular">
+                    <div className="flex py-8 justify-center ">
+                        <h3 className="font-semibold text-2xl text-[#333333]">
+                            Verification code
+                        </h3>
+                    </div>
+                    <p className="text-[16px] font-normal mb-6 text-[#5C5C5C] ">
+                        We sent a reset link to contact@dscode...com <br />
+                        enter 5 digit code that is mentioned in the email
+                    </p>
                 </div>
 
-                <Form
-                    layout="vertical"
-                    name="basic"
-                    initialValues={{ remember: true }}
-                    // onFinish={onFinish}
-                    // onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-                >
-                    <div className='text-center'>
-                        <Title level={5}>With Length (6)</Title>
-                        <Input.OTP length={6} {...sharedProps} />
-                    </div>
+                {/* Assuming `Input.OTP` is a custom component */}
+                <Input.OTP
+                    size="large"
+                    className="otp-input"
+                    style={{ width: "100%", height: "50px" }}
+                    length={6}
+                    formatter={(str) => str.toUpperCase()}
+                    onChange={onChange}
+                />
 
-                    <Form.Item className='mt-12'>
-                        <Button onClick={() => handleSubmit()} type="primary" htmlType="submit" className="w-full text-white bg-primary hover:!bg-[#38bd5e]">
-                            Send Code
-                        </Button>
-                    </Form.Item>
-                </Form>
+                <div className="flex justify-center pt-11">
+                    <Button
+                        className="bg-primary h-12 text-sm text-white font-bold  "
+                        htmlType="submit"
+                        onClick={handleVerify}
+                    >
+                        Verify Code
+                    </Button>
+                </div>
 
-                <p className='font-PoppinsRegular text-sm text-secondaryText text-center'>You have not received the email?  <button className=' text-primary underline'>Resend</button></p>
-            </div>
-        </div>
+                <p className="text-center mt-10 text-sm font-normal mb-6 text-[#5C5C5C]">
+                    I have not received the email.
+                    <Button onClick={() => handleResentOtp()} className="pl-1 text-primary " type="link">
+                        Resend
+                    </Button>
+                </p>
+            </AuthWrapper>
+        </>
     )
 }
 

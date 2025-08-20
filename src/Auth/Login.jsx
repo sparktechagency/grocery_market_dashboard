@@ -1,79 +1,142 @@
-import React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+
+
+
+import React, { useEffect } from "react";
+import { Button, Checkbox, Form, Input } from "antd";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+
+import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
+import { usePostAuthApiMutation } from "../redux/authontication/authApi";
+import AuthWrapper from "./AuthWrapper";
+
 
 
 const Login = () => {
-    const navigation = useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [postAuthApi] = usePostAuthApiMutation()
 
-    // const onFinish = values => {
-    //     console.log('Success:', values);
-    // };
 
-    // const onFinishFailed = errorInfo => {
-    //     console.log('Failed:', errorInfo);
-    // };
 
-    const handleLogin = () => {
-        navigation("/otp")
-    }
+    // useEffect(() => {
+    //     const token = localStorage.getItem("token");
+    //     const role = localStorage.getItem("role");
+
+    //     if (token && role === "ADMIN") {
+    //         navigate("/admin/dashboard");
+    //     }
+
+    //     document.title = "FULL CIRCLE Detailing~Dashboard Login";
+    // }, [location.pathname]);
+
+
+
+    const onFinish = async (values) => {
+        const authInfo = {
+            email: values?.email,
+            password: values?.password
+        }
+
+        try {
+            const res = await postAuthApi(authInfo).unwrap()
+            const token = res.token;
+            const role = res?.user?.role
+            if (res.status === true) {
+                toast.success(res?.message)
+                localStorage.setItem("token", token);
+                localStorage.setItem("role", role);
+                navigate('/')
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    };
+
+
+
+
+    useEffect(() => {
+        document.title = "Dashboard Login";
+    }, [location.pathname]);
 
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-lg p-12 bg-white rounded-xl shadow-lg">
-                <div className="text-center mb-6">
-                    <h4 className="font-semibold text-lowBlack text-2xl mb-1">
-                        Log in to your account
-                    </h4>
-                    <p className="text-sm text-secondaryText">
+        <>
+            <Helmet>
+                <title>Dashboard Login</title>
+            </Helmet>
+            <AuthWrapper>
+                <div className="text-center mb-12 font-degular">
+                    {/* <Title>Login</Title> */}
+                    <div className="flex py-6 justify-center">
+                        <h3 className="font-semibold text-2xl text-[#333333]">
+                            Log in to your account
+                        </h3>
+                    </div>
+                    <p className="text-[16px] font-normal mb-6 text-[#5C5C5C] ">
                         Please enter your email and password to continue
                     </p>
                 </div>
-
-                <Form
-                    layout="vertical"
-                    name="basic"
-                    initialValues={{ remember: true }}
-                    // onFinish={onFinish}
-                    // onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-                >
-                    <Form.Item
-
-                        label="Email"
-                        name="email"
-                        rules={[{ required: true, message: 'Please input your email!' }]}
-                    >
-                        <Input placeholder='Rich@gmail.com' />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input.Password placeholder='******' />
-                    </Form.Item>
-
-                    <div className='flex justify-between items-center my-4  '>
-                        <Form.Item name="remember" valuePropName="" noStyle>
-                            <Checkbox className="ant-checkbox-checked ant-checkbox-inner">Remember Password</Checkbox>
+                <Form layout="vertical" onFinish={onFinish}>
+                    <div>
+                        <p className="text-[24px] font-degular">Email</p>
+                        <Form.Item
+                            name="email"
+                            rules={[{ required: true, message: "Please enter your email" }]}
+                        >
+                            <Input
+                                placeholder="example@gmail.com"
+                                style={{ height: "50px", width: "481px", backgroundColor: "#fefefe" }}
+                                className="bg-[#fefefe]"
+                            />
                         </Form.Item>
-                        <Link to={"/forgotPassword"} className='login-form-forgot font-PoppinsMedium text-sm text-primary hover:!text-[#38bd5e]'>
-                            Forgot Password?
-                        </Link>
+                    </div>
+                    <div>
+                        <p className="text-[24px] font-degular">Password</p>
+                        <Form.Item
+                            name="password"
+                            rules={[{ required: true, message: "Please enter your password" }]}
+                        >
+                            <Input.Password
+                                iconRender={(visible) => (visible ? <FaEye /> : <FaEyeSlash />)}
+                                placeholder="**********"
+                                style={{ height: "50px", width: "481px", cursor: "pointer", }}
+                            />
+                        </Form.Item>
                     </div>
 
+
                     <Form.Item>
-                        <Button onClick={() => handleLogin()} type="primary" htmlType="submit" className="w-full text-white bg-primary hover:!bg-[#38bd5e]">
-                            Sign in
-                        </Button>
+                        <div className="flex justify-between items-center">
+                            <Form.Item name="remember" valuePropName="checked" noStyle>
+                                <Checkbox className="text-[#818181]">Remember me</Checkbox>
+                            </Form.Item>
+
+                            <Link
+                                className="login-form-forgot text-primary hover:text-primary"
+                                to="/forgotPassword"
+                            >
+                                Forgot password
+                            </Link>
+                        </div>
+                    </Form.Item>
+                    <Form.Item>
+                        <div className="flex justify-center">
+                            <Button
+                                className="bg-primary h-12 text-sm text-white font-bold  mt-6"
+                                htmlType="submit"
+                            >
+                                Sign in
+                            </Button>
+                        </div>
                     </Form.Item>
                 </Form>
-            </div>
-        </div>
-    );
-};
+            </AuthWrapper>
+        </>
+    )
+}
 
-export default Login;
+export default Login

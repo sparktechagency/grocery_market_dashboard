@@ -2,17 +2,10 @@ import { baseApi } from "../api/baseApi";
 
 const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        registerApi: builder.mutation({
-            query: (registerInof) => ({
-                url: `/auth/register`,
-                method: "POST",
-                body: registerInof
-            }),
-            invalidatesTags: ['auth'],
-        }),
+     
         otpSendApi: builder.mutation({
             query: (otpInof) => ({
-                url: `/auth/check-otp`,
+                url: `/auth/verify`,
                 method: "POST",
                 body: otpInof
             }),
@@ -40,13 +33,7 @@ const authApi = baseApi.injectEndpoints({
             }),
             providesTags: ['auth'],
         }),
-        getServiceApi: builder.query({
-            query: () => ({
-                url: `/bookings`,
-                method: "GET",
-            }),
-            providesTags: ['auth'],
-        }),
+    
         updateProfileApi: builder.mutation({
             query: (updateInfo) => ({
                 url: `/auth/change-profile`,
@@ -65,7 +52,7 @@ const authApi = baseApi.injectEndpoints({
         }),
         forgetPasswordApi: builder.mutation({
             query: (emailInfo) => ({
-                url: `/auth/forgot-password`,
+                url: `/auth/forget_password`,
                 method: "POST",
                 body: emailInfo,
             }),
@@ -73,22 +60,16 @@ const authApi = baseApi.injectEndpoints({
         }),
         resetPasswordApi: builder.mutation({
             query: (resetInfo) => ({
-                url: `/auth/reset-password`,
+                url: `/auth/change_password`,
                 method: "POST",
                 body: resetInfo,
             }),
             invalidatesTags: ['auth'],
         }),
-        deleteApi: builder.mutation({
-            query: (deleteInfo) => ({
-                url: `/auth/profile-delete`,
-                method: "POST",
-                body:deleteInfo,
-            }),
-            invalidatesTags: ['auth'],
-        }),
+
+
     })
 })
 
 
-export const { usePostAuthApiMutation, useOtpSendApiMutation, useRegisterApiMutation, useGetProfileApiQuery, useLogOutAuthApiMutation, useGetServiceApiQuery, useUpdateProfileApiMutation, useUpdateSinglePhotoApiMutation, useForgetPasswordApiMutation, useResetPasswordApiMutation, useDeleteApiMutation } = authApi;
+export const { usePostAuthApiMutation, useOtpSendApiMutation, useGetProfileApiQuery, useLogOutAuthApiMutation, useUpdateProfileApiMutation, useUpdateSinglePhotoApiMutation, useForgetPasswordApiMutation, useResetPasswordApiMutation, } = authApi;
