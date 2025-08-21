@@ -7,6 +7,8 @@ import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
 import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useGetProfileApiQuery } from "../../redux/authontication/authApi";
+import { CloudCog } from "lucide-react";
 
 const ChangePassword = () => {
     const location = useLocation();
@@ -17,10 +19,25 @@ const ChangePassword = () => {
     const [activeTab, setActiveTab] = useState("1");
 
 
+    const { data: profile } = useGetProfileApiQuery()
+    const profileData = profile?.user
+    console.log(profileData);
 
 
 
-
+    // defaut user
+    useEffect(() => {
+        if (authData) {
+            formOne.setFieldsValue({
+                ...authData,
+                name: authData?.name,
+                email: authData?.email,
+            });
+            if (authData?.photo) {
+                setPreviewImage(authData.photo);
+            }
+        }
+    }, [authData, formOne]);
 
     const handleUpload = ({ file, onSuccess }) => {
         const reader = new FileReader();
@@ -267,7 +284,7 @@ const ChangePassword = () => {
 
                 {/* Tabs section */}
                 <div className="mx-52">
-  
+
                     <Tabs
                         defaultActiveKey="1"
                         items={items}
