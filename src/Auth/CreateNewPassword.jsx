@@ -28,7 +28,7 @@ const CreateNewPassword = () => {
 
         try {
             const res = await resetPasswordApi(formData).unwrap();
-            console.log('response------>', res) 
+            console.log('response---------->', res) 
 
             if (res?.status === true) {
                 toast.success(res?.message);
