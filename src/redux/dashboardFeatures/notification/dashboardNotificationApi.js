@@ -7,27 +7,34 @@ const dashboardNotificationApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getNotificationApi: builder.query({
             query: () => ({
-                url: `/notifications`,
+                url: `/app/getNotifications`,
                 method: "GET"
             }),
             providesTags: ['notification'],
         }),
-        postMarkRedNotificationApi: builder.mutation({
-            query: (id) => ({
-                url: `/mark-notification/${id}`,
-                method: "POST"
-            }),
-            providesTags: ['notification'],
-        }),
-        postAllMarkRedNotificationApi: builder.mutation({
+        getTotalNotificationApi: builder.query({
             query: () => ({
-                url: `/mark-all-notification`,
-                method: "POST"
+                url: `/app/totalNotification`,
+                method: "GET"
             }),
             providesTags: ['notification'],
         }),
+        // postMarkRedNotificationApi: builder.mutation({
+        //     query: (id) => ({
+        //         url: `/mark-notification/${id}`,
+        //         method: "POST"
+        //     }),
+        //     providesTags: ['notification'],
+        // }),
+        // postAllMarkRedNotificationApi: builder.mutation({
+        //     query: () => ({
+        //         url: `/mark-all-notification`,
+        //         method: "POST"
+        //     }),
+        //     providesTags: ['notification'],
+        // }),
     })
 })
 
 
-export const {useGetNotificationApiQuery,usePostMarkRedNotificationApiMutation,usePostAllMarkRedNotificationApiMutation} = dashboardNotificationApi;
+export const {useGetNotificationApiQuery,useGetTotalNotificationApiQuery} = dashboardNotificationApi;

@@ -7,6 +7,7 @@ import ImageProfile from "../assets/images/profileImage.jpg";
 import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
 import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite } from "../assets/icon";
+import { useGetTotalNotificationApiQuery } from "../redux/dashboardFeatures/notification/dashboardNotificationApi";
 
 const { Header, Sider, Content } = Layout;
 
@@ -149,6 +150,11 @@ const shopperItems = [
 ];
 
 const StoreDashboardSidebar = () => {
+const {data:getAllNotifi} = useGetTotalNotificationApiQuery()
+const notificationCount = getAllNotifi?.total
+
+
+
 
     // ====================================================================== change state shopper and admin ============================
     const [isAdmin, setIsAdmin] = React.useState(false);
@@ -434,13 +440,14 @@ const StoreDashboardSidebar = () => {
                     <div className="w-full flex justify-between">
                         <div>{getTitle()}</div>
                         <div
-                            onClick={handleNotifications}
+                            onClick={handleNotifications} // notification 
                             className="cursor-pointer"
                             style={{ zIndex: 11 }}
                         >
 
-                            <div className="flex justify-center items-center gap-4">
-                                <span className="w-14 h-14 flex justify-center items-center bg-white rounded-full">{IconNotification}</span>
+                            <div className="relative flex justify-center items-center gap-4">
+                                <span className="w-12 h-12 flex justify-center items-center bg-white rounded-full">{IconNotification}</span>
+                            <p className="absolute -top-2 -right-2 bg-red w-6 h-6 rounded-full flex justify-center items-center text-xs text-white">{notificationCount}</p>
                             </div>
                         </div>
                     </div>
