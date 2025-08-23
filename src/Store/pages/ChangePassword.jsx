@@ -15,7 +15,6 @@ const ChangePassword = () => {
     const [formOne] = Form.useForm();
     const [formTwo] = Form.useForm();
     const [previewImage, setPreviewImage] = useState(null);
-    const [selectedImageFile, setSelectedImageFile] = useState(null);
     const [activeTab, setActiveTab] = useState("1"); // default Tab 1
 
 
@@ -63,7 +62,6 @@ const ChangePassword = () => {
                     setPreviewImage(reader.result);
                 };
                 reader.readAsDataURL(file);
-                setSelectedImageFile(file);
 
                 onSuccess("ok");
             }

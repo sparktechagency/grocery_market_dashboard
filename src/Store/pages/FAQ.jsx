@@ -1,26 +1,144 @@
-import React, { useState } from 'react';
-import { Collapse, Modal, Popconfirm, Space } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Collapse, Form, Input, Modal, Popconfirm, Space } from 'antd';
+import { useFaqAddApiMutation, useFaqDeleteApiMutation, useFaqEditApiMutation, useGetAllFaqApiQuery, useGetSingleFaqApiQuery } from '../../redux/dashboardFeatures/notification/dashboardFaqApi';
+import { useForm } from 'antd/es/form/Form';
+import toast from 'react-hot-toast';
 
 
 const FAQ = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [addForm] = useForm()
+    const [editForm] = useForm()
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const handleCancel = () => {
-        setIsModalOpen(false);
-        setIsAddModalOpen(false)
-    };
-    const text = `
-      A dog is a type of domesticated animal.
-      Known for its loyalty and faithfulness,
-      it can be found as a welcome guest in many households across the world.
-    `;
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [editId, setEditId] = useState('')
 
-    const genExtra = () => (
+
+
+    const [faqAddApi] = useFaqAddApiMutation()
+    const [faqEditApi] = useFaqEditApiMutation()
+    const [faqDeleteApi] = useFaqDeleteApiMutation()
+    const { data: getFaq, refetch } = useGetAllFaqApiQuery()
+    const allFaqData = getFaq?.data
+    const { data: singleGetFaq } = useGetSingleFaqApiQuery(editId)
+    const singleData = singleGetFaq?.data
+
+
+    useEffect(() => {
+        if (singleData) {
+            editForm.setFieldsValue({
+                ...singleData,
+                question: singleData?.question,
+                answer: singleData?.answer,
+            });
+        }
+    }, [singleData, editForm]);
+
+
+    //=========== add faq function start ============================
+    const onFinishAddModal = async (values) => {
+        const formData = new FormData();
+        formData.append("question", values?.question);
+        formData.append("answer", values?.answer);
+
+
+
+
+        // formData.forEach((value, key) => {
+        //   console.log(key, value);
+        // });
+
+        try {
+            const res = await faqAddApi(formData).unwrap();
+            if (res?.status === true) {
+                toast.success(res?.message);
+                addForm.resetFields();
+                setIsAddModalOpen(false);
+                refetch();
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    }
+
+    const handleCancelOne = () => {
+        setIsAddModalOpen(false)
+        addForm.resetfield()
+    };
+    //=========== add faq function  ==================================
+
+
+
+    //=========== edit faq function start ============================
+    const onFinishEditModal = async (values) => {
+        const formData = new FormData();
+        formData.append("question", values?.question);
+        formData.append("answer", values?.answer);
+
+
+
+
+        // formData.forEach((value, key) => {
+        //   console.log(key, value);
+        // });
+
+        try {
+            const res = await faqEditApi(formData).unwrap();
+            if (res?.status === true) {
+                toast.success(res?.message);
+                editForm.resetFields();
+                setIsEditModalOpen(false);
+                refetch();
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    }
+
+
+
+
+    const handleCancelTwo = () => {
+        setIsEditModalOpen(false)
+        editForm.resetFields()
+    };
+    //=========== edit faq function  ==================================
+
+
+
+    const handleDelete = async (id) => {
+        try {
+            const res = await faqDeleteApi(id).unwrap();
+            if (res?.status === true) {
+                toast.success(res?.message);
+                refetch();
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    }
+    const handleEdit = async (id) => {
+        setEditId(id)
+        setIsEditModalOpen(true)
+
+        // try {
+        //     const res = await faqDeleteApi(id).unwrap();
+        //     if (res?.status === true) {
+        //         toast.success(res?.message);
+        //         refetch();
+        //     }
+        // } catch (error) {
+        //     toast.error(error.data?.message)
+        // }
+    }
+
+
+    // Generate extra content for each FAQ item
+    const genExtra = (faq) => (
         <Space size="middle">
-            {/* view icon */}
+            {/* Edit icon */}
             <div onClick={(e) => {
-                e.stopPropagation()
-                setIsModalOpen(true)
+                e.stopPropagation();
+                handleEdit(faq.id);
             }}>
                 <svg
                     width="37"
@@ -28,6 +146,7 @@ const FAQ = () => {
                     viewBox="0 0 37 37"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    style={{ cursor: 'pointer' }}
                 >
                     <rect width="37" height="37" rx="5" fill="#E4FFEB" />
                     <path
@@ -40,11 +159,11 @@ const FAQ = () => {
                 </svg>
             </div>
 
-
+            {/* Delete icon */}
             <div onClick={(e) => e.stopPropagation()}>
                 <Popconfirm
-                    title="Are you sure to delete this product?"
-                    onConfirm={confirm}
+                    title="Are you sure to delete this FAQ?"
+                    onConfirm={() => handleDelete(faq.id)}
                     okText="Yes"
                     cancelText="No"
                 >
@@ -54,6 +173,7 @@ const FAQ = () => {
                         viewBox="0 0 37 37"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
+                        style={{ cursor: 'pointer' }}
                     >
                         <rect width="37" height="37" rx="5" fill="#FFE6E6" />
                         <path
@@ -65,32 +185,18 @@ const FAQ = () => {
             </div>
         </Space>
     );
-    const items = [
-        {
-            key: '1',
-            label: 'Lorem ipsum dolor sit ?',
-            children: <p>{text}</p>,
-            extra: genExtra(),
-        },
-        {
-            key: '2',
-            label: 'This is panel header 2',
-            children: <p>{text}</p>,
-            extra: genExtra(),
-        },
-        {
-            key: '3',
-            label: 'This is panel header 3',
-            children: <p>{text}</p>,
-            extra: genExtra(),
-        },
-    ];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle save logic
-        alert('Saved!');
-    };
+    // Generate items for Collapse component from API data
+    const items = allFaqData?.map((faq, index) => ({
+        key: faq.id || index.toString(),
+        label: faq.question,
+        children: <p>{faq.answer}</p>,
+        extra: genExtra(faq),
+    }));
+
+
+
+
 
     return (
         <div className='mt-5'>
@@ -100,75 +206,95 @@ const FAQ = () => {
 
             {/* ================ Edit modal =============== */}
             <Modal
-                open={isModalOpen}
-                onCancel={handleCancel}
+                open={isEditModalOpen}
+                onCancel={handleCancelTwo}
                 footer={null}
-                closable={true}
                 centered
                 className="rounded-lg"
             >
-                <p className='font-PoppinsSemiBold text-2xl text-black  text-center'>Edit this question</p>
+                <p className='font-PoppinsSemiBold text-2xl text-black  text-center'>Update new question</p>
 
-                <div className="text-center space-y-4 mt-6">
-                    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-md w-full max-w-3xl space-y-6 shadow">
-                        <div>
-                            <label className="block font-medium mb-2 text-start">Question</label>
-                            <input
-                                type="text"
-                                placeholder='Add your question here'
-                                // onChange={(e) => setShopName(e.target.value)}
-                                className="w-full border border-gray-300 p-2 rounded-md outline-none"
+                <div className="form-container">
+                    <Form
+                        form={addForm}
+                        layout="vertical"
+                        onFinish={onFinishEditModal}
+                        requiredMark={false}
+                    >
+                        <Form.Item
+                            name="question"
+                            label="Question"
+                            rules={[{ required: true, message: 'Please input your question!' }]}
+                        >
+                            <Input placeholder="Add your question here" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="answer"
+                            label="Answer"
+                            rules={[{ required: true, message: 'Please input your answer!' }]}
+                        >
+                            <Input.TextArea
+                                placeholder="Add your answer here"
+                                rows={6}
+                                style={{ resize: 'none' }}
                             />
-                        </div>
-                        <div>
-                            <label className="block font-medium mb-2 text-start ">Answer</label>
-                            <textarea
-                                type="text"
-                                placeholder='Add your ans here'
-                                // onChange={(e) => setShopName(e.target.value)}
-                                className="w-full h-48 border border-gray-300 p-2 rounded-md outline-none flex items-start justify-start"
-                            ></textarea>
-                        </div>
-                    </form>
+                        </Form.Item>
 
-                    <button className='px-12 py-2 rounded-lg bg-primary hover:ring-primary text-white'>Update</button>
+                        <Form.Item style={{ textAlign: 'center', marginBottom: 0 }}>
+                            <Button type="primary" htmlType="submit" className="submit-button">
+                                Update
+                            </Button>
+                        </Form.Item>
+                    </Form>
                 </div>
             </Modal>
+
+
 
             {/* ================ Add modal =============== */}
             <Modal
                 open={isAddModalOpen}
-                onCancel={handleCancel}
+                onCancel={handleCancelOne}
                 footer={null}
-                closable={true}
                 centered
                 className="rounded-lg"
             >
                 <p className='font-PoppinsSemiBold text-2xl text-black  text-center'>Add new question</p>
 
-                <div className="text-center space-y-4 mt-6">
-                    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-md w-full max-w-3xl space-y-6 shadow">
-                        <div>
-                            <label className="block font-medium mb-2 text-start">Question</label>
-                            <input
-                                type="text"
-                                placeholder='Add your question here'
-                                // onChange={(e) => setShopName(e.target.value)}
-                                className="w-full border border-gray-300 p-2 rounded-md outline-none"
-                            />
-                        </div>
-                        <div>
-                            <label className="block font-medium mb-2 text-start ">Answer</label>
-                            <textarea
-                                type="text"
-                                placeholder='Add your ans here'
-                                // onChange={(e) => setShopName(e.target.value)}
-                                className="w-full h-48 border border-gray-300 p-2 rounded-md outline-none flex items-start justify-start"
-                            ></textarea>
-                        </div>
-                    </form>
+                <div className="form-container">
+                    <Form
+                        form={addForm}
+                        layout="vertical"
+                        onFinish={onFinishAddModal}
+                        requiredMark={false}
+                    >
+                        <Form.Item
+                            name="question"
+                            label="Question"
+                            rules={[{ required: true, message: 'Please input your question!' }]}
+                        >
+                            <Input placeholder="Add your question here" />
+                        </Form.Item>
 
-                    <button className='px-12 py-2 rounded-lg bg-primary hover:ring-primary text-white'>Add</button>
+                        <Form.Item
+                            name="answer"
+                            label="Answer"
+                            rules={[{ required: true, message: 'Please input your answer!' }]}
+                        >
+                            <Input.TextArea
+                                placeholder="Add your answer here"
+                                rows={6}
+                                style={{ resize: 'none' }}
+                            />
+                        </Form.Item>
+
+                        <Form.Item style={{ textAlign: 'center', marginBottom: 0 }}>
+                            <Button type="primary" htmlType="submit" className="submit-button">
+                                Add
+                            </Button>
+                        </Form.Item>
+                    </Form>
                 </div>
             </Modal>
 
