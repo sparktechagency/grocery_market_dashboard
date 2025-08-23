@@ -22,7 +22,6 @@ const FAQ = () => {
     const { data: singleGetFaq } = useGetSingleFaqApiQuery(editId)
     const singleData = singleGetFaq?.data
 
-
     useEffect(() => {
         if (singleData) {
             editForm.setFieldsValue({
@@ -82,10 +81,11 @@ const FAQ = () => {
         // });
 
         try {
-            const res = await faqEditApi(formData).unwrap();
+            const res = await faqEditApi({editFaqInfo: formData, id: editId}).unwrap();
+            console.log(res)
+
             if (res?.status === true) {
                 toast.success(res?.message);
-                editForm.resetFields();
                 setIsEditModalOpen(false);
                 refetch();
             }
@@ -216,7 +216,7 @@ const FAQ = () => {
 
                 <div className="form-container">
                     <Form
-                        form={addForm}
+                        form={editForm}
                         layout="vertical"
                         onFinish={onFinishEditModal}
                         requiredMark={false}
