@@ -42,9 +42,10 @@ const authApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['auth'],
         }),
+        // single photo update
         updateSinglePhotoApi: builder.mutation({
             query: (formData) => ({
-                url: `/auth/change-profile-photo`,
+                url: `/admin/updateAdminPhoto`,
                 method: "POST",
                 body: formData,
             }),
@@ -66,12 +67,21 @@ const authApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['auth'],
         }),
-        // setting api
+        // password changes api
         updatePasswordApi: builder.mutation({
-            query: (resetInfo) => ({
-                url: ``,
+            query: (updatePassword) => ({
+                url: `/auth/change_password`,
                 method: "POST",
-                body: resetInfo,
+                body: updatePassword,
+            }),
+            invalidatesTags: ['auth'],
+        }),
+        // name changes api
+        updateAuthProfileApi: builder.mutation({
+            query: (updateAuthProfile) => ({
+                url: `/admin/updateAdminProfile`,
+                method: "POST",
+                body: updateAuthProfile,
             }),
             invalidatesTags: ['auth'],
         }),
@@ -80,4 +90,4 @@ const authApi = baseApi.injectEndpoints({
 })
 
 
-export const { usePostAuthApiMutation, useOtpSendApiMutation, useGetProfileApiQuery, useLogOutAuthApiMutation, useUpdateProfileApiMutation, useUpdateSinglePhotoApiMutation, useForgetPasswordApiMutation, useResetPasswordApiMutation,useUpdatePasswordApiMutation, } = authApi;
+export const { usePostAuthApiMutation, useOtpSendApiMutation, useGetProfileApiQuery, useLogOutAuthApiMutation, useUpdateProfileApiMutation, useUpdateSinglePhotoApiMutation, useForgetPasswordApiMutation, useResetPasswordApiMutation, useUpdatePasswordApiMutation, useUpdateAuthProfileApiMutation } = authApi;
