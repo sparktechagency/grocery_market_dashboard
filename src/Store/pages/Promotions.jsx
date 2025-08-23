@@ -3,11 +3,23 @@ import { IconCross } from '../../assets/icon'
 import { Button, Modal } from 'antd'
 import { InboxOutlined } from '@ant-design/icons';
 import Dragger from 'antd/es/upload/Dragger';
+import { useAddPromotionApiMutation, useDeletePromotionApiMutation, useGetAllPromotionApiQuery } from '../../redux/dashboardFeatures/promotions/dashboardPromotionApi';
+import toast from 'react-hot-toast';
 
 const Promotions = () => {
 
-    const [fileList, setFileList] = useState([]);
+    const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
+
+
+
+    const { data: getPromoton, refetch } = useGetAllPromotionApiQuery()
+    const promotionData = getPromoton?.banners
+
+    const [addPromotionApi] = useAddPromotionApiMutation()
+    const [deletePromotionApi] = useDeletePromotionApiMutation()
+
+
 
     const props = {
         name: 'file',
@@ -20,7 +32,7 @@ const Promotions = () => {
                 setPreview(e.target.result);
             };
             reader.readAsDataURL(file);
-            setFileList([file]); // prevent default upload
+            setFile(file); // Store the file directly
             return false;
         },
     };
@@ -34,29 +46,41 @@ const Promotions = () => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-    const handleDelete = () => {
-       console.log('click---------')
+
+
+    const handleDelete = async (id) => {
+        try {
+            const res = await deletePromotionApi(id).unwrap();
+            console.log(res)
+            if (res?.status === true) {
+                toast.success(res?.message);
+                refetch();
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
     };
 
 
-    const promotionsCard = [
-        {
-            id: 1,
-            image: "https://i.ibb.co/q3fMtdgR/Group-8759.png"
-        },
-        {
-            id: 2,
-            image: "https://i.ibb.co/zH4YSzLq/Group-290337.png"
-        },
-        {
-            id: 3,
-            image: "https://i.ibb.co/4ZBQwDw3/Mask-group.png"
-        },
-        {
-            id: 4,
-            image: "https://i.ibb.co/q3fMtdgR/Group-8759.png"
-        },
-    ]
+
+    // single image upload function
+    const handleUpload = async () => {
+        const formData = new FormData();
+        formData.append("banner_image", file);
+        try {
+            const res = await addPromotionApi(formData).unwrap();
+            if (res?.status === true) {
+                toast.success(res?.message);
+                setFile(null);
+                setPreview(null);
+                setIsModalOpen(false);
+                refetch()
+            }
+        } catch (error) {
+            toast.error(error?.data?.message);
+        }
+    }
+
 
     return (
         <div>
@@ -64,18 +88,20 @@ const Promotions = () => {
 
             <div className='grid grid-cols-4 gap-3'>
                 {
-                    promotionsCard.map((item) => (
+                    promotionData?.map((item) => (
                         <div key={item?.id} className='relative '>
-                            <img className='rounded-2xl ' src={item?.image} alt="card image" />
-                            <span 
-                            onClick={handleDelete}
-                            className='cursor-pointer absolute top-1 right-3  p-1.5 bg-white rounded-full flex items-center '
+                            <img className='rounded-2xl ' src={item?.banner_image} alt="card image" />
+                            <span
+                                onClick={() => handleDelete(item?.id)}
+                                className='cursor-pointer absolute top-1 right-3  p-1.5 bg-white rounded-full flex items-center '
                             >{IconCross}</span>
                         </div>
                     ))
                 }
             </div>
             <button onClick={() => setIsModalOpen(true)} className='font-PoppinsMedium text-lg text-white bg-primary py-3 px-28 rounded-lg mt-10  '>Add More</button>
+
+
 
             {/* ================ shoppers successful modal =============== */}
             <Modal
@@ -101,11 +127,13 @@ const Promotions = () => {
                         )}
                     </Dragger>
 
+
                     <button
-                        className='bg-green-600  hover:bg-green-700 w-full h-10 text-base rounded-xl text-white font-semibold mt-8'
-                    >
+                        onClick={handleUpload}
+                        className='bg-green-600  hover:bg-green-700 w-full h-10 text-base rounded-xl text-white font-semibold mt-8'>
                         Upload
                     </button>
+
                 </div>
             </Modal>
 

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Collapse, Form, Input, Modal, Popconfirm, Space } from 'antd';
-import { useFaqAddApiMutation, useFaqDeleteApiMutation, useFaqEditApiMutation, useGetAllFaqApiQuery, useGetSingleFaqApiQuery } from '../../redux/dashboardFeatures/notification/dashboardFaqApi';
+
 import { useForm } from 'antd/es/form/Form';
 import toast from 'react-hot-toast';
+import { useFaqAddApiMutation, useFaqDeleteApiMutation, useFaqEditApiMutation, useGetAllFaqApiQuery, useGetSingleFaqApiQuery } from '../../redux/dashboardFeatures/faq/dashboardFaqApi';
 
 
 const FAQ = () => {

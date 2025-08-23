@@ -3,7 +3,7 @@ import { baseApi } from "../../api/baseApi";
 
 
 
-const dashboardNotificationApi = baseApi.injectEndpoints({
+const dashboardFaqApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
        faqAddApi: builder.mutation({
             query: (addFaqInfo) => ({
@@ -51,4 +51,4 @@ const dashboardNotificationApi = baseApi.injectEndpoints({
 })
 
 
-export const {useFaqAddApiMutation,useFaqEditApiMutation,useGetAllFaqApiQuery,useGetSingleFaqApiQuery,useFaqDeleteApiMutation} = dashboardNotificationApi;
+export const {useFaqAddApiMutation,useFaqEditApiMutation,useGetAllFaqApiQuery,useGetSingleFaqApiQuery,useFaqDeleteApiMutation} = dashboardFaqApi;
