@@ -20,8 +20,13 @@ const ManageCategory = () => {
     const [addTermsApi] = useAddTermsApiMutation()
 
     const { data: getAllTerm, refetch, isLoading } = useGetAllTermApiQuery()
-    const allTermData = getAllTerm?.terms ?? []
-    const totalPagination = getAllTerm?.pagination?.total ?? 0
+    const allTermData = getAllTerm?.data 
+    
+
+ 
+
+
+
 
 
     const { data: getSingle } = useGetSingleTermApiQuery(editId)
@@ -96,7 +101,7 @@ const ManageCategory = () => {
 
 
         try {
-            const res = await updateTermApi({updateTermInfo:formData,id:editId}).unwrap();
+            const res = await updateTermApi({ updateTermInfo: formData, id: editId }).unwrap();
             if (res?.status === true) {
                 toast.success(res?.message);
                 setIsModalEditOpen(false);
@@ -351,7 +356,7 @@ const ManageCategory = () => {
 
 
 
-            <div className="flex justify-end pt-4">
+            {/* <div className="flex justify-end pt-4">
                 <Pagination
                     current={currentPage}
                     pageSize={perPage}
@@ -361,7 +366,7 @@ const ManageCategory = () => {
                         setPerPage(pageSize)
                     }}
                 />
-            </div>
+            </div> */}
         </div>
     )
 }

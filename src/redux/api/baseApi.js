@@ -21,6 +21,7 @@ export const baseApi = createApi({
     "dashboardFaq",
     "promotion",
     "manageTerm",
+    "manageOrder",
   ],
   endpoints: () => ({}),
 });
