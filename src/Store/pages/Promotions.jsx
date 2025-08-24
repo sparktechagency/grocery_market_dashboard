@@ -105,15 +105,20 @@ const Promotions = () => {
 
             {/* ================ shoppers successful modal =============== */}
             <Modal
+                centered
+                title={
+                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Upload banner
+                    </div>
+                }
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={null}
                 closable={true}
-                centered
-                className="rounded-lg"
+                className='custom-service-modal'
             >
                 <div className="text-center space-y-4">
-                    <h2 className="text-xl font-semibold pb-6">Upload banner</h2>
+                <div className='px-4 pt-8'>
 
                     <Dragger {...props} className="!bg-white !border-gray-200 rounded-md py-6">
                         {preview ? (
@@ -130,10 +135,23 @@ const Promotions = () => {
 
                     <button
                         onClick={handleUpload}
-                        className='bg-green-600  hover:bg-green-700 w-full h-10 text-base rounded-xl text-white font-semibold mt-8'>
+                        className='bg-green-600  hover:bg-green-700 w-full h-10 text-base rounded-xl text-white font-semibold mt-8'
+                         style={{
+                                    backgroundColor: "#23AA49",
+                                    color: "#ffffff",
+                                    fontSize: "20px",
+                                    fontWeight: "600",
+                                    height: "60px",
+                                    borderRadius: "20px",
+                                    paddingInline: "20px",
+                                    marginTop: "20px",
+                                    marginBottom: "20px"
+                                }}
+                        >
                         Upload
                     </button>
 
+                </div>
                 </div>
             </Modal>
 
