@@ -1,62 +1,152 @@
-import { Modal, Popconfirm, Select, Space } from 'antd'
-import React, { useState } from 'react'
+import { Button, Form, Input, Modal, Pagination, Popconfirm, Space } from 'antd'
+import { useState } from 'react'
 import { IconSearch } from '../assets/icon'
-import { Option } from 'lucide-react'
+
+import { useForm } from 'antd/es/form/Form'
+import { useAddTermsApiMutation, useDeleteTermApiMutation, useGetAllTermApiQuery, useGetSingleTermApiQuery, useUpdateTermApiMutation } from '../redux/dashboardFeatures/manageTerm/dashboardManageTerm'
+import { useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 const ManageCategory = () => {
-    const [isDetailsModalOpen, setIsModalDetailsOpen] = useState(false);
+    const [addForm] = useForm()
+    const [editForm] = useForm()
+    const [isAddModalOpen, setIsModalAddOpen] = useState(false);
+    const [isEditModalOpen, setIsModalEditOpen] = useState(false);
+    const [editId, setEditId] = useState()
     const [searchText, setSearchText] = useState('')
+    const [currentPage, setCurrentPage] = useState(1);
+    const [perPage, setPerPage] = useState(8);
 
-    const manageData = [
-        {
-            id: 1,
-            title: "Bakery"
-        },
-        {
-            id: 2,
-            title: "Fruits & vegetables"
-        },
-        {
-            id: 3,
-            title: "Drinks"
-        },
-        {
-            id: 4,
-            title: "Beverage"
-        },
-        {
-            id: 5,
-            title: "Households"
-        },
-        {
-            id: 6,
-            title: "Meats"
-        },
-        {
-            id: 7,
-            title: "Cleaning product"
-        },
-        {
-            id: 8,
-            title: "Cleaning product"
-        },
-        {
-            id: 9,
-            title: "Cleaning product"
-        },
-        {
-            id: 10,
-            title: "Cleaning product"
-        },
-    ]
+    const [addTermsApi] = useAddTermsApiMutation()
+
+    const { data: getAllTerm, refetch, isLoading } = useGetAllTermApiQuery()
+    const allTermData = getAllTerm?.terms ?? []
+    const totalPagination = getAllTerm?.pagination?.total ?? 0
+
+
+    const { data: getSingle } = useGetSingleTermApiQuery(editId)
+    const singleData = getSingle?.term
+
+
+
+    const [deleteTermApi] = useDeleteTermApiMutation()
+    const [updateTermApi] = useUpdateTermApiMutation()
+
+
+
+
+    useEffect(() => {
+        if (singleData) {
+            editForm.setFieldsValue({
+                ...singleData,
+                name: singleData?.name,
+            });
+        }
+    }, [singleData, editForm]);
+
+
+
+
+    // ======= add term start ===============
+    const showModalAdd = () => {
+        setIsModalAddOpen(true);
+    };
+
+    const onFinishOne = async (values) => {
+        const formData = new FormData();
+        formData.append("name", values?.name);
+        try {
+            const res = await addTermsApi(formData).unwrap();
+
+            if (res?.status === true) {
+                toast.success(res?.message);
+                addForm.resetFields()
+                setIsModalAddOpen(false);
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    }
+
+    const handleOkAdd = () => {
+        addForm.submit()
+
+    };
+
+    const handleCancelAddModal = () => {
+        setIsModalAddOpen(false);
+    };
+    // ======= add term end =================
+
+
+
+
+
+
+
+    // ======= edit term start ===============
+    const showModalEdit = (id) => {
+        setEditId(id)
+        setIsModalEditOpen(true);
+    };
+
+    const onFinishTwo = async (values) => {
+        const formData = new FormData();
+        formData.append("name", values?.name);
+
+
+        try {
+            const res = await updateTermApi({updateTermInfo:formData,id:editId}).unwrap();
+            if (res?.status === true) {
+                toast.success(res?.message);
+                setIsModalEditOpen(false);
+                refetch()
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    }
+
+
+    const handleOkEdit = () => {
+        editForm.submit()
+    };
+
+    const handleCancelEditModal = () => {
+        setIsModalEditOpen(false);
+    };
+    // ======= edit term end =================
 
     const handleChange = (e) => {
         setSearchText(e.target.value);
     }
 
+    // delete api
+    const handleDelete = async (id) => {
+        try {
+            const res = await deleteTermApi(id).unwrap();
+            if (res?.status === true) {
+                toast.success(res?.message);
+                refetch();
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    }
 
 
-    console.log(searchText)
+
+
+
+
+    useEffect(() => {
+        refetch();
+    }, [searchText, currentPage, perPage, refetch]);
+
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
 
     return (
         <div>
@@ -70,7 +160,7 @@ const ManageCategory = () => {
                             value={searchText}
                             onChange={handleChange}
                             className="w-[534px] p-4 border rounded-l-full border-[#D9D9D9] focus:outline-none"
-                            placeholder="Search products"
+                            placeholder="Search term"
                             name=""
                             id=""
                         />
@@ -82,6 +172,7 @@ const ManageCategory = () => {
 
                     <div className="">
                         <button
+                            onClick={showModalAdd}
                             type="button" className="p-2.5 bg-primary text-[#ffff] px-10  rounded-full text-xl">+ Add more</button>
                     </div>
                 </div>
@@ -92,13 +183,13 @@ const ManageCategory = () => {
 
             <div className='grid grid-cols-5 gap-3'>
                 {
-                    manageData.map((item, index) => (
+                    allTermData?.map((item, index) => (
                         <div className='flex justify-between items-center rounded-lg px-4 py-2 bg-white shadow-md'>
 
-                            <p className='font-semibold text-base text-blacks'>{index + 1}. {" "}{item.title}</p>
+                            <p className='font-semibold text-base text-blacks'>{index + 1}. {" "}{item.name}</p>
                             <Space size="middle">
                                 {/* view icon */}
-                                <div onClick={() => setIsModalDetailsOpen(true)}>
+                                <div onClick={() => showModalEdit(item?.id)} className='cursor-pointer'>
                                     <svg
                                         width="37"
                                         height="37"
@@ -116,12 +207,15 @@ const ManageCategory = () => {
                                         />
                                     </svg>
                                 </div>
+
+
                                 <div>
                                     <Popconfirm
                                         title="Are you sure to delete this product?"
-                                        onConfirm={confirm}
+                                        onConfirm={() => handleDelete(item.id)}
                                         okText="Yes"
                                         cancelText="No"
+                                        className='cursor-pointer'
                                     >
                                         <svg
                                             width="37"
@@ -144,26 +238,130 @@ const ManageCategory = () => {
                 }
             </div>
 
+
+            {/* add modal */}
             <Modal
-                open={isDetailsModalOpen}
-                onCancel={() => setIsModalDetailsOpen(false)}
+                centered
+                title={
+                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Add term
+                    </div>
+                }
+                open={isAddModalOpen}
+                onOk={handleOkAdd}
+                onCancel={handleCancelAddModal}
                 footer={null}
-                closable={true}
-                className="rounded-lg "
-            >
-                {/* Modal Header */}
-                <div className="flex justify-between items-center bg-primary text-white px-6 py-4 rounded-t-lg mt-6">
-                    <h2 className="text-lg font-semibold mx-auto">Edit</h2>
+                width={500}
+                className='custom-service-modal'>
 
-                </div>
-                <div class="my-6">
-                    <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                    <input placeholder='Add a Category' type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
-                </div>
 
-                <button type="button" className="text-white w-full bg-primary hover:bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Add</button>
+                <div className="pb-4">
+                    <div className='px-4 pt-8'>
+                        <Form form={addForm} onFinish={onFinishOne}>
+                            <div className="">
+                                <p className="text-[20px] font-medium font-degular">Title</p>
+                                <Form.Item name="name" className="mb-0"
+                                    rules={[{ required: true, message: "Term is required" }]}
+                                >
+                                    <Input placeholder="Add a Term" style={{ height: "50px", borderRadius: "20px" }} />
+                                </Form.Item>
+                            </div>
+
+
+
+
+                            <Button
+                                htmlType="submit"
+                                block
+                                // loading={loading}
+                                style={{
+                                    backgroundColor: "#23AA49",
+                                    color: "#ffffff",
+                                    fontSize: "20px",
+                                    fontWeight: "600",
+                                    height: "60px",
+                                    borderRadius: "20px",
+                                    paddingInline: "20px",
+                                    marginTop: "20px"
+                                }}
+                            >
+                                Add
+                            </Button>
+                        </Form>
+                    </div>
+                </div>
             </Modal>
 
+
+
+
+            {/* add modal */}
+            <Modal
+                centered
+                title={
+                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Edit term
+                    </div>
+                }
+                open={isEditModalOpen}
+                onOk={handleOkEdit}
+                onCancel={handleCancelEditModal}
+                footer={null}
+                width={500}
+                className='custom-service-modal'>
+
+
+                <div className="pb-4">
+                    <div className='px-4 pt-8'>
+                        <Form form={editForm} onFinish={onFinishTwo}>
+                            <div className="">
+                                <p className="text-[20px] font-medium font-degular">Title</p>
+                                <Form.Item name="name" className="mb-0"
+                                    rules={[{ required: true, message: "Term is required" }]}
+                                >
+                                    <Input placeholder="update a Term" style={{ height: "50px", borderRadius: "20px" }} />
+                                </Form.Item>
+                            </div>
+
+
+
+
+                            <Button
+                                htmlType="submit"
+                                block
+                                // loading={loading}
+                                style={{
+                                    backgroundColor: "#23AA49",
+                                    color: "#ffffff",
+                                    fontSize: "20px",
+                                    fontWeight: "600",
+                                    height: "60px",
+                                    borderRadius: "20px",
+                                    paddingInline: "20px",
+                                    marginTop: "20px"
+                                }}
+                            >
+                                Update
+                            </Button>
+                        </Form>
+                    </div>
+                </div>
+            </Modal>
+
+
+
+
+            <div className="flex justify-end pt-4">
+                <Pagination
+                    current={currentPage}
+                    pageSize={perPage}
+                    total={totalPagination || 0}
+                    onChange={(page, pageSize) => {
+                        setCurrentPage(page)
+                        setPerPage(pageSize)
+                    }}
+                />
+            </div>
         </div>
     )
 }

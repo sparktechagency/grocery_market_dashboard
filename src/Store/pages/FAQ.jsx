@@ -82,7 +82,7 @@ const FAQ = () => {
         // });
 
         try {
-            const res = await faqEditApi({editFaqInfo: formData, id: editId}).unwrap();
+            const res = await faqEditApi({ editFaqInfo: formData, id: editId }).unwrap();
             console.log(res)
 
             if (res?.status === true) {
@@ -117,19 +117,11 @@ const FAQ = () => {
             toast.error(error.data?.message)
         }
     }
+
+
     const handleEdit = async (id) => {
         setEditId(id)
         setIsEditModalOpen(true)
-
-        // try {
-        //     const res = await faqDeleteApi(id).unwrap();
-        //     if (res?.status === true) {
-        //         toast.success(res?.message);
-        //         refetch();
-        //     }
-        // } catch (error) {
-        //     toast.error(error.data?.message)
-        // }
     }
 
 
@@ -202,52 +194,82 @@ const FAQ = () => {
     return (
         <div className='mt-5'>
             <Collapse accordion items={items} />
-            <button onClick={() => setIsAddModalOpen(true)} className='px-20 py-3 rounded-lg bg-primary hover:ring-primary text-white mt-8'>Add More</button>
+            <button onClick={() => setIsAddModalOpen(true)} 
+                style={{
+                    backgroundColor: "#23AA49",
+                    color: "#ffffff",
+                    fontSize: "20px",
+                    fontWeight: "600",
+                    height: "55px",
+                    borderRadius: "20px",
+                    paddingInline: "50px",
+                    marginTop: "20px"
+                }}
+            >Add More</button>
 
 
             {/* ================ Edit modal =============== */}
             <Modal
+                centered
+                title={
+                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Update new question
+                    </div>
+                }
                 open={isEditModalOpen}
                 onCancel={handleCancelTwo}
                 footer={null}
-                centered
-                className="rounded-lg"
+                className='custom-service-modal'
             >
-                <p className='font-PoppinsSemiBold text-2xl text-black  text-center'>Update new question</p>
 
-                <div className="form-container">
-                    <Form
-                        form={editForm}
-                        layout="vertical"
-                        onFinish={onFinishEditModal}
-                        requiredMark={false}
-                    >
-                        <Form.Item
-                            name="question"
-                            label="Question"
-                            rules={[{ required: true, message: 'Please input your question!' }]}
+                <div className="pb-4">
+                    <div className='px-4 pt-8'>
+                        <Form
+                            form={editForm}
+                            layout="vertical"
+                            onFinish={onFinishEditModal}
+                            requiredMark={false}
                         >
-                            <Input placeholder="Add your question here" />
-                        </Form.Item>
+                            <Form.Item
+                                name="question"
+                                label="Question"
+                                rules={[{ required: true, message: 'Please input your question!' }]}
+                            >
+                                <Input placeholder="Add your question here" />
+                            </Form.Item>
 
-                        <Form.Item
-                            name="answer"
-                            label="Answer"
-                            rules={[{ required: true, message: 'Please input your answer!' }]}
-                        >
-                            <Input.TextArea
-                                placeholder="Add your answer here"
-                                rows={6}
-                                style={{ resize: 'none' }}
-                            />
-                        </Form.Item>
+                            <Form.Item
+                                name="answer"
+                                label="Answer"
+                                rules={[{ required: true, message: 'Please input your answer!' }]}
+                            >
+                                <Input.TextArea
+                                    placeholder="Add your answer here"
+                                    rows={6}
+                                    style={{ resize: 'none' }}
+                                />
+                            </Form.Item>
 
-                        <Form.Item style={{ textAlign: 'center', marginBottom: 0 }}>
-                            <Button type="primary" htmlType="submit" className="submit-button">
-                                Update
-                            </Button>
-                        </Form.Item>
-                    </Form>
+                            <Form.Item style={{ textAlign: 'center', marginBottom: 0 }}>
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    block
+                                    style={{
+                                        backgroundColor: "#23AA49",
+                                        color: "#ffffff",
+                                        fontSize: "20px",
+                                        fontWeight: "600",
+                                        height: "60px",
+                                        borderRadius: "20px",
+                                        paddingInline: "20px",
+                                        marginTop: "20px"
+                                    }}>
+                                    Update
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </div>
                 </div>
             </Modal>
 
@@ -255,47 +277,68 @@ const FAQ = () => {
 
             {/* ================ Add modal =============== */}
             <Modal
+                centered
+                title={
+                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Add new question
+                    </div>
+                }
                 open={isAddModalOpen}
                 onCancel={handleCancelOne}
                 footer={null}
-                centered
-                className="rounded-lg"
+
+
+                className='custom-service-modal'
             >
-                <p className='font-PoppinsSemiBold text-2xl text-black  text-center'>Add new question</p>
 
-                <div className="form-container">
-                    <Form
-                        form={addForm}
-                        layout="vertical"
-                        onFinish={onFinishAddModal}
-                        requiredMark={false}
-                    >
-                        <Form.Item
-                            name="question"
-                            label="Question"
-                            rules={[{ required: true, message: 'Please input your question!' }]}
+                <div className="pb-4">
+                    <div className='px-4 pt-8'>
+                        <Form
+                            form={addForm}
+                            layout="vertical"
+                            onFinish={onFinishAddModal}
+                            requiredMark={false}
                         >
-                            <Input placeholder="Add your question here" />
-                        </Form.Item>
+                            <Form.Item
+                                name="question"
+                                label="Question"
+                                rules={[{ required: true, message: 'Please input your question!' }]}
+                            >
+                                <Input placeholder="Add your question here" />
+                            </Form.Item>
 
-                        <Form.Item
-                            name="answer"
-                            label="Answer"
-                            rules={[{ required: true, message: 'Please input your answer!' }]}
-                        >
-                            <Input.TextArea
-                                placeholder="Add your answer here"
-                                rows={6}
-                                style={{ resize: 'none' }}
-                            />
-                        </Form.Item>
+                            <Form.Item
+                                name="answer"
+                                label="Answer"
+                                rules={[{ required: true, message: 'Please input your answer!' }]}
+                            >
+                                <Input.TextArea
+                                    placeholder="Add your answer here"
+                                    rows={6}
+                                    style={{ resize: 'none' }}
+                                />
+                            </Form.Item>
 
-                        <Form.Item style={{ textAlign: 'center', marginBottom: 0 }}>
-                            <Button type="primary" htmlType="submit" className="submit-button">
-                                Add
-                            </Button>
-                        </Form.Item>
-                    </Form>
+                            <Form.Item style={{ textAlign: 'center', marginBottom: 0 }}>
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    block
+                                    style={{
+                                        backgroundColor: "#23AA49",
+                                        color: "#ffffff",
+                                        fontSize: "20px",
+                                        fontWeight: "600",
+                                        height: "60px",
+                                        borderRadius: "20px",
+                                        paddingInline: "20px",
+                                        marginTop: "20px"
+                                    }}>
+                                    Add
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </div>
                 </div>
             </Modal>
 
