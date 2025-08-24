@@ -150,8 +150,11 @@ const shopperItems = [
 ];
 
 const StoreDashboardSidebar = () => {
-const {data:getAllNotifi} = useGetTotalNotificationApiQuery()
-const notificationCount = getAllNotifi?.total
+    const { data: getAllNotifi } = useGetTotalNotificationApiQuery(undefined, {
+        pollingInterval: 3000,
+    });
+
+    const notificationCount = getAllNotifi?.total
 
 
 
@@ -447,7 +450,13 @@ const notificationCount = getAllNotifi?.total
 
                             <div className="relative flex justify-center items-center gap-4">
                                 <span className="w-12 h-12 flex justify-center items-center bg-white rounded-full">{IconNotification}</span>
-                            <p className="absolute -top-2 -right-2 bg-red w-6 h-6 rounded-full flex justify-center items-center text-xs text-white">{notificationCount}</p>
+                                {
+                                    notificationCount > 0 && (
+                                        <p className="absolute -top-2 -right-2 bg-red w-6 h-6 rounded-full flex justify-center items-center text-xs text-white">
+                                            {notificationCount}
+                                        </p>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>

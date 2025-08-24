@@ -19,13 +19,13 @@ const dashboardNotificationApi = baseApi.injectEndpoints({
             }),
             providesTags: ['notification'],
         }),
-        // postMarkRedNotificationApi: builder.mutation({
-        //     query: (id) => ({
-        //         url: `/mark-notification/${id}`,
-        //         method: "POST"
-        //     }),
-        //     providesTags: ['notification'],
-        // }),
+        redNotificationApi: builder.mutation({
+            query: (id) => ({
+                url: `/app/readNotification/${id}`,
+                method: "POST"
+            }),
+            providesTags: ['notification'],
+        }),
         // postAllMarkRedNotificationApi: builder.mutation({
         //     query: () => ({
         //         url: `/mark-all-notification`,
@@ -37,4 +37,4 @@ const dashboardNotificationApi = baseApi.injectEndpoints({
 })
 
 
-export const {useGetNotificationApiQuery,useGetTotalNotificationApiQuery} = dashboardNotificationApi;
+export const { useGetNotificationApiQuery, useGetTotalNotificationApiQuery,useRedNotificationApiMutation } = dashboardNotificationApi;
