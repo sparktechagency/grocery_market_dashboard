@@ -1,8 +1,10 @@
 
-import React, { useState } from "react";
-import { Table, Button, Space, Image, Popconfirm, message, Modal, Form, Input } from "antd";
+import React, { useEffect, useState } from "react";
+import { Table, Button, Space, Image, Popconfirm, message, Modal, Form, Input, Pagination } from "antd";
 import { IconSearch } from "../assets/icon";
 import { useForm } from "antd/es/form/Form";
+import { useAddGeoLocationApiMutation, useGetGeoLocationApiQuery } from "../redux/dashboardFeatures/geoLocation/dashboardGeoLocation";
+import toast from "react-hot-toast";
 
 
 
@@ -14,6 +16,26 @@ const ManageGeolocation = () => {
   const [isEditModalOpen, setIsModalEditOpen] = useState(false);
   const [editId, setEditId] = useState()
   const [searchText, setSearchText] = useState('')
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(8);
+
+
+  const [AddGeoLocationApi] = useAddGeoLocationApiMutation()
+
+  const { data: Geolocation, refetch } = useGetGeoLocationApiQuery({ search:searchText ,per_page: perPage, page: currentPage, });
+  const geoLocationData = Geolocation?.data?.data
+  const totalPagination = Geolocation?.data?.total
+
+
+  console.log(geoLocationData)
+
+
+
+
+
+
+
+
 
 
 
@@ -24,19 +46,24 @@ const ManageGeolocation = () => {
   };
 
   const onFinishOne = async (values) => {
-    // const formData = new FormData();
-    // formData.append("name", values?.name);
-    // try {
-    //     const res = await addTermsApi(formData).unwrap();
+    const formData = new FormData();
+    formData.append("address", values?.address);
+    formData.append("city", values?.city);
+    formData.append("zipCode", values?.zipCode);
+    formData.append("latitude", values?.latitude);
+    formData.append("longitude", values?.longitude);
 
-    //     if (res?.status === true) {
-    //         toast.success(res?.message);
-    //         addForm.resetFields()
-    //         setIsModalAddOpen(false);
-    //     }
-    // } catch (error) {
-    //     toast.error(error.data?.message)
-    // }
+    try {
+      const res = await AddGeoLocationApi(formData).unwrap();
+
+      if (res?.status === true) {
+        toast.success(res?.message);
+        addForm.resetFields()
+        setIsModalAddOpen(false);
+      }
+    } catch (error) {
+      toast.error(error.data?.message)
+    }
   }
 
   const handleOkAdd = () => {
@@ -103,7 +130,7 @@ const ManageGeolocation = () => {
 
 
 
-  
+
   const columns = [
     {
       title: "Address",
@@ -144,7 +171,7 @@ const ManageGeolocation = () => {
           {/* view icon */}
           <div >
             <svg
-            className="cursor-pointer"
+              className="cursor-pointer"
               width="37"
               height="37"
               viewBox="0 0 37 37"
@@ -161,7 +188,7 @@ const ManageGeolocation = () => {
 
           <div onClick={() => showModalEdit()}>
             <svg className="cursor-pointer"
-            width="37" height="37" viewBox="0 0 62 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              width="37" height="37" viewBox="0 0 62 60" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="62" height="60" rx="5" fill="#E4FFEB" />
               <path d="M34.5938 21.5885L38.9062 25.8553M31.7188 41.5H43.2188M20.2188 35.811L18.7812 41.5L24.5312 40.0777L41.1861 23.5996C41.7251 23.0662 42.0279 22.3428 42.0279 21.5885C42.0279 20.8343 41.7251 20.1109 41.1861 19.5775L40.9389 19.3328C40.3997 18.7996 39.6686 18.5 38.9062 18.5C38.1439 18.5 37.4128 18.7996 36.8736 19.3328L20.2188 35.811Z" stroke="#28A745" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -195,88 +222,13 @@ const ManageGeolocation = () => {
     },
   ];
 
-  const data = [
-    {
-      key: '1',
-      address: '123 Main Street',
-      city: 'New York',
-      zipCode: '10001',
-      latitude: '40.7128° N',
-      longitude: '74.0060° W'
-    },
-    {
-      key: '2',
-      address: '456 Oak Avenue',
-      city: 'Los Angeles',
-      zipCode: '90001',
-      latitude: '34.0522° N',
-      longitude: '118.2437° W'
-    },
-    {
-      key: '3',
-      address: '789 Pine Road',
-      city: 'Chicago',
-      zipCode: '60601',
-      latitude: '41.8781° N',
-      longitude: '87.6298° W'
-    },
-    {
-      key: '4',
-      address: '321 Elm Boulevard',
-      city: 'Houston',
-      zipCode: '77001',
-      latitude: '29.7604° N',
-      longitude: '95.3698° W'
-    },
-    {
-      key: '5',
-      address: '654 Maple Lane',
-      city: 'Phoenix',
-      zipCode: '85001',
-      latitude: '33.4484° N',
-      longitude: '112.0740° W'
-    },
-    {
-      key: '6',
-      address: '987 Cedar Street',
-      city: 'Philadelphia',
-      zipCode: '19101',
-      latitude: '39.9526° N',
-      longitude: '75.1652° W'
-    },
-    {
-      key: '7',
-      address: '159 Birch Drive',
-      city: 'San Antonio',
-      zipCode: '78201',
-      latitude: '29.4241° N',
-      longitude: '98.4936° W'
-    },
-    {
-      key: '8',
-      address: '753 Walnut Circle',
-      city: 'San Diego',
-      zipCode: '92101',
-      latitude: '32.7157° N',
-      longitude: '117.1611° W'
-    },
-    {
-      key: '9',
-      address: '852 Spruce Way',
-      city: 'Dallas',
-      zipCode: '75201',
-      latitude: '32.7767° N',
-      longitude: '96.7970° W'
-    },
-    {
-      key: '10',
-      address: '963 Willow Court',
-      city: 'San Jose',
-      zipCode: '95101',
-      latitude: '37.3382° N',
-      longitude: '121.8863° W'
-    }
-  ];
+
+
+
+  useEffect(() => {
+    refetch();
+  }, [searchText, currentPage, perPage, refetch]);
+
 
 
   // view modal end
@@ -317,10 +269,24 @@ const ManageGeolocation = () => {
         columns={columns}
         rowClassName={() => "table-row-gap"}
         className="custom-ant-table"
-        dataSource={data}
-        pagination={true}
+        dataSource={geoLocationData}
+        pagination={false}
       />
 
+
+
+      {/* <div className="flex justify-end pt-4">
+        <Pagination
+          showSizeChanger={false}
+          current={currentPage}
+          pageSize={perPage}
+          total={totalPagination || 0}
+          onChange={(page, pageSize) => {
+            setCurrentPage(page)
+            setPerPage(pageSize)
+          }}
+        />
+      </div> */}
 
       {/* add modal */}
       <Modal

@@ -17,8 +17,11 @@ const items = [
 ];
 const OrderManagement = () => {
 
-    const {data} = useGetOrderApiQuery()
-    console.log(data)
+    const {data:getOrder} = useGetOrderApiQuery()
+    const orderData = getOrder?.data
+    console.log(orderData)
+
+
 
     return (
         <div className={`w-full mx-auto  ${styles.wrapper} ${styles.hoverUnActiveTabs}`}>

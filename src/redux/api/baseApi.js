@@ -23,6 +23,7 @@ export const baseApi = createApi({
     "promotion",
     "manageTerm",
     "manageOrder",
+    "geolocation",
   ],
   endpoints: () => ({}),
 });

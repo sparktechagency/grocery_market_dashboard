@@ -19,12 +19,12 @@ const ManageCategory = () => {
 
     const [addTermsApi] = useAddTermsApiMutation()
 
-    const { data: getAllTerm, refetch, isLoading } = useGetAllTermApiQuery({ search:searchText,per_page: perPage, page: currentPage, })
+    const { data: getAllTerm, refetch, isLoading } = useGetAllTermApiQuery({ search:searchText ,per_page: perPage, page: currentPage, })
     const allTermData = getAllTerm?.data?.data
     const totalPagination = getAllTerm?.data?.total
 
     
-    console.log(allTermData)
+
 
 
 
@@ -141,7 +141,6 @@ const ManageCategory = () => {
     }
 
 
-    console.log(typeof(searchText))
 
 
 
