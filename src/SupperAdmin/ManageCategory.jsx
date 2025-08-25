@@ -15,15 +15,14 @@ const ManageCategory = () => {
     const [editId, setEditId] = useState()
     const [searchText, setSearchText] = useState('')
     const [currentPage, setCurrentPage] = useState(1);
-    const [perPage, setPerPage] = useState(8);
+    const [perPage, setPerPage] = useState(45);
 
     const [addTermsApi] = useAddTermsApiMutation()
 
-    const { data: getAllTerm, refetch, isLoading } = useGetAllTermApiQuery()
-    const allTermData = getAllTerm?.data 
-    
-
- 
+    const { data: getAllTerm, refetch, isLoading } = useGetAllTermApiQuery({ per_page: perPage, page: currentPage, })
+    const allTermData = getAllTerm?.data?.data
+    const totalPagination = getAllTerm?.data?.total
+    console.log(totalPagination)
 
 
 
@@ -188,40 +187,16 @@ const ManageCategory = () => {
 
             <div className='grid grid-cols-5 gap-3'>
                 {
-                    allTermData?.map((item, index) => (
-                        <div className='flex justify-between items-center rounded-lg px-4 py-2 bg-white shadow-md'>
+                    allTermData?.map((item, index) => {
+                        const serialNumber = (currentPage - 1) * perPage + index + 1;
 
-                            <p className='font-semibold text-base text-blacks'>{index + 1}. {" "}{item.name}</p>
-                            <Space size="middle">
-                                {/* view icon */}
-                                <div onClick={() => showModalEdit(item?.id)} className='cursor-pointer'>
-                                    <svg
-                                        width="37"
-                                        height="37"
-                                        viewBox="0 0 37 37"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <rect width="37" height="37" rx="5" fill="#E4FFEB" />
-                                        <path
-                                            d="M21 13.1716L24 16.1716M19 27.1716H27M11 23.1716L10 27.1716L14 26.1716L25.586 14.5856C25.9609 14.2105 26.1716 13.7019 26.1716 13.1716C26.1716 12.6412 25.9609 12.1326 25.586 11.7576L25.414 11.5856C25.0389 11.2106 24.5303 11 24 11C23.4697 11 22.9611 11.2106 22.586 11.5856L11 23.1716Z"
-                                            stroke="#28A745"
-                                            strokeWidth="1.5"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                </div>
+                        return (
+                            <div key={index} className='flex justify-between items-center rounded-lg px-4 py-2 bg-white shadow-md'>
 
+                                <p className='font-semibold text-base text-blacks'>  {serialNumber}. {item.name} </p>
+                                <Space size="middle">
 
-                                <div>
-                                    <Popconfirm
-                                        title="Are you sure to delete this product?"
-                                        onConfirm={() => handleDelete(item.id)}
-                                        okText="Yes"
-                                        cancelText="No"
-                                        className='cursor-pointer'
-                                    >
+                                    <div onClick={() => showModalEdit(item?.id)} className='cursor-pointer'>
                                         <svg
                                             width="37"
                                             height="37"
@@ -229,17 +204,45 @@ const ManageCategory = () => {
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
                                         >
-                                            <rect width="37" height="37" rx="5" fill="#FFE6E6" />
+                                            <rect width="37" height="37" rx="5" fill="#E4FFEB" />
                                             <path
-                                                d="M23 16V26H15V16H23ZM21.5 10H16.5L15.5 11H12V13H26V11H22.5L21.5 10ZM25 14H13V26C13 27.1 13.9 28 15 28H23C24.1 28 25 27.1 25 26V14Z"
-                                                fill="#FF0000"
+                                                d="M21 13.1716L24 16.1716M19 27.1716H27M11 23.1716L10 27.1716L14 26.1716L25.586 14.5856C25.9609 14.2105 26.1716 13.7019 26.1716 13.1716C26.1716 12.6412 25.9609 12.1326 25.586 11.7576L25.414 11.5856C25.0389 11.2106 24.5303 11 24 11C23.4697 11 22.9611 11.2106 22.586 11.5856L11 23.1716Z"
+                                                stroke="#28A745"
+                                                strokeWidth="1.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
                                             />
                                         </svg>
-                                    </Popconfirm>
-                                </div>
-                            </Space>
-                        </div>
-                    ))
+                                    </div>
+
+
+                                    <div>
+                                        <Popconfirm
+                                            title="Are you sure to delete this product?"
+                                            onConfirm={() => handleDelete(item.id)}
+                                            okText="Yes"
+                                            cancelText="No"
+                                            className='cursor-pointer'
+                                        >
+                                            <svg
+                                                width="37"
+                                                height="37"
+                                                viewBox="0 0 37 37"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <rect width="37" height="37" rx="5" fill="#FFE6E6" />
+                                                <path
+                                                    d="M23 16V26H15V16H23ZM21.5 10H16.5L15.5 11H12V13H26V11H22.5L21.5 10ZM25 14H13V26C13 27.1 13.9 28 15 28H23C24.1 28 25 27.1 25 26V14Z"
+                                                    fill="#FF0000"
+                                                />
+                                            </svg>
+                                        </Popconfirm>
+                                    </div>
+                                </Space>
+                            </div>
+                        )
+                    })
                 }
             </div>
 
@@ -356,8 +359,9 @@ const ManageCategory = () => {
 
 
 
-            {/* <div className="flex justify-end pt-4">
+            <div className="flex justify-end pt-4">
                 <Pagination
+                    showSizeChanger={false}
                     current={currentPage}
                     pageSize={perPage}
                     total={totalPagination || 0}
@@ -366,7 +370,7 @@ const ManageCategory = () => {
                         setPerPage(pageSize)
                     }}
                 />
-            </div> */}
+            </div>
         </div>
     )
 }

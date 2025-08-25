@@ -5,6 +5,13 @@ import { baseApi } from "../../api/baseApi";
 
 const dashboardManageOrderApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        getOrderApi: builder.query({
+            query: ({per_page,page,status}) => ({
+                url: `/admin/allOrders?per_page=${per_page}&page=${page}&status=${status}`,
+                method: "GET",
+            }),
+            providesTags: ['manageOrder'],
+        }),
         updateStatusApi: builder.mutation({
             query: ({updateStatusInfo,id}) => ({
                 url: `/app/orders/${id}/status`,
@@ -36,4 +43,4 @@ const dashboardManageOrderApi = baseApi.injectEndpoints({
 })
 
 
-export const {} = dashboardManageOrderApi;
+export const {useGetOrderApiQuery} = dashboardManageOrderApi;

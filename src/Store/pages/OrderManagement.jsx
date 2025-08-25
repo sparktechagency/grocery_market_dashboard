@@ -5,6 +5,7 @@ import NewOrderManagementTable from '../../components/orderManagement/NewOrderMa
 import PendingOrderManagementTable from '../../components/orderManagement/PendingOrderManagementTable';
 import CompleteOrderManagement from '../../components/orderManagement/CompleteOrderManagement';
 import styles from './order.module.css';
+import { useGetOrderApiQuery } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
 
 const onChange = () => {
     // console.log();
@@ -16,6 +17,8 @@ const items = [
 ];
 const OrderManagement = () => {
 
+    const {data} = useGetOrderApiQuery()
+    console.log(data)
 
     return (
         <div className={`w-full mx-auto  ${styles.wrapper} ${styles.hoverUnActiveTabs}`}>

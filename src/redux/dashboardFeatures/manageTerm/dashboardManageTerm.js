@@ -14,8 +14,8 @@ const dashboardManageTermApi = baseApi.injectEndpoints({
             providesTags: ['manageTerm'],
         }),
         getAllTermApi: builder.query({
-            query: () => ({
-                url: `/admin/getAllTerms`,
+            query: ({ per_page, page}) => ({
+                url: `/admin/getAllTerms?per_page=${per_page}&page=${page}`,
                 method: "GET"
             }),
             providesTags: ['manageTerm'],
