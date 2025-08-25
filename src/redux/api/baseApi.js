@@ -15,6 +15,7 @@ export const baseApi = createApi({
     },
   }),
   tagTypes: [
+    "dashboardHome",
     "auth",
     "setting",
     "notification",
