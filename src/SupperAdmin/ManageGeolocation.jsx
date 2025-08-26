@@ -327,7 +327,7 @@ const ManageGeolocation = () => {
 
 
 
-      {/* <div className="flex justify-end pt-4">
+      <div className="flex justify-end pt-4">
         <Pagination
           showSizeChanger={false}
           current={currentPage}
@@ -338,7 +338,7 @@ const ManageGeolocation = () => {
             setPerPage(pageSize)
           }}
         />
-      </div> */}
+      </div>
 
       {/* add modal */}
       <Modal
