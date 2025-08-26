@@ -87,7 +87,7 @@ const NewOrderManagementTable = () => {
                     </div>
                     <div>
                         <Popconfirm
-                            title="Are you sure to delete this product?"
+                            title="Are you sure to delete this name?"
                             onConfirm={confirm}
                             onCancel={cancel}
                             okText="Yes"
@@ -224,46 +224,50 @@ const NewOrderManagementTable = () => {
                 onCancel={handleCancel}
                 footer={null}
             >
-                <div>
-                    <div className="bg-lowGray px-6 py-3 rounded-md mt-8 space-y-3">
-                        <p className="w-full text-center mb-4 font-PoppinsMedium text-lg">Customer Details</p>
-                        <div className="flex justify-between items-center">
-                            <div className="space-y-1   ">
-                                <p className="font-PoppinsSemiBold text-sm text-black">Name:</p>
-                                <p className="font-PoppinsSemiBold text-sm text-black">Email:</p>
-                                <p className="font-PoppinsSemiBold text-sm text-black">Phone</p>
-                                <p className="font-PoppinsSemiBold text-sm text-black">Address:</p>
+                <div className="pb-4">
+                    <div className='px-4 pt-8'>
+                        <div>
+                            <div className="bg-lowGray px-6 py-3 rounded-md mt-8 space-y-3">
+                                <p className="w-full text-center mb-4 font-PoppinsMedium text-lg">Customer Details</p>
+                                <div className="flex justify-between items-center">
+                                    <div className="space-y-1   ">
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Name:</p>
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Email:</p>
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Phone</p>
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Address:</p>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <p className="font-PoppinsRegular text-sm text-black">Md. Rich </p>
+                                        <p className="font-PoppinsRegular text-sm text-black">example@gmail.com</p>
+                                        <p className="font-PoppinsRegular text-sm text-black">+93256854756</p>
+                                        <p className="font-PoppinsRegular text-sm text-black">Road no. 10, Block-D, Rampura, Dhaka.</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="space-y-1">
-                                <p className="font-PoppinsRegular text-sm text-black">Md. Rich </p>
-                                <p className="font-PoppinsRegular text-sm text-black">example@gmail.com</p>
-                                <p className="font-PoppinsRegular text-sm text-black">+93256854756</p>
-                                <p className="font-PoppinsRegular text-sm text-black">Road no. 10, Block-D, Rampura, Dhaka.</p>
+                            <div className="bg-lowGray px-6 py-3 rounded-md mt-4 space-y-3">
+                                <p className="w-full text-center mb-4 font-PoppinsMedium text-lg ">Product details</p>
+                                <div className="flex justify-between items-center">
+                                    <div className="space-y-1   ">
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Name:</p>
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Quantity:</p>
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Price</p>
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Shipping cost:</p>
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Tax:</p>
+                                        <p className="font-PoppinsSemiBold text-sm text-black">Tax:</p>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <p className="font-PoppinsRegular text-sm text-black">Fresh Apple </p>
+                                        <p className="font-PoppinsRegular text-sm text-black">50kg</p>
+                                        <p className="font-PoppinsRegular text-sm text-black">$200</p>
+                                        <p className="font-PoppinsRegular text-sm text-black">$0.05</p>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div className="flex justify-between mt-0 items-center">
+                                    <p className="font-PoppinsSemiBold text-sm text-black">Total: </p>
+                                    <p className="font-PoppinsRegular text-sm text-black">$235.05 </p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="bg-lowGray px-6 py-3 rounded-md mt-4 space-y-3">
-                        <p className="w-full text-center mb-4 font-PoppinsMedium text-lg ">Product details</p>
-                        <div className="flex justify-between items-center">
-                            <div className="space-y-1   ">
-                                <p className="font-PoppinsSemiBold text-sm text-black">Name:</p>
-                                <p className="font-PoppinsSemiBold text-sm text-black">Quantity:</p>
-                                <p className="font-PoppinsSemiBold text-sm text-black">Price</p>
-                                <p className="font-PoppinsSemiBold text-sm text-black">Shipping cost:</p>
-                                <p className="font-PoppinsSemiBold text-sm text-black">Tax:</p>
-                                <p className="font-PoppinsSemiBold text-sm text-black">Tax:</p>
-                            </div>
-                            <div className="space-y-1">
-                                <p className="font-PoppinsRegular text-sm text-black">Fresh Apple </p>
-                                <p className="font-PoppinsRegular text-sm text-black">50kg</p>
-                                <p className="font-PoppinsRegular text-sm text-black">$200</p>
-                                <p className="font-PoppinsRegular text-sm text-black">$0.05</p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div className="flex justify-between mt-0 items-center">
-                            <p className="font-PoppinsSemiBold text-sm text-black">Total: </p>
-                            <p className="font-PoppinsRegular text-sm text-black">$235.05 </p>
                         </div>
                     </div>
                 </div>
@@ -283,7 +287,7 @@ const NewOrderManagementTable = () => {
                     <img className="w-52 h-52 mx-auto " src={successGif} alt="Success gif" />
                     <div className="w-full text-center">
                         <h6 className="font-PoppinsMedium text-xl text-primary">Order accepted</h6>
-                   
+
                     </div>
                 </div>
 

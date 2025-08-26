@@ -79,7 +79,7 @@ const StoreManagement = () => {
                     </div>
                     <div>
                         <Popconfirm
-                            title="Are you sure to delete this product?"
+                            title="Are you sure to delete this store?"
                             onConfirm={confirm}
                             okText="Yes"
                             cancelText="No"

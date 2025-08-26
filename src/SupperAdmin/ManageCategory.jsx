@@ -220,7 +220,7 @@ const ManageCategory = () => {
 
                                     <div>
                                         <Popconfirm
-                                            title="Are you sure to delete this product?"
+                                            title="Are you sure to delete this categorie?"
                                             onConfirm={() => handleDelete(item.id)}
                                             okText="Yes"
                                             cancelText="No"

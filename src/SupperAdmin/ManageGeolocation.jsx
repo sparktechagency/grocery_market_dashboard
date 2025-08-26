@@ -14,6 +14,7 @@ const ManageGeolocation = () => {
   const [editForm] = useForm()
   const [isAddModalOpen, setIsModalAddOpen] = useState(false);
   const [isEditModalOpen, setIsModalEditOpen] = useState(false);
+  const [viewDetailsModalOpen, setViewDetailsModalOpen] = useState(false);
   const [editId, setEditId] = useState('')
   const [searchText, setSearchText] = useState('')
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +33,8 @@ const ManageGeolocation = () => {
   const totalPagination = Geolocation?.data?.total
 
 
+
+  console.log(singleGLocationData)
 
 
 
@@ -135,6 +138,23 @@ const ManageGeolocation = () => {
   // ======= edit term end =================
 
 
+  // VIEW DETAILS
+  const handleViewDetails = async (id) => {
+    setEditId(id)
+    setViewDetailsModalOpen(true)
+  }
+
+  const handleOkViewDetails = () => {
+    setViewDetailsModalOpen(false)
+  }
+
+
+  const handleCancelViewDetailsModal = () => {
+    setViewDetailsModalOpen(false)
+  }
+
+
+
   // DELETE
   const handleDelete = async (id) => {
     try {
@@ -198,7 +218,9 @@ const ManageGeolocation = () => {
       render: (_, record) => (
         <Space size="middle">
           {/* view icon */}
-          <div >
+          <div className="cursor-pointer"
+            onClick={() => handleViewDetails(record.id)}
+          >
             <svg
               className="cursor-pointer"
               width="37"
@@ -226,7 +248,7 @@ const ManageGeolocation = () => {
 
           <div className="cursor-pointer">
             <Popconfirm
-              title="Are you sure to delete this product?"
+              title="Are you sure to delete this geolocation?"
 
               onConfirm={() => handleDelete(record.id)}
               okText="Yes"
@@ -526,12 +548,95 @@ const ManageGeolocation = () => {
           </div>
         </div>
       </Modal>
+
+
+
+
+      {/* view details modal */}
+      <Modal
+        centered
+        title={
+          <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+            Details geolocation
+          </div>
+        }
+        open={viewDetailsModalOpen}
+        onOk={handleOkViewDetails}
+        onCancel={handleCancelViewDetailsModal}
+        footer={null}
+        width={700}
+        className='custom-service-modal'>
+
+
+        <div className="pb-4">
+          <div className="px-4 pt-4">
+            <div>
+              <div className="bg-lowGray px-2 py-3 rounded-md mt-0 space-y-4">
+
+                {/* Address */}
+                <div className="flex items-center justify-between gap-4 border border-gray-300 px-3 py-2 rounded-md">
+                  <p className="font-PoppinsSemiBold text-sm text-black  w-40">
+                    Address:
+                  </p>
+                  <p className="font-PoppinsRegular text-xl font-medium text-black  flex-1 text-right">
+                    {singleGLocationData?.address || "---"}
+                  </p>
+                </div>
+
+                {/* City */}
+                <div className="flex items-center justify-between gap-4 border border-gray-300 px-3 py-2 rounded-md">
+                  <p className="font-PoppinsSemiBold text-sm text-black  w-40">
+                    City:
+                  </p>
+                  <p className="font-PoppinsRegular text-xl font-medium text-black  flex-1 text-right">
+                    {singleGLocationData?.city || "---"}
+                  </p>
+                </div>
+
+                {/* ZipCode */}
+                <div className="flex items-center justify-between gap-4 border border-gray-300 px-3 py-2 rounded-md">
+                  <p className="font-PoppinsSemiBold text-sm text-black  w-40">
+                    ZipCode:
+                  </p>
+                  <p className="font-PoppinsRegular text-xl font-medium text-black  flex-1 text-right">
+                    {singleGLocationData?.zipCode || "---"}
+                  </p>
+                </div>
+
+                {/* Latitude */}
+                <div className="flex items-center justify-between gap-4 border border-gray-300 px-3 py-2 rounded-md">
+                  <p className="font-PoppinsSemiBold text-sm text-black  w-40">
+                    Latitude:
+                  </p>
+                  <p className="font-PoppinsRegular text-xl font-medium text-black  flex-1 text-right">
+                    {singleGLocationData?.latitude || "---"}
+                  </p>
+                </div>
+
+                {/* Longitude */}
+                <div className="flex items-center justify-between gap-4 border border-gray-300 px-3 py-2 rounded-md">
+                  <p className="font-PoppinsSemiBold text-sm text-black  w-40">
+                    Longitude:
+                  </p>
+                  <p className="font-PoppinsRegular text-xl font-medium text-black  flex-1 text-right">
+                    {singleGLocationData?.longitude || "---"}
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </Modal>
     </>
   );
 };
 
 export default ManageGeolocation;
-
 
 
 

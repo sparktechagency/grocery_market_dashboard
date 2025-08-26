@@ -184,7 +184,7 @@ const SubscriptionsAdmin = () => {
                                                 </div>
                                                 <div>
                                                     <Popconfirm
-                                                        title="Are you sure to delete this product?"
+                                                        title="Are you sure to delete this subscription?"
                                                         onConfirm={confirm}
                                                         okText="Yes"
                                                         cancelText="No"

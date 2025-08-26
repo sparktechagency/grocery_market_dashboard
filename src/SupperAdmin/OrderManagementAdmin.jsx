@@ -83,7 +83,7 @@ const OrderManagementAdmin = () => {
                     </div>
                     <div>
                         <Popconfirm
-                            title="Are you sure to delete this product?"
+                            title="Are you sure to delete this name?"
                             onConfirm={confirm}
                             okText="Yes"
                             cancelText="No"
