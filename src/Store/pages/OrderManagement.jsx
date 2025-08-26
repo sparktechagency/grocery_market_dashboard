@@ -44,70 +44,24 @@
 
 
 import React, { useState } from 'react';
-import { Card, Table, Tag, Button, Space, Popconfirm } from 'antd';
+import { Card, Table, Tag, Button, Space, Popconfirm, Pagination } from 'antd';
+import { useGetOrderApiQuery, useUpdateNewStatusOrderApiMutation } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
+import toast from 'react-hot-toast';
 
 const OrderManagement = () => {
     const [activeFilter, setActiveFilter] = useState('new');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [perPage, setPerPage] = useState(8);
 
-    // Sample data - in a real app this would come from an API
-    const ordersData = [
-        {
-            key: '1',
-            customerName: 'Benjamin Willstam',
-            product: 'Fresh apple',
-            quantity: '50 kg',
-            price: '5300',
-            status: 'new',
-        },
-        {
-            key: '2',
-            customerName: 'Benjamin Willstam',
-            product: 'Fresh apple',
-            quantity: '50 kg',
-            price: '5200',
-            status: 'new',
-        },
-        {
-            key: '3',
-            customerName: 'Benjamin Willstam',
-            product: 'Fresh apple',
-            quantity: '50 kg',
-            price: '5200',
-            status: 'pending',
-        },
-        {
-            key: '4',
-            customerName: 'Benjamin Willstam',
-            product: 'Fresh apple',
-            quantity: '50 kg',
-            price: '5200',
-            status: 'pending',
-        },
-        {
-            key: '5',
-            customerName: 'Training Video Part 5',
-            product: 'Fresh apple',
-            quantity: '50 kg',
-            price: '5200',
-            status: 'complete',
-        },
-        {
-            key: '6',
-            customerName: 'Training Video Part 6',
-            product: 'Fresh apple',
-            quantity: '50 kg',
-            price: '5200',
-            status: 'complete',
-        },
-        {
-            key: '7',
-            customerName: 'Training Video Part 7',
-            product: 'Fresh apple',
-            quantity: '50 kg',
-            price: '5200',
-            status: 'complete',
-        },
-    ];
+
+
+    const { data: getOrder, refetch } = useGetOrderApiQuery({ per_page: perPage, page: currentPage, status: activeFilter });
+    const allOrderData = getOrder?.data
+    // console.log(allOrderData)
+    const totalPagination = getOrder?.total
+
+
+    const [updateNewStatusOrderApi] = useUpdateNewStatusOrderApiMutation()
 
     const columns = [
         {
@@ -116,18 +70,17 @@ const OrderManagement = () => {
             key: "Name",
             render: (_, record) => (
                 <div className="flex items-center gap-3">
-                    <img className="rounded-full h-14 w-14" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="image" />
-                    <p className="font-bold text-xl text-black flex items-center">{record?.customerName}</p>
+                    <img className="rounded-full h-14 w-14" src={record?.user?.photo} alt="image" />
+                    <p className=" text-black text-xl flex items-center">{record?.user?.name}</p>
                 </div>
             ),
         },
 
-
         {
-            title: 'Product',
-            dataIndex: 'product',
-            key: 'product',
-            render: (product) => <p className='text-primary text-xl font-bold'>{product}</p>,
+            title: 'Order Number',
+            dataIndex: 'order_number',
+            key: 'order_number',
+            render: (order_number) => <p className='text-primary text-xl font-bold'>{order_number}</p>,
         },
 
         {
@@ -135,6 +88,12 @@ const OrderManagement = () => {
             dataIndex: 'price',
             key: 'price',
             render: (price) => <p className='text-primary text-xl font-medium'>${price}</p>,
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            render: (status,record) => <p className='text-primary text-xl font-medium'>{status} ======== {record?.id}</p>,
         },
 
 
@@ -146,10 +105,11 @@ const OrderManagement = () => {
                 activeFilter === 'new' ? (
                     <Space size="middle">
                         {/* view icon */}
-                        <div 
+                        <div
                         // onClick={showModal}
                         >
                             <svg
+                                className='cursor-pointer'
                                 width="37"
                                 height="37"
                                 viewBox="0 0 37 37"
@@ -164,10 +124,13 @@ const OrderManagement = () => {
                             </svg>
                         </div>
 
-                        <div 
+                        <div
                         // onClick={showEditModal}
                         >
-                            <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg
+                                className='cursor-pointer'
+                                onClick={() => handleStatusChangeNew(record.id)}
+                                width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="37" height="37" rx="5" fill="#E4FFEB" />
                                 <path d="M15.6933 27L8 19.4158L9.92331 17.5198L15.6933 23.2079L28.0767 11L30 12.8961L15.6933 27Z" fill="#23AA49" />
                             </svg>
@@ -175,11 +138,10 @@ const OrderManagement = () => {
 
 
                         </div>
-                        <div>
+                        <div className='cursor-pointer'>
                             <Popconfirm
-                                title="Are you sure to delete this name?"
-                                // onConfirm={confirm}
-                                // onCancel={cancel}
+                                title="Are you sure to changes this order status?"
+                                onConfirm={() => handleCancelNew(record.id)}
                                 okText="Yes"
                                 cancelText="No"
                             >
@@ -200,12 +162,13 @@ const OrderManagement = () => {
                         </div>
                     </Space>
                 ) : activeFilter === 'pending' ? (
-                      <Space size="middle">
+                    <Space size="middle">
                         {/* view icon */}
-                        <div 
+                        <div
                         // onClick={showModal}
                         >
                             <svg
+                                className='cursor-pointer'
                                 width="37"
                                 height="37"
                                 viewBox="0 0 37 37"
@@ -220,9 +183,12 @@ const OrderManagement = () => {
                             </svg>
                         </div>
 
-                        <div>
+
+                        <div
+                            className='cursor-pointer'
+                        >
                             <Popconfirm
-                                title="Are you sure to delete this name?"
+                                title="Are you sure to changes this name?"
                                 // onConfirm={confirm}
                                 // onCancel={cancel}
                                 okText="Yes"
@@ -246,15 +212,57 @@ const OrderManagement = () => {
                     </Space>
                 ) : activeFilter === 'complete' ? (
                     <div>
-                      <button className='bg-green-100 text-green-600 font-bold px-4 py-2 rounded-md'>Delivered</button>
+                        <button className='bg-green-100 text-green-600 font-bold px-4 py-2 rounded-md'>Delivered</button>
+                    </div>
+                ) : activeFilter === 'cancel' ? (
+                    <div>
+                    
+                    
                     </div>
                 ) : null
         },
     ];
 
-    const filteredOrders = ordersData.filter(order =>
-        activeFilter === 'all' ? true : order.status === activeFilter
-    );
+
+
+// =============== order confirm status add ====================
+    const handleStatusChangeNew = async (id) => {
+        const formData = new FormData();
+        formData.append("status", "order_confirmed");
+
+        try {
+            const res = await updateNewStatusOrderApi({ updateNewStatusInfo:formData, id }).unwrap();
+            console.log(res)
+            if (res?.success === true) {
+                toast.success(res?.message);
+                refetch();
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    }
+
+
+
+    //================== cancel order ================
+    const handleCancelNew = async (id) => {
+        const formData = new FormData();
+        formData.append("status", "order_cancelled");
+
+        try {
+            const res = await updateNewStatusOrderApi({ updateNewStatusInfo:formData, id }).unwrap();
+            console.log(res)
+            if (res?.success === true) {
+                toast.success(res?.message);
+                refetch();
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    }
+
+
+
 
 
 
@@ -262,10 +270,10 @@ const OrderManagement = () => {
     return (
         <div className="min-h-screen  p-6">
             <div className="">
-                <div className="w-full  grid grid-cols-3 gap-4 mb-6">
+                <div className="w-full flex justify-center items-center gap-4 mb-10 mt-4">
                     <button
                         type={activeFilter === 'new' ? 'primary' : ''}
-                        className={`px-4 py-4 text-2xl font-bold rounded ${activeFilter === 'new'
+                        className={`w-[350px] px-4 py-4 text-2xl font-bold rounded ${activeFilter === 'new'
                             ? 'bg-green-600 text-white'
                             : 'border border-gray-300'
                             }`}
@@ -275,7 +283,7 @@ const OrderManagement = () => {
                     </button>
                     <button
                         type={activeFilter === 'pending' ? 'primary' : ''}
-                        className={`px-4 py-4 text-2xl font-bold rounded ${activeFilter === 'pending'
+                        className={`w-[350px] px-4 py-4 text-2xl font-bold rounded ${activeFilter === 'pending'
                             ? 'bg-green-600 text-white'
                             : 'border border-gray-300'
                             }`}
@@ -285,13 +293,23 @@ const OrderManagement = () => {
                     </button>
                     <button
                         type={activeFilter === 'complete' ? 'primary' : ''}
-                        className={`px-4 py-4 text-2xl font-bold rounded ${activeFilter === 'complete'
+                        className={`w-[350px] px-4 py-4 text-2xl font-bold rounded ${activeFilter === 'complete'
                             ? 'bg-green-600 text-white'
                             : 'border border-gray-300'
                             }`}
                         onClick={() => setActiveFilter('complete')}
                     >
                         Complete
+                    </button>
+                    <button
+                        type={activeFilter === 'cancel' ? 'primary' : ''}
+                        className={`w-[350px] px-4 py-4 text-2xl font-bold rounded ${activeFilter === 'cancel'
+                            ? 'bg-green-600 text-white'
+                            : 'border border-gray-300'
+                            }`}
+                        onClick={() => setActiveFilter('cancel')}
+                    >
+                        Cancel
                     </button>
                 </div>
 
@@ -300,12 +318,27 @@ const OrderManagement = () => {
 
                 <Table
                     columns={columns}
-                    dataSource={filteredOrders}
-                    pagination={{ pageSize: 5 }}
+                    dataSource={allOrderData}
+                    pagination={false}
                     className="rounded-lg overflow-hidden"
                 />
 
 
+            </div>
+
+
+            {/* pagination */}
+            <div className="flex justify-end pt-4">
+                <Pagination
+                    showSizeChanger={false}
+                    current={currentPage}
+                    pageSize={perPage}
+                    total={totalPagination || 0}
+                    onChange={(page, pageSize) => {
+                        setCurrentPage(page)
+                        setPerPage(pageSize)
+                    }}
+                />
             </div>
         </div>
     );

@@ -6,7 +6,7 @@ import ImageProfile from "../assets/images/profileImage.jpg";
 
 import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
-import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite } from "../assets/icon";
+import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, StoreIconBlack, StoreIconWhite } from "../assets/icon";
 import { useGetTotalNotificationApiQuery } from "../redux/dashboardFeatures/notification/dashboardNotificationApi";
 
 const { Header, Sider, Content } = Layout;
@@ -114,6 +114,18 @@ const shopperItems = [
         title: "Promotions",
         icon: IconPromotionsBlack,
         activeIcon: IconPromotionsWhite,
+    },
+        {
+        path: "/allProducts",
+        title: "All products",
+        icon: ProductIconBlack,
+        activeIcon: ProductIconWhite,
+    },
+    {
+        path: "/allStore",
+        title: "All store",
+        icon: StoreIconBlack,
+        activeIcon: StoreIconWhite,
     },
     {
         path: "/settings",
@@ -240,6 +252,28 @@ const StoreDashboardSidebar = () => {
                         </h1>
                         <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
                             You can promotion your store/products through slider images from here.
+                        </p>
+                    </>
+                );
+                            case "/allProducts":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            All products
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            Manage your entire product catalog in one place.
+                        </p>
+                    </>
+                );
+            case "/allStore":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            All store
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                           Manage all your store locations and their settings in one place.
                         </p>
                     </>
                 );

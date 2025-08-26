@@ -24,6 +24,8 @@ import SubscriptionsAdmin from "../SupperAdmin/SubscriptionsAdmin";
 import SubscribeShopper from "../SupperAdmin/SubscribeShopper";
 import ManageGeolocation from "../SupperAdmin/ManageGeolocation";
 import CreateNewPassword from "../Auth/CreateNewPassword";
+import AllProducts from "../Store/pages/AllProducts";
+import AllStore from "../Store/pages/AllStore";
 
 export const router = createBrowserRouter([
  
@@ -55,6 +57,14 @@ export const router = createBrowserRouter([
             {
                 path: "/promotions",
                 element: <Promotions />
+            },
+            {
+                path: "/allProducts",
+                element: <AllProducts />
+            },
+            {
+                path: "/allStore",
+                element: <AllStore />
             },
             {
                 path: "/subscriptions",
