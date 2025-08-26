@@ -20,9 +20,31 @@ const dashboardGeoLocationApi = baseApi.injectEndpoints({
             }),
             providesTags: ['geolocation'],
         }),
+        singleGeoLocationApi: builder.query({
+            query: (id) => ({
+                url: `/admin/showGeolocation/${id}`,
+                method: "GET",
+            }),
+            providesTags: ['geolocation'],
+        }),
+        updateGeoLocationApi: builder.mutation({
+            query: ({editGLocationInfo,id}) => ({
+                url: `/admin/updateGeolocation/${id}`,
+                method: "POST",
+                body:editGLocationInfo,
+            }),
+            providesTags: ['geolocation'],
+        }),
+        deleteGeoLocationApi: builder.mutation({
+            query: (id) => ({
+                url: `/admin/deleteGeolocation/${id}`,
+                method: "DELETE",
+            }),
+            providesTags: ['geolocation'],
+        }),
 
     })
 })
 
 
-export const {useAddGeoLocationApiMutation,useGetGeoLocationApiQuery, } = dashboardGeoLocationApi;
+export const {useAddGeoLocationApiMutation,useGetGeoLocationApiQuery,useSingleGeoLocationApiQuery,useUpdateGeoLocationApiMutation,useDeleteGeoLocationApiMutation } = dashboardGeoLocationApi;

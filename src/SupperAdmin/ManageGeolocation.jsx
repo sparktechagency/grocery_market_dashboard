@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, Space, Image, Popconfirm, message, Modal, Form, Input, Pagination } from "antd";
 import { IconSearch } from "../assets/icon";
 import { useForm } from "antd/es/form/Form";
-import { useAddGeoLocationApiMutation, useGetGeoLocationApiQuery } from "../redux/dashboardFeatures/geoLocation/dashboardGeoLocation";
+import { useAddGeoLocationApiMutation, useDeleteGeoLocationApiMutation, useGetGeoLocationApiQuery, useSingleGeoLocationApiQuery, useUpdateGeoLocationApiMutation } from "../redux/dashboardFeatures/geoLocation/dashboardGeoLocation";
 import toast from "react-hot-toast";
 
 
@@ -14,26 +14,41 @@ const ManageGeolocation = () => {
   const [editForm] = useForm()
   const [isAddModalOpen, setIsModalAddOpen] = useState(false);
   const [isEditModalOpen, setIsModalEditOpen] = useState(false);
-  const [editId, setEditId] = useState()
+  const [editId, setEditId] = useState('')
   const [searchText, setSearchText] = useState('')
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(8);
 
 
   const [AddGeoLocationApi] = useAddGeoLocationApiMutation()
+  const [updateGeoLocationApi] = useUpdateGeoLocationApiMutation()
+  const [deleteGeoLocationApi] = useDeleteGeoLocationApiMutation()
 
-  const { data: Geolocation, refetch } = useGetGeoLocationApiQuery({ search:searchText ,per_page: perPage, page: currentPage, });
+  const { data: getSingleGeoLocation } = useSingleGeoLocationApiQuery(editId)
+  const singleGLocationData = getSingleGeoLocation?.geolocation
+
+  const { data: Geolocation, refetch } = useGetGeoLocationApiQuery({ search: searchText, per_page: perPage, page: currentPage, });
   const geoLocationData = Geolocation?.data?.data
   const totalPagination = Geolocation?.data?.total
 
 
-  console.log(geoLocationData)
 
 
 
 
-
-
+  // DEFAULT DATA SHOW IN UPDATE MODAL
+  useEffect(() => {
+    if (singleGLocationData) {
+      editForm.setFieldsValue({
+        ...singleGLocationData,
+        address: singleGLocationData?.address,
+        city: singleGLocationData?.city,
+        zipCode: singleGLocationData?.zipCode,
+        latitude: singleGLocationData?.latitude,
+        longitude: singleGLocationData?.longitude,
+      });
+    }
+  }, [singleGLocationData, editForm]);
 
 
 
@@ -84,25 +99,29 @@ const ManageGeolocation = () => {
 
   // ======= edit term start ===============
   const showModalEdit = (id) => {
-    // setEditId(id)
+    setEditId(id)
     setIsModalEditOpen(true);
   };
 
   const onFinishTwo = async (values) => {
-    // const formData = new FormData();
-    // formData.append("name", values?.name);
+    const formData = new FormData();
+    formData.append("address", values?.address);
+    formData.append("city", values?.city);
+    formData.append("zipCode", values?.zipCode);
+    formData.append("latitude", values?.latitude);
+    formData.append("longitude", values?.longitude);
 
 
-    // try {
-    //     const res = await updateTermApi({ updateTermInfo: formData, id: editId }).unwrap();
-    //     if (res?.status === true) {
-    //         toast.success(res?.message);
-    //         setIsModalEditOpen(false);
-    //         refetch()
-    //     }
-    // } catch (error) {
-    //     toast.error(error.data?.message)
-    // }
+    try {
+      const res = await updateGeoLocationApi({ editGLocationInfo: formData, id: editId }).unwrap();
+      if (res?.status === true) {
+        toast.success(res?.message);
+        setIsModalEditOpen(false);
+        refetch()
+      }
+    } catch (error) {
+      toast.error(error.data?.message)
+    }
   }
 
 
@@ -116,8 +135,18 @@ const ManageGeolocation = () => {
   // ======= edit term end =================
 
 
-
-
+  // DELETE
+  const handleDelete = async (id) => {
+    try {
+      const res = await deleteGeoLocationApi(id).unwrap();
+      if (res?.status === true) {
+        toast.success(res?.message);
+        refetch();
+      }
+    } catch (error) {
+      toast.error(error.data?.message)
+    }
+  }
 
 
 
@@ -186,7 +215,7 @@ const ManageGeolocation = () => {
             </svg>
           </div>
 
-          <div onClick={() => showModalEdit()}>
+          <div onClick={() => showModalEdit(record.id)}>
             <svg className="cursor-pointer"
               width="37" height="37" viewBox="0 0 62 60" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="62" height="60" rx="5" fill="#E4FFEB" />
@@ -195,10 +224,11 @@ const ManageGeolocation = () => {
           </div>
 
 
-          <div>
+          <div className="cursor-pointer">
             <Popconfirm
               title="Are you sure to delete this product?"
 
+              onConfirm={() => handleDelete(record.id)}
               okText="Yes"
               cancelText="No"
             >
