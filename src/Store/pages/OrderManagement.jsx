@@ -1,56 +1,11 @@
-// import React from 'react';
-// import "./order.module.css";
-// import { Segmented, Tabs } from 'antd';
-// import NewOrderManagementTable from '../../components/orderManagement/NewOrderManagementTable';
-// import PendingOrderManagementTable from '../../components/orderManagement/PendingOrderManagementTable';
-// import CompleteOrderManagement from '../../components/orderManagement/CompleteOrderManagement';
-// import styles from './order.module.css';
-// import { useGetOrderApiQuery } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
-
-// const onChange = () => {
-//     // console.log();
-// };
-// const items = [
-//     { key: '1', label: <div className=" ">New</div>, children: <NewOrderManagementTable />, },
-//     { key: '2', label: <div className="   ">Pending </div>, children: <PendingOrderManagementTable /> },
-//     { key: '3', label: <div className="">Complete</div>, children: <CompleteOrderManagement /> },
-// ];
-// const OrderManagement = () => {
-
-//     const {data:getOrder} = useGetOrderApiQuery()
-//     const orderData = getOrder?.data
-//     console.log(orderData)
-
-
-
-//     return (
-//         <div className={`w-full mx-auto  ${styles.wrapper} ${styles.hoverUnActiveTabs}`}>
-
-//             <Tabs
-//                 defaultActiveKey="1"
-//                 items={items}
-//                 onChange={onChange}
-//                 indicator={false}
-//                 centered
-
-
-//             />
-//         </div>
-//     );
-// }
-
-// export default OrderManagement;
-
-
 
 import React, { useState } from 'react';
 import { Card, Table, Space, Popconfirm, Pagination, Modal } from 'antd';
 import { useGetOrderApiQuery, useUpdateNewStatusOrderApiMutation } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
 import toast from 'react-hot-toast';
 
-import { Avatar, Badge, Divider } from "antd";
+import { Avatar,} from "antd";
 import {
-    CalendarOutlined,
     ShoppingOutlined,
     UserOutlined,
     DollarOutlined,
@@ -64,7 +19,9 @@ const OrderManagement = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(8);
     const [newDetailsId, setNewDetailsId] = useState('')
+    const [pendingDetailsId, setPendingDetailsId] = useState('')
     const [isOpenNewDetails, setIsOpenNewDetails] = useState(false)
+    const [isOpenPendingDetails, setIsOpenPendingDetails] = useState(false)
 
 
 
@@ -78,7 +35,8 @@ const OrderManagement = () => {
 
 
     // single order details 
-    const singleOrderData = allOrderData?.find((item) => item?.id === newDetailsId);
+    const singleNewOrderData = allOrderData?.find((item) => item?.id === newDetailsId);
+    const singlePendingOrderData = allOrderData?.find((item) => item?.id === pendingDetailsId);
 
 
 
@@ -189,7 +147,7 @@ const OrderManagement = () => {
                     <Space size="middle">
                         {/* view icon */}
                         <div
-                        // onClick={showModal}
+                      onClick={() => showPendingDetailsModal(record?.id)}
                         >
                             <svg
                                 className='cursor-pointer'
@@ -213,8 +171,7 @@ const OrderManagement = () => {
                         >
                             <Popconfirm
                                 title="Are you sure to changes this name?"
-                                // onConfirm={confirm}
-                                // onCancel={cancel}
+                            onConfirm={() => handleCancelPending(record.id)}
                                 okText="Yes"
                                 cancelText="No"
                             >
@@ -236,7 +193,7 @@ const OrderManagement = () => {
                     </Space>
                 ) : activeFilter === 'complete' ? (
                     <div>
-                        <button className='bg-green-100 text-green-600 font-bold px-4 py-2 rounded-md'>Delivered</button>
+                        <button className='cursor-default bg-green-100 text-green-600 font-bold px-4 py-2 rounded-md'>Delivered</button>
                     </div>
                 ) : activeFilter === 'cancel' ? (
                     <div>
@@ -267,7 +224,7 @@ const OrderManagement = () => {
 
 
 
-    // =============== order confirm status add ====================
+    // =============== New order confirm status add ====================
     const handleStatusChangeNew = async (id) => {
         const formData = new FormData();
         formData.append("status", "order_confirmed");
@@ -286,7 +243,7 @@ const OrderManagement = () => {
 
 
 
-    //================== cancel order ================
+    //================== New cancel order ================
     const handleCancelNew = async (id) => {
         const formData = new FormData();
         formData.append("status", "order_cancelled");
@@ -302,6 +259,48 @@ const OrderManagement = () => {
             toast.error(error.data?.message)
         }
     }
+
+
+
+
+
+
+
+
+
+// =============== Pending order Modal Details ====================
+  const showPendingDetailsModal = (id) => {
+        setPendingDetailsId(id)
+        setIsOpenPendingDetails(true)
+    }
+
+        const handleOkPendingModal = () => {
+        setIsOpenPendingDetails(false)
+    }
+
+    const handleCancelPendingModal = () => {
+        setIsOpenPendingDetails(false)
+    }
+
+
+ //================== Pending cancel order ================
+   const handleCancelPending = async (id) => {
+        const formData = new FormData();
+        formData.append("status", "order_cancelled");
+
+        try {
+            const res = await updateNewStatusOrderApi({ updateNewStatusInfo: formData, id }).unwrap();
+            console.log(res)
+            if (res?.success === true) {
+                toast.success(res?.message);
+                refetch();
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+    }
+
+
 
 
     return (
@@ -380,7 +379,7 @@ const OrderManagement = () => {
 
 
 
-            {/* ORDER DETAILS NEW */}
+            {/* NEW ORDER DETAILS */}
             <Modal
                 centered
                 title={
@@ -411,13 +410,13 @@ const OrderManagement = () => {
                                 <div className="flex items-center gap-4">
                                     <Avatar
                                         size={48}
-                                        src={singleOrderData?.user?.photo}
+                                        src={singleNewOrderData?.user?.photo}
                                         alt='photo'
                                     >
                                     </Avatar>
                                     <div>
-                                        <p className="font-medium">{singleOrderData?.user?.name}</p>
-                                        <p className="text-sm text-gray-500">Customer ID : {singleOrderData?.user?.id}</p>
+                                        <p className="font-medium">{singleNewOrderData?.user?.name}</p>
+                                        <p className="text-sm text-gray-500">Customer ID : {singleNewOrderData?.user?.id}</p>
                                     </div>
                                 </div>
                             </Card>
@@ -434,24 +433,24 @@ const OrderManagement = () => {
                                 extra={
                                     <div className='bg-green-100 px-2 py-1 rounded-md text-green-600 font-semibold uppercase'>
 
-                                        {singleOrderData?.status}
+                                        {singleNewOrderData?.status}
                                     </div>
                                 }
                             >
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <div className="flex justify-between">
-                                            <span className="text-gray-500">Order ID : {singleOrderData?.id}</span>
+                                            <span className="text-gray-500">Order ID : {singleNewOrderData?.id}</span>
 
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-gray-500">Order Number : {singleOrderData?.order_number}</span>
+                                            <span className="text-gray-500">Order Number : {singleNewOrderData?.order_number}</span>
 
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-500">
-                                                Created: {singleOrderData?.created_at
-                                                    ? moment(singleOrderData.created_at).format('ll')
+                                                Created: {singleNewOrderData?.created_at
+                                                    ? moment(singleNewOrderData.created_at).format('ll')
                                                     : ''}
                                             </span>
 
@@ -460,11 +459,11 @@ const OrderManagement = () => {
                                     <div className="space-y-2">
                                         <div className="flex justify-between">
                                             <span className="text-gray-500">Tax : </span>
-                                            <span className="font-medium">$ {singleOrderData?.tax}</span>
+                                            <span className="font-medium">$ {singleNewOrderData?.tax}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-gray-500">Delivery : </span>
-                                            <span className="font-medium">$ {singleOrderData?.delivery_charges}</span>
+                                            <span className="font-medium">$ {singleNewOrderData?.delivery_charges}</span>
                                         </div>
 
                                     </div>
@@ -477,7 +476,7 @@ const OrderManagement = () => {
                                 title={
                                     <div className="flex items-center gap-2">
                                         <ShoppingOutlined />
-                                        Total Order ({singleOrderData?.order_items?.length})
+                                        Total Order ({singleNewOrderData?.order_items?.length})
                                     </div>
                                 }>
 
@@ -489,7 +488,150 @@ const OrderManagement = () => {
                                         scrollbarWidth: "thin",
                                         msOverflowStyle: "auto",
                                     }}>
-                                    {singleOrderData?.order_items?.map((item) => (
+                                    {singleNewOrderData?.order_items?.map((item) => (
+
+                                        <div key={item.id}>
+                                            <div className="flex items-start gap-4">
+                                                <div className=" rounded-lg flex items-center  justify-center">
+                                                    <img src={item.images} alt=""
+                                                        className='w-[50px] h-[50px]  rounded-full'
+                                                    />
+                                                </div>
+                                                <div className="flex-1 space-y-1">
+                                                    <h4 className="font-medium leading-tight">{item.product_name}</h4>
+                                                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                                                        <span>Product ID: {item.product_id}</span>
+                                                        <span>Qty: {item.quantity}</span>
+                                                        <span>Unit Price: ${item.unit_price.toFixed(2)}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right mr-3">
+                                                    <p className="font-medium">${item.total_price.toFixed(2)}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    ))}
+
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+
+
+
+            {/* PENDING ORDER DETAILS */}
+            <Modal
+                centered
+                title={
+                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Pending Details Information
+                    </div>
+                }
+                open={isOpenPendingDetails}
+                onOk={handleOkPendingModal}
+                onCancel={handleCancelPendingModal}
+                footer={null}
+                width={800}
+                className='custom-service-modal'>
+
+
+                <div className="pb-4">
+                    <div className='px-4 pt-8'>
+                        <div className="space-y-6">
+                            {/* Customer Information */}
+                            <Card
+                                title={
+                                    <div className="flex items-center gap-2">
+                                        <UserOutlined />
+                                        Customer Information
+                                    </div>
+                                }
+                            >
+                                <div className="flex items-center gap-4">
+                                    <Avatar
+                                        size={48}
+                                        src={singlePendingOrderData?.user?.photo}
+                                        alt='photo'
+                                    >
+                                    </Avatar>
+                                    <div>
+                                        <p className="font-medium">{singlePendingOrderData?.user?.name}</p>
+                                        <p className="text-sm text-gray-500">Customer ID : {singlePendingOrderData?.user?.id}</p>
+                                    </div>
+                                </div>
+                            </Card>
+
+
+                            {/* Order Header */}
+                            <Card
+                                title={
+                                    <div className="flex items-center gap-2">
+                                        <DollarOutlined />
+                                        Order Summary
+                                    </div>
+                                }
+                                extra={
+                                    <div className='bg-green-100 px-2 py-1 rounded-md text-green-600 font-semibold uppercase'>
+
+                                        {singlePendingOrderData?.status}
+                                    </div>
+                                }
+                            >
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Order ID : {singlePendingOrderData?.id}</span>
+
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Order Number : {singlePendingOrderData?.order_number}</span>
+
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gray-500">
+                                                Created: {singlePendingOrderData?.created_at
+                                                    ? moment(singlePendingOrderData.created_at).format('ll')
+                                                    : ''}
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Tax : </span>
+                                            <span className="font-medium">$ {singlePendingOrderData?.tax}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Delivery : </span>
+                                            <span className="font-medium">$ {singlePendingOrderData?.delivery_charges}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </Card>
+
+
+                            {/* Order Items */}
+                            <Card
+                                title={
+                                    <div className="flex items-center gap-2">
+                                        <ShoppingOutlined />
+                                        Total Order ({singlePendingOrderData?.order_items?.length})
+                                    </div>
+                                }>
+
+
+
+
+                                <div className="space-y-4 h-[130px] overflow-y-auto"
+                                    style={{
+                                        scrollbarWidth: "thin",
+                                        msOverflowStyle: "auto",
+                                    }}>
+                                    {singlePendingOrderData?.order_items?.map((item) => (
 
                                         <div key={item.id}>
                                             <div className="flex items-start gap-4">
