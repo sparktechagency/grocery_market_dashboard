@@ -44,9 +44,20 @@
 
 
 import React, { useState } from 'react';
-import { Card, Table, Tag, Button, Space, Popconfirm, Pagination } from 'antd';
+import { Card, Table, Space, Popconfirm, Pagination, Modal } from 'antd';
 import { useGetOrderApiQuery, useUpdateNewStatusOrderApiMutation } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
 import toast from 'react-hot-toast';
+
+import { Avatar, Badge, Divider } from "antd";
+import {
+    CalendarOutlined,
+    ShoppingOutlined,
+    UserOutlined,
+    DollarOutlined,
+} from "@ant-design/icons";
+import moment from 'moment';
+
+
 
 const OrderManagement = () => {
     const [activeFilter, setActiveFilter] = useState('new');
@@ -59,11 +70,21 @@ const OrderManagement = () => {
 
     const { data: getOrder, refetch } = useGetOrderApiQuery({ per_page: perPage, page: currentPage, status: activeFilter });
     const allOrderData = getOrder?.data
-    // console.log(allOrderData)
+
     const totalPagination = getOrder?.total
 
 
     const [updateNewStatusOrderApi] = useUpdateNewStatusOrderApiMutation()
+
+
+    // single order details 
+    const singleOrderData = allOrderData?.find((item) => item?.id === newDetailsId);
+
+
+
+
+
+
 
     const columns = [
         {
@@ -82,7 +103,7 @@ const OrderManagement = () => {
             title: 'Order Number',
             dataIndex: 'order_number',
             key: 'order_number',
-            render: (order_number) => <p className='text-primary text-xl font-bold'>{order_number}</p>,
+            render: (order_number) => <p className='text-primary text-lg font-semibold'>{order_number}</p>,
         },
 
         {
@@ -95,7 +116,8 @@ const OrderManagement = () => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            render: (status, record) => <p className='text-primary text-xl font-medium'>{status} ======== {record?.id}</p>,
+            render: (status, record) => <p className='text-primary text-xl font-medium'>{status}</p>,
+            // render: (status, record) => <p className='text-primary text-xl font-medium'>{status} ========== {record?.id}</p>,
         },
 
 
@@ -233,6 +255,18 @@ const OrderManagement = () => {
     }
 
 
+    const handleOkNewModal = () => {
+        setIsOpenNewDetails(false)
+    }
+
+    const handleCancelNewModal = () => {
+        setIsOpenNewDetails(false)
+    }
+
+
+
+
+
     // =============== order confirm status add ====================
     const handleStatusChangeNew = async (id) => {
         const formData = new FormData();
@@ -268,11 +302,6 @@ const OrderManagement = () => {
             toast.error(error.data?.message)
         }
     }
-
-
-
-
-
 
 
     return (
@@ -351,12 +380,146 @@ const OrderManagement = () => {
 
 
 
+            {/* ORDER DETAILS NEW */}
+            <Modal
+                centered
+                title={
+                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Order Details Information
+                    </div>
+                }
+                open={isOpenNewDetails}
+                onOk={handleOkNewModal}
+                onCancel={handleCancelNewModal}
+                footer={null}
+                width={800}
+                className='custom-service-modal'>
+
+
+                <div className="pb-4">
+                    <div className='px-4 pt-8'>
+                        <div className="space-y-6">
+                            {/* Customer Information */}
+                            <Card
+                                title={
+                                    <div className="flex items-center gap-2">
+                                        <UserOutlined />
+                                        Customer Information
+                                    </div>
+                                }
+                            >
+                                <div className="flex items-center gap-4">
+                                    <Avatar
+                                        size={48}
+                                        src={singleOrderData?.user?.photo}
+                                        alt='photo'
+                                    >
+                                    </Avatar>
+                                    <div>
+                                        <p className="font-medium">{singleOrderData?.user?.name}</p>
+                                        <p className="text-sm text-gray-500">Customer ID : {singleOrderData?.user?.id}</p>
+                                    </div>
+                                </div>
+                            </Card>
+
+
+                            {/* Order Header */}
+                            <Card
+                                title={
+                                    <div className="flex items-center gap-2">
+                                        <DollarOutlined />
+                                        Order Summary
+                                    </div>
+                                }
+                                extra={
+                                    <div className='bg-green-100 px-2 py-1 rounded-md text-green-600 font-semibold uppercase'>
+
+                                        {singleOrderData?.status}
+                                    </div>
+                                }
+                            >
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Order ID : {singleOrderData?.id}</span>
+
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Order Number : {singleOrderData?.order_number}</span>
+
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gray-500">
+                                                Created: {singleOrderData?.created_at
+                                                    ? moment(singleOrderData.created_at).format('ll')
+                                                    : ''}
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Tax : </span>
+                                            <span className="font-medium">$ {singleOrderData?.tax}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Delivery : </span>
+                                            <span className="font-medium">$ {singleOrderData?.delivery_charges}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </Card>
+
+
+                            {/* Order Items */}
+                            <Card
+                                title={
+                                    <div className="flex items-center gap-2">
+                                        <ShoppingOutlined />
+                                        Total Order ({singleOrderData?.order_items?.length})
+                                    </div>
+                                }>
 
 
 
 
+                                <div className="space-y-4 h-[130px] overflow-y-auto"
+                                    style={{
+                                        scrollbarWidth: "thin",
+                                        msOverflowStyle: "auto",
+                                    }}>
+                                    {singleOrderData?.order_items?.map((item) => (
 
-            
+                                        <div key={item.id}>
+                                            <div className="flex items-start gap-4">
+                                                <div className=" rounded-lg flex items-center  justify-center">
+                                                    <img src={item.images} alt=""
+                                                        className='w-[50px] h-[50px]  rounded-full'
+                                                    />
+                                                </div>
+                                                <div className="flex-1 space-y-1">
+                                                    <h4 className="font-medium leading-tight">{item.product_name}</h4>
+                                                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                                                        <span>Product ID: {item.product_id}</span>
+                                                        <span>Qty: {item.quantity}</span>
+                                                        <span>Unit Price: ${item.unit_price.toFixed(2)}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right mr-3">
+                                                    <p className="font-medium">${item.total_price.toFixed(2)}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    ))}
+
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 };
