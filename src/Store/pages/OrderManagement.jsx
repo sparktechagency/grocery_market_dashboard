@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
 import { Card, Table, Space, Popconfirm, Pagination, Modal } from 'antd';
-import { useGetOrderApiQuery, useUpdateNewStatusOrderApiMutation } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
+import { useGetAllShopperApiQuery, useGetOrderApiQuery, useUpdateNewStatusOrderApiMutation } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
 import toast from 'react-hot-toast';
+import { Select } from 'antd';
 
 import { Avatar, } from "antd";
 import {
@@ -20,21 +21,28 @@ const OrderManagement = () => {
     const [perPage, setPerPage] = useState(6);
     const [newDetailsId, setNewDetailsId] = useState('')
     const [pendingDetailsId, setPendingDetailsId] = useState('')
+    const [editNewId, setEditNewId] = useState('')
     const [completeDetailsId, setCompleteDetailsId] = useState('')
     const [isOpenNewDetails, setIsOpenNewDetails] = useState(false)
     const [isOpenPendingDetails, setIsOpenPendingDetails] = useState(false)
     const [isOpenCompleteDetails, setIsOpenCompleteDetails] = useState(false)
+    const [isOpenEditModal, setIsOpenEditModal] = useState(false)
+
 
 
 
     const { data: getOrder, refetch } = useGetOrderApiQuery({ per_page: perPage, page: currentPage, status: activeFilter });
     const allOrderData = getOrder?.data
-
     const totalPagination = getOrder?.total
 
 
-    const [updateNewStatusOrderApi] = useUpdateNewStatusOrderApiMutation()
+    const { data: getAllShoper } = useGetAllShopperApiQuery();
+    const allShopperData = getAllShoper?.data
 
+
+
+
+    const [updateNewStatusOrderApi] = useUpdateNewStatusOrderApiMutation()
 
     // single order details 
     const singleNewOrderData = allOrderData?.find((item) => item?.id === newDetailsId);
@@ -80,6 +88,14 @@ const OrderManagement = () => {
             render: (status, record) => <p className='text-primary text-xl font-medium'>{status}</p>,
             // render: (status, record) => <p className='text-primary text-xl font-medium'>{status} ========== {record?.id}</p>,
         },
+        {
+            title: 'Shopper Name',
+            dataIndex: 'shopper_name',
+            key: 'shopper_name',
+            render: (shopper_name, record) => <p className='text-primary text-xl font-medium'>{shopper_name}</p>,
+            // render: (status, record) => <p className='text-primary text-xl font-medium'>{status} ========== {record?.id}</p>,
+        },
+
 
 
         {
@@ -91,8 +107,7 @@ const OrderManagement = () => {
                     <Space size="middle">
                         {/* view icon */}
                         <div
-                            onClick={() => showNewDetailsModal(record?.id)}
-                        >
+                            onClick={() => showNewDetailsModal(record?.id)}>
                             <svg
                                 className='cursor-pointer'
                                 width="37"
@@ -109,9 +124,7 @@ const OrderManagement = () => {
                             </svg>
                         </div>
 
-                        <div
-                        // onClick={showEditModal}
-                        >
+                        <div>
                             <svg
                                 className='cursor-pointer'
                                 onClick={() => handleStatusChangeNew(record.id)}
@@ -122,6 +135,27 @@ const OrderManagement = () => {
 
 
 
+                        </div>
+                        <div
+                            onClick={() => showEditNewModal(record?.id)}
+                            className='cursor-pointer'
+                        >
+                            <svg
+                                width="37"
+                                height="37"
+                                viewBox="0 0 37 37"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <rect width="37" height="37" rx="5" fill="#E4FFEB" />
+                                <path
+                                    d="M21 13.1716L24 16.1716M19 27.1716H27M11 23.1716L10 27.1716L14 26.1716L25.586 14.5856C25.9609 14.2105 26.1716 13.7019 26.1716 13.1716C26.1716 12.6412 25.9609 12.1326 25.586 11.7576L25.414 11.5856C25.0389 11.2106 24.5303 11 24 11C23.4697 11 22.9611 11.2106 22.586 11.5856L11 23.1716Z"
+                                    stroke="#28A745"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
                         </div>
                         <div className='cursor-pointer'>
                             <Popconfirm
@@ -326,7 +360,26 @@ const OrderManagement = () => {
     }
 
 
-    //================== Pending cancel order ================
+    //================== Edit new  order ================
+    const showEditNewModal = (id) => {
+        setEditNewId(id)
+        setIsOpenEditModal(true)
+    }
+
+    const handleOkEditNewModal = () => {
+        setIsOpenEditModal(false)
+    }
+
+    const handleCancelEditNewModal = () => {
+        setIsOpenEditModal(false)
+    }
+
+
+
+
+    const handleChange = value => {
+        console.log(`selected ${value}`);
+    };
 
 
 
@@ -830,6 +883,60 @@ const OrderManagement = () => {
 
                                 </div>
                             </Card>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+
+
+
+
+            {/* NEW EDIT MODAL */}
+            <Modal
+                centered
+                title={
+                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Edit Shopper
+                    </div>
+                }
+                open={isOpenEditModal}
+                onOk={handleOkEditNewModal}
+                onCancel={handleCancelEditNewModal}
+                footer={null}
+                width={600}
+                className='custom-service-modal'>
+
+
+                <div className="pb-4">
+                    <div className='px-4 pt-8'>
+                        <p>Edit new id : {editNewId}</p>
+                        <p>{allOrderData.map((item)=>item?.shopper_name)} sss</p>
+                        <div>
+                            <Select
+                                defaultValue={allOrderData.map((item)=>item?.shopper_name)}
+                                style={{ width: 200 }}
+                                onChange={handleChange}
+                                options={[
+                                    {
+                                        label: <span>manager</span>,
+                                        title: 'manager',
+                                        options: [
+                                            { label: <span>Jack</span>, value: 'Jack' },
+                                            { label: <span>Lucy</span>, value: 'Lucy' },
+                                        ],
+                                    },
+                                    {
+                                        label: <span>engineer</span>,
+                                        title: 'engineer',
+                                        options: [
+                                            { label: <span>Chloe</span>, value: 'Chloe' },
+                                            { label: <span>Lucas</span>, value: 'Lucas' },
+                                        ],
+                                    },
+                                ]}
+                            />
+
+
                         </div>
                     </div>
                 </div>

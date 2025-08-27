@@ -20,8 +20,18 @@ const dashboardManageOrderApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['manageOrder'],
         }),
+
+
+        // all shoper name
+         getAllShopperApi: builder.query({
+            query: () => ({
+                url: `/admin/allShoppersForAdmin`,
+                method: "GET",
+            }),
+            providesTags: ['manageOrder'],
+        }),
     })
 })
 
 
-export const { useGetOrderApiQuery,useUpdateNewStatusOrderApiMutation } = dashboardManageOrderApi;
+export const { useGetOrderApiQuery,useUpdateNewStatusOrderApiMutation,useGetAllShopperApiQuery } = dashboardManageOrderApi;
