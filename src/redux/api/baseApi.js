@@ -25,6 +25,8 @@ export const baseApi = createApi({
     "manageOrder",
     "geolocation",
     "shopper",
+    "allProduct",
+    "allStore",
   ],
   endpoints: () => ({}),
 });

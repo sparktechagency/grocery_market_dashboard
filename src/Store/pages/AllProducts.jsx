@@ -1,60 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Table,
-  Space,
-  Image,
-  Popconfirm,
+
   Pagination,
 } from "antd";
 
 import { useForm } from "antd/es/form/Form";
 import { IconSearch } from "../../assets/icon";
+import { useGetProductApiQuery } from "../../redux/dashboardFeatures/allProduct/dashboardAllproducts";
 
 const AllProducts = () => {
-  const [addForm] = useForm();
-  const [editForm] = useForm();
-  const [isAddModalOpen, setIsModalAddOpen] = useState(false);
-  const [isEditModalOpen, setIsModalEditOpen] = useState(false);
-  const [viewDetailsModalOpen, setViewDetailsModalOpen] = useState(false);
-  const [editId, setEditId] = useState("");
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [perPage, setPerPage] = useState(8);
+  const [perPage, setPerPage] = useState(6);
 
-  // 🔹 Sample data (replace later with API data)
-  const productData = [
-    {
-      key: "1",
-      product_name: "Wireless Headphones",
-      image: "https://via.placeholder.com/80",
-      store_name: "Tech Store",
-      promo_price: 99,
-      regular_price: 149,
-    },
-    {
-      key: "2",
-      product_name: "Smart Watch",
-      image: "https://via.placeholder.com/80",
-      store_name: "Gadget Hub",
-      promo_price: 199,
-      regular_price: 249,
-    },
-    {
-      key: "3",
-      product_name: "Gaming Mouse",
-      image: "https://via.placeholder.com/80",
-      store_name: "Pro Gaming",
-      promo_price: 49,
-      regular_price: 89,
-    },
-  ];
 
-  // 🔎 Search filter
-  const filteredData = productData.filter(
-    (item) =>
-      item.product_name.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.store_name.toLowerCase().includes(searchText.toLowerCase())
-  );
+
+
+  const { data: getProduct } = useGetProductApiQuery({ search: searchText, per_page: perPage, page: currentPage, })
+  const allProductData = getProduct?.data?.data
+   const totalPagination = getProduct?.data?.total
+
+
+
+
+
+
+
 
   const handleChange = (e) => {
     setSearchText(e.target.value);
@@ -63,31 +35,27 @@ const AllProducts = () => {
   // 🔹 Table Columns
   const columns = [
     {
-      title: "Product Name",
-      dataIndex: "product_name",
-      key: "product_name",
-      align: "center",
-      render: (text) => <span className="font-medium">{text}</span>,
-    },
-    {
       title: "Image",
-      dataIndex: "image",
-      key: "image",
+      dataIndex: "images",
+      key: "images",
       align: "center",
-      render: (image) => (
-        <Image
-          width={60}
-          height={60}
-          src={image}
-          alt="product"
-          style={{ objectFit: "cover", borderRadius: "8px" }}
-        />
+      render: (_, record) => (
+        <div className="">
+          <img className="rounded-full h-14 w-14" src={record?.images} alt="image" />
+        </div>
       ),
     },
     {
+      title: "Product Name",
+      dataIndex: "name",
+      key: "name",
+      align: "center",
+      render: (name) => <span className="font-medium">{name}</span>,
+    },
+    {
       title: "Store Name",
-      dataIndex: "store_name",
-      key: "store_name",
+      dataIndex: "storeName",
+      key: "storeName",
       align: "center",
     },
     {
@@ -95,8 +63,8 @@ const AllProducts = () => {
       dataIndex: "promo_price",
       key: "promo_price",
       align: "center",
-      render: (price) => (
-        <span className="text-green-600 font-semibold">${price}</span>
+      render: (promo_price) => (
+        <span className="text-green-600 font-semibold">${promo_price}</span>
       ),
     },
     {
@@ -104,16 +72,16 @@ const AllProducts = () => {
       dataIndex: "regular_price",
       key: "regular_price",
       align: "center",
-      render: (price) => (
-        <span className="line-through text-gray-500">${price}</span>
+      render: (regular_price) => (
+        <span className="text-gray-800">${regular_price}</span>
       ),
     },
-  
+
   ];
 
   return (
     <>
-      {/* 🔎 Search + Add */}
+      {/*  Search + Add */}
       <div className=" w-full my-8">
         <div className="flex items-center">
           <input
@@ -121,7 +89,7 @@ const AllProducts = () => {
             value={searchText}
             onChange={handleChange}
             className="w-[534px] p-4 border rounded-l-full border-[#D9D9D9] focus:outline-none"
-            placeholder="Search product or store"
+            placeholder="Search by product name"
           />
           <button className="bg-primary p-2.5 -ml-1 border rounded-r-full">
             {IconSearch}
@@ -132,9 +100,9 @@ const AllProducts = () => {
       {/* 🔹 Table */}
       <Table
         columns={columns}
+        dataSource={allProductData}
         rowClassName={() => "table-row-gap"}
         className="custom-ant-table"
-        dataSource={filteredData}
         pagination={false}
       />
 
@@ -144,10 +112,10 @@ const AllProducts = () => {
           showSizeChanger={false}
           current={currentPage}
           pageSize={perPage}
-          total={filteredData.length}
+          total={totalPagination || 0}
           onChange={(page, pageSize) => {
-            setCurrentPage(page);
-            setPerPage(pageSize);
+            setCurrentPage(page)
+            setPerPage(pageSize)
           }}
         />
       </div>

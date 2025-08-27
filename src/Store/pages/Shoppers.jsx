@@ -67,7 +67,7 @@ const Shoppers = () => {
                         value={searchText}
                         onChange={handleChange}
                         className="w-[534px] p-4 border rounded-l-full border-[#D9D9D9] focus:outline-none"
-                        placeholder="Search shopper"
+                        placeholder="Search shopper name"
                         name=""
                         id=""
                     />

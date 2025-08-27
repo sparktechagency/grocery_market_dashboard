@@ -46,16 +46,7 @@ const StoreDashboard = () => {
         <div>
             <div className="rounded-xl">
                 <div className="grid grid-cols-12 gap-6 mt-[12px]">
-                    {/* {cardData.map((card, index) => (
-                        <div key={index} className="bg-white col-span-4 py-6 flex justify-center items-center rounded-lg shadow-sm">
-                            <div className="flex flex-col justify-center items-center text-center">
-                                <div className="mb-3 bg-lowGreen p-4 rounded-full">{card.icon}</div>
-                                <p className="py-1 font-roboto text-[#777777] font-normal text-base">{card.title}</p>
-                                <h3 className="font-roboto font-bold text-[28px]">{card.value}</h3>
-                            </div>
-                        </div>
-                    ))} */}
-
+             
                     {/* card one */}
                     <div className="bg-white col-span-4 py-6 flex justify-center items-center rounded-lg shadow-sm">
                         <div className="flex flex-col justify-center items-center text-center">
@@ -96,7 +87,6 @@ const StoreDashboard = () => {
                             <h3 className="font-roboto font-bold text-[28px]">${dashboardCurdData?.all_stores}</h3>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -118,7 +108,7 @@ const StoreDashboard = () => {
 
 
                 <div className="bg-white py-8 px-4">
-                    <ResponsiveContainer width="100%" height={680}>
+                    <ResponsiveContainer width="100%" height={430}>
                         <AreaChart data={chartData} syncId="anyId">
                             <defs>
                                 <linearGradient id="colorAmt" x1="0" y1="0" x2="0" y2="1">
@@ -144,9 +134,6 @@ const StoreDashboard = () => {
                         </AreaChart>
                     </ResponsiveContainer>
                 </div>
-
-
-
             </div>
         </div>
     )

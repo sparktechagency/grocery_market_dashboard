@@ -4,7 +4,7 @@ import { Card, Table, Space, Popconfirm, Pagination, Modal } from 'antd';
 import { useGetOrderApiQuery, useUpdateNewStatusOrderApiMutation } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
 import toast from 'react-hot-toast';
 
-import { Avatar,} from "antd";
+import { Avatar, } from "antd";
 import {
     ShoppingOutlined,
     UserOutlined,
@@ -17,11 +17,13 @@ import moment from 'moment';
 const OrderManagement = () => {
     const [activeFilter, setActiveFilter] = useState('new');
     const [currentPage, setCurrentPage] = useState(1);
-    const [perPage, setPerPage] = useState(8);
+    const [perPage, setPerPage] = useState(6);
     const [newDetailsId, setNewDetailsId] = useState('')
     const [pendingDetailsId, setPendingDetailsId] = useState('')
+    const [completeDetailsId, setCompleteDetailsId] = useState('')
     const [isOpenNewDetails, setIsOpenNewDetails] = useState(false)
     const [isOpenPendingDetails, setIsOpenPendingDetails] = useState(false)
+    const [isOpenCompleteDetails, setIsOpenCompleteDetails] = useState(false)
 
 
 
@@ -37,6 +39,7 @@ const OrderManagement = () => {
     // single order details 
     const singleNewOrderData = allOrderData?.find((item) => item?.id === newDetailsId);
     const singlePendingOrderData = allOrderData?.find((item) => item?.id === pendingDetailsId);
+    const singleCompleteOrderData = allOrderData?.find((item) => item?.id === completeDetailsId);
 
 
 
@@ -147,7 +150,7 @@ const OrderManagement = () => {
                     <Space size="middle">
                         {/* view icon */}
                         <div
-                      onClick={() => showPendingDetailsModal(record?.id)}
+                            onClick={() => showPendingDetailsModal(record?.id)}
                         >
                             <svg
                                 className='cursor-pointer'
@@ -171,7 +174,7 @@ const OrderManagement = () => {
                         >
                             <Popconfirm
                                 title="Are you sure to changes this name?"
-                            onConfirm={() => handleCancelPending(record.id)}
+                                onConfirm={() => handleCancelPending(record.id)}
                                 okText="Yes"
                                 cancelText="No"
                             >
@@ -193,7 +196,9 @@ const OrderManagement = () => {
                     </Space>
                 ) : activeFilter === 'complete' ? (
                     <div>
-                        <button className='cursor-default bg-green-100 text-green-600 font-bold px-4 py-2 rounded-md'>Delivered</button>
+                        <button
+                            onClick={() => showCompleteDetailsModal(record?.id)}
+                            className='cursor-pointer bg-green-100 text-green-600 font-bold px-4 py-2 rounded-md'>Delivered</button>
                     </div>
                 ) : activeFilter === 'cancel' ? (
                     <div>
@@ -268,13 +273,13 @@ const OrderManagement = () => {
 
 
 
-// =============== Pending order Modal Details ====================
-  const showPendingDetailsModal = (id) => {
+    // =============== Pending order Modal Details ====================
+    const showPendingDetailsModal = (id) => {
         setPendingDetailsId(id)
         setIsOpenPendingDetails(true)
     }
 
-        const handleOkPendingModal = () => {
+    const handleOkPendingModal = () => {
         setIsOpenPendingDetails(false)
     }
 
@@ -283,8 +288,9 @@ const OrderManagement = () => {
     }
 
 
- //================== Pending cancel order ================
-   const handleCancelPending = async (id) => {
+
+    // status changes
+    const handleCancelPending = async (id) => {
         const formData = new FormData();
         formData.append("status", "order_cancelled");
 
@@ -299,6 +305,29 @@ const OrderManagement = () => {
             toast.error(error.data?.message)
         }
     }
+
+    //================== Pending cancel order ================
+
+
+
+
+    // =============== Complete order Modal Details ====================
+    const showCompleteDetailsModal = (id) => {
+        setCompleteDetailsId(id)
+        setIsOpenCompleteDetails(true)
+    }
+
+    const handleOkCompleteModal = () => {
+        setIsOpenCompleteDetails(false)
+    }
+
+    const handleCancelCompleteModal = () => {
+        setIsOpenCompleteDetails(false)
+    }
+
+
+    //================== Pending cancel order ================
+
 
 
 
@@ -632,6 +661,149 @@ const OrderManagement = () => {
                                         msOverflowStyle: "auto",
                                     }}>
                                     {singlePendingOrderData?.order_items?.map((item) => (
+
+                                        <div key={item.id}>
+                                            <div className="flex items-start gap-4">
+                                                <div className=" rounded-lg flex items-center  justify-center">
+                                                    <img src={item.images} alt=""
+                                                        className='w-[50px] h-[50px]  rounded-full'
+                                                    />
+                                                </div>
+                                                <div className="flex-1 space-y-1">
+                                                    <h4 className="font-medium leading-tight">{item.product_name}</h4>
+                                                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                                                        <span>Product ID: {item.product_id}</span>
+                                                        <span>Qty: {item.quantity}</span>
+                                                        <span>Unit Price: ${item.unit_price.toFixed(2)}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right mr-3">
+                                                    <p className="font-medium">${item.total_price.toFixed(2)}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    ))}
+
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+
+
+
+            {/* COMPLETE ORDER DETAILS */}
+            <Modal
+                centered
+                title={
+                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+                        Complete Details Information
+                    </div>
+                }
+                open={isOpenCompleteDetails}
+                onOk={handleOkCompleteModal}
+                onCancel={handleCancelCompleteModal}
+                footer={null}
+                width={800}
+                className='custom-service-modal'>
+
+
+                <div className="pb-4">
+                    <div className='px-4 pt-8'>
+                        <div className="space-y-6">
+                            {/* Customer Information */}
+                            <Card
+                                title={
+                                    <div className="flex items-center gap-2">
+                                        <UserOutlined />
+                                        Customer Information
+                                    </div>
+                                }
+                            >
+                                <div className="flex items-center gap-4">
+                                    <Avatar
+                                        size={48}
+                                        src={singleCompleteOrderData?.user?.photo}
+                                        alt='photo'
+                                    >
+                                    </Avatar>
+                                    <div>
+                                        <p className="font-medium">{singleCompleteOrderData?.user?.name}</p>
+                                        <p className="text-sm text-gray-500">Customer ID : {singleCompleteOrderData?.user?.id}</p>
+                                    </div>
+                                </div>
+                            </Card>
+
+
+                            {/* Order Header */}
+                            <Card
+                                title={
+                                    <div className="flex items-center gap-2">
+                                        <DollarOutlined />
+                                        Order Summary
+                                    </div>
+                                }
+                                extra={
+                                    <div className='bg-green-100 px-2 py-1 rounded-md text-green-600 font-semibold uppercase'>
+
+                                        {singleCompleteOrderData?.status}
+                                    </div>
+                                }
+                            >
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Order ID : {singleCompleteOrderData?.id}</span>
+
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Order Number : {singleCompleteOrderData?.order_number}</span>
+
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gray-500">
+                                                Created: {singleCompleteOrderData?.created_at
+                                                    ? moment(singleCompleteOrderData.created_at).format('ll')
+                                                    : ''}
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Tax : </span>
+                                            <span className="font-medium">$ {singleCompleteOrderData?.tax}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-500">Delivery : </span>
+                                            <span className="font-medium">$ {singleCompleteOrderData?.delivery_charges}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </Card>
+
+
+                            {/* Order Items */}
+                            <Card
+                                title={
+                                    <div className="flex items-center gap-2">
+                                        <ShoppingOutlined />
+                                        Total Order ({singleCompleteOrderData?.order_items?.length})
+                                    </div>
+                                }>
+
+
+
+
+                                <div className="space-y-4 h-[130px] overflow-y-auto"
+                                    style={{
+                                        scrollbarWidth: "thin",
+                                        msOverflowStyle: "auto",
+                                    }}>
+                                    {singleCompleteOrderData?.order_items?.map((item) => (
 
                                         <div key={item.id}>
                                             <div className="flex items-start gap-4">

@@ -84,9 +84,7 @@ const Promotions = () => {
 
     return (
         <div>
-            <p className='font-PoppinsMedium text-xl text-black mb-6'>Promotional banners</p>
-
-            <div className='grid grid-cols-4 gap-3'>
+            <div className='grid grid-cols-4 gap-3 mt-4'>
                 {
                     promotionData?.map((item) => (
                         <div key={item?.id} className='relative '>
