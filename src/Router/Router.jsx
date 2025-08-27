@@ -26,49 +26,70 @@ import ManageGeolocation from "../SupperAdmin/ManageGeolocation";
 import CreateNewPassword from "../Auth/CreateNewPassword";
 import AllProducts from "../Store/pages/AllProducts";
 import AllStore from "../Store/pages/AllStore";
+import PrivatRoutes from "./PrivatRoutes";
 
 export const router = createBrowserRouter([
- 
+
     {
         path: "/",
-        element: <StoreDashboardSidebar />,
+        element: <PrivatRoutes>
+            <StoreDashboardSidebar />
+        </PrivatRoutes>,
         errorElement: <ErrorCommon />,
         children: [
             {
                 path: "/",
-                element: <StoreDashboard />
+                element: <PrivatRoutes>
+                    <StoreDashboard />
+                </PrivatRoutes>
             },
             {
                 path: "/inventory",
-                element: <Inventory />
+                element: <PrivatRoutes>
+                    <Inventory />
+                </PrivatRoutes>
             },
             {
                 path: "/orderManagement",
-                element: <OrderManagement />
+                element: <PrivatRoutes>
+                    <OrderManagement />
+                </PrivatRoutes>
             },
-               {
+            {
                 path: "/manageGeolocation",
-                element: <ManageGeolocation />
+                element: <PrivatRoutes>
+                    <ManageGeolocation />
+                </PrivatRoutes>
             },
             {
                 path: "/shoppers",
-                element: <Shoppers />
+                element: <PrivatRoutes>
+                    <Shoppers />
+                </PrivatRoutes>
             },
             {
                 path: "/promotions",
-                element: <Promotions />
+                element: <PrivatRoutes>
+                    <Promotions />
+                </PrivatRoutes>
             },
             {
                 path: "/allProducts",
-                element: <AllProducts />
+                element: <PrivatRoutes>
+                    <AllProducts />
+                </PrivatRoutes>
             },
             {
                 path: "/allStore",
-                element: <AllStore />
+                element: <PrivatRoutes>
+                    <AllStore />
+                </PrivatRoutes>
             },
             {
                 path: "/subscriptions",
-                element: <Subscriptions />
+                element: <PrivatRoutes>
+                    <Subscriptions />
+                </PrivatRoutes>
             },
             {
                 path: "/settings/change_pass",
@@ -80,15 +101,21 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/settings/about_us",
-                element: <AboutUs />
+                element: <PrivatRoutes>
+                    <AboutUs />
+                </PrivatRoutes>
             },
             {
                 path: "/settings/faq",
-                element: <FAQ />
+                element: <PrivatRoutes>
+                    <FAQ />
+                </PrivatRoutes>
             },
             {
                 path: "/notification",
-                element: <NotificationComponents />
+                element: <PrivatRoutes>
+                    <NotificationComponents />
+                </PrivatRoutes>
             },
         ]
     },
@@ -97,7 +124,7 @@ export const router = createBrowserRouter([
 
 
 
-   //============================ This section not work ============== 
+    //============================ This section not work ============== 
     {
         path: "/supper_admin",
         element: <StoreDashboardSidebar />,

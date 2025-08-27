@@ -52,6 +52,8 @@ const OrderManagement = () => {
     const [activeFilter, setActiveFilter] = useState('new');
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(8);
+    const [newDetailsId, setNewDetailsId] = useState('')
+    const [isOpenNewDetails, setIsOpenNewDetails] = useState(false)
 
 
 
@@ -93,7 +95,7 @@ const OrderManagement = () => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            render: (status,record) => <p className='text-primary text-xl font-medium'>{status} ======== {record?.id}</p>,
+            render: (status, record) => <p className='text-primary text-xl font-medium'>{status} ======== {record?.id}</p>,
         },
 
 
@@ -106,7 +108,7 @@ const OrderManagement = () => {
                     <Space size="middle">
                         {/* view icon */}
                         <div
-                        // onClick={showModal}
+                            onClick={() => showNewDetailsModal(record?.id)}
                         >
                             <svg
                                 className='cursor-pointer'
@@ -216,8 +218,8 @@ const OrderManagement = () => {
                     </div>
                 ) : activeFilter === 'cancel' ? (
                     <div>
-                    
-                    
+
+
                     </div>
                 ) : null
         },
@@ -225,13 +227,19 @@ const OrderManagement = () => {
 
 
 
-// =============== order confirm status add ====================
+    const showNewDetailsModal = (id) => {
+        setNewDetailsId(id)
+        setIsOpenNewDetails(true)
+    }
+
+
+    // =============== order confirm status add ====================
     const handleStatusChangeNew = async (id) => {
         const formData = new FormData();
         formData.append("status", "order_confirmed");
 
         try {
-            const res = await updateNewStatusOrderApi({ updateNewStatusInfo:formData, id }).unwrap();
+            const res = await updateNewStatusOrderApi({ updateNewStatusInfo: formData, id }).unwrap();
             console.log(res)
             if (res?.success === true) {
                 toast.success(res?.message);
@@ -250,7 +258,7 @@ const OrderManagement = () => {
         formData.append("status", "order_cancelled");
 
         try {
-            const res = await updateNewStatusOrderApi({ updateNewStatusInfo:formData, id }).unwrap();
+            const res = await updateNewStatusOrderApi({ updateNewStatusInfo: formData, id }).unwrap();
             console.log(res)
             if (res?.success === true) {
                 toast.success(res?.message);
@@ -326,7 +334,6 @@ const OrderManagement = () => {
 
             </div>
 
-
             {/* pagination */}
             <div className="flex justify-end pt-4">
                 <Pagination
@@ -340,6 +347,16 @@ const OrderManagement = () => {
                     }}
                 />
             </div>
+
+
+
+
+
+
+
+
+
+            
         </div>
     );
 };
