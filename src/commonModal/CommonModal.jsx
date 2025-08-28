@@ -50,7 +50,7 @@ const CommonModal = () => {
                                 <Form.Item name="term" className="mb-0"
                                     rules={[{ required: true, message: "Term is required" }]}
                                 >
-                                    <Input placeholder="Add a Term" style={{ height: "50px", borderRadius: "20px" }} />
+                                    <Input placeholder="Add a Term" style={{ height: "40px", borderRadius: "8px" }} />
                                 </Form.Item>
                             </div>
 

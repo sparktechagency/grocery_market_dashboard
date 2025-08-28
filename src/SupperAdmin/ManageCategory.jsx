@@ -273,7 +273,7 @@ const ManageCategory = () => {
                                 <Form.Item name="name" className="mb-0"
                                     rules={[{ required: true, message: "Term is required" }]}
                                 >
-                                    <Input placeholder="Add a Term" style={{ height: "50px", borderRadius: "20px" }} />
+                                    <Input placeholder="Add a Term" style={{ height: "40px", borderRadius: "8px" }} />
                                 </Form.Item>
                             </div>
 
@@ -329,7 +329,7 @@ const ManageCategory = () => {
                                 <Form.Item name="name" className="mb-0"
                                     rules={[{ required: true, message: "Term is required" }]}
                                 >
-                                    <Input placeholder="update a Term" style={{ height: "50px", borderRadius: "20px" }} />
+                                    <Input placeholder="update a Term" style={{ height: "40px", borderRadius: "8px" }} />
                                 </Form.Item>
                             </div>
 

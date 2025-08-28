@@ -84,11 +84,11 @@ const Promotions = () => {
 
     return (
         <div>
-            <div className='grid grid-cols-4 gap-3 mt-4'>
+            <div className='grid grid-cols-4 gap-6 mt-4'>
                 {
                     promotionData?.map((item) => (
-                        <div key={item?.id} className='relative '>
-                            <img className='rounded-2xl ' src={item?.banner_image} alt="card image" />
+                        <div key={item?.id} className='relative  bg-gray-200 rounded-2xl '>
+                            <img className='rounded-2xl h-[250px] object-cover ' src={item?.banner_image} alt="card image"/>
                             <span
                                 onClick={() => handleDelete(item?.id)}
                                 className='cursor-pointer absolute top-1 right-3  p-1.5 bg-white rounded-full flex items-center '
@@ -97,6 +97,7 @@ const Promotions = () => {
                     ))
                 }
             </div>
+
             <button onClick={() => setIsModalOpen(true)} className='font-PoppinsMedium text-lg text-white bg-primary py-3 px-28 rounded-lg mt-10  '>Add More</button>
 
 

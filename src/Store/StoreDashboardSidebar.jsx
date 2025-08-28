@@ -103,12 +103,12 @@ const shopperItems = [
         icon: IconManageGeolocationBlack,
         activeIcon: IconManageGeolocationWhite,
     },
-    {
-        path: "/deliveryCharge",
-        title: "Delivery charge",
-        icon: DeliveryIconBlack,
-        activeIcon: DeliveryIconWhite,
-    },
+    // {
+    //     path: "/deliveryCharge",
+    //     title: "Delivery charge",
+    //     icon: DeliveryIconBlack,
+    //     activeIcon: DeliveryIconWhite,
+    // },
     {
         path: "/shoppers",
         title: "Shoppers",

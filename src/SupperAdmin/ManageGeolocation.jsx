@@ -369,7 +369,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "Address is required" }]}
                   >
-                    <Input placeholder="Add an address" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Add an address" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
 
@@ -381,7 +381,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "City is required" }]}
                   >
-                    <Input placeholder="Enter city" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Enter city" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
 
@@ -393,7 +393,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "Zip code is required" }]}
                   >
-                    <Input placeholder="Enter zip code" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Enter zip code" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
 
@@ -405,7 +405,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "Latitude is required" }]}
                   >
-                    <Input placeholder="Enter latitude" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Enter latitude" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
 
@@ -417,7 +417,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "Longitude is required" }]}
                   >
-                    <Input placeholder="Enter longitude" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Enter longitude" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
               </div>
@@ -474,7 +474,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "Address is required" }]}
                   >
-                    <Input placeholder="Add an address" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Add an address" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
 
@@ -486,7 +486,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "City is required" }]}
                   >
-                    <Input placeholder="Enter city" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Enter city" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
 
@@ -498,7 +498,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "Zip code is required" }]}
                   >
-                    <Input placeholder="Enter zip code" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Enter zip code" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
 
@@ -510,7 +510,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "Latitude is required" }]}
                   >
-                    <Input placeholder="Enter latitude" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Enter latitude" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
 
@@ -522,7 +522,7 @@ const ManageGeolocation = () => {
                     className="mb-0"
                     rules={[{ required: true, message: "Longitude is required" }]}
                   >
-                    <Input placeholder="Enter longitude" style={{ height: "50px", borderRadius: "20px" }} />
+                    <Input placeholder="Enter longitude" style={{ height: "40px", borderRadius: "8px" }} />
                   </Form.Item>
                 </div>
               </div>

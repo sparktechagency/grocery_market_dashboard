@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 const NotificationComponents = () => {
 
-    const { data: getNotificatio,refetch } = useGetNotificationApiQuery()
+    const { data: getNotificatio, refetch } = useGetNotificationApiQuery()
     const notificationData = getNotificatio?.notifications
     const [redNotificationApi] = useRedNotificationApiMutation()
 
@@ -35,7 +35,7 @@ const NotificationComponents = () => {
                         onClick={item?.read_at === null ? () => handleClick(item.id) : undefined}
                         className={`flex justify-between items-center px-5 py-3 rounded-lg 
           ${item?.read_at === null
-                                ? 'bg-red text-white cursor-pointer'
+                                ? 'bg-[#deffe7]  cursor-pointer'
                                 : "bg-white text-black cursor-default"
                             }`}
                     >
@@ -50,6 +50,7 @@ const NotificationComponents = () => {
                     </div>
                 ))
             }
+            
         </div>
     )
 }
