@@ -6,7 +6,7 @@ import ImageProfile from "../assets/images/profileImage.jpg";
 
 import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
-import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite } from "../assets/icon";
+import { DeliveryIconBlack, DeliveryIconWhite, IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite } from "../assets/icon";
 import { useGetTotalNotificationApiQuery } from "../redux/dashboardFeatures/notification/dashboardNotificationApi";
 
 const { Header, Sider, Content } = Layout;
@@ -104,6 +104,12 @@ const shopperItems = [
         activeIcon: IconManageGeolocationWhite,
     },
     {
+        path: "/deliveryCharge",
+        title: "Delivery charge",
+        icon: DeliveryIconBlack,
+        activeIcon: DeliveryIconWhite,
+    },
+    {
         path: "/shoppers",
         title: "Shoppers",
         icon: IconShoppersBlack,
@@ -121,7 +127,7 @@ const shopperItems = [
         icon: TransitionIconBlack,
         activeIcon: TransitionIconWhite,
     },
-        {
+    {
         path: "/allProducts",
         title: "All products",
         icon: ProductIconBlack,
@@ -239,6 +245,17 @@ const StoreDashboardSidebar = () => {
                         </p>
                     </>
                 );
+            case "/deliveryCharge":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Delivery Charge
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                            Manage delivery fees by location to ensure fair pricing and smooth operations.
+                        </p>
+                    </>
+                );
             case "/shoppers":
                 return (
                     <>
@@ -265,14 +282,14 @@ const StoreDashboardSidebar = () => {
                 return (
                     <>
                         <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
-                           Transition
+                            Transition
                         </h1>
                         <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
-                           You can see all of the transactions of your site and app from here.
+                            You can see all of the transactions of your site and app from here.
                         </p>
                     </>
                 );
-                            case "/allProducts":
+            case "/allProducts":
                 return (
                     <>
                         <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
@@ -290,7 +307,7 @@ const StoreDashboardSidebar = () => {
                             All store
                         </h1>
                         <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
-                           Manage all your store locations and their settings in one place.
+                            Manage all your store locations and their settings in one place.
                         </p>
                     </>
                 );

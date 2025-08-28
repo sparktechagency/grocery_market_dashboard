@@ -30,8 +30,18 @@ const dashboardManageOrderApi = baseApi.injectEndpoints({
             }),
             providesTags: ['manageOrder'],
         }),
+
+        // Update shopper
+         updateShopperApi: builder.mutation({
+            query: (updateShopperInfo) => ({
+                url: `/admin/updateShopper`,
+                method: "POST",
+                body:updateShopperInfo,
+            }),
+            providesTags: ['manageOrder'],
+        }),
     })
 })
 
 
-export const { useGetOrderApiQuery,useUpdateNewStatusOrderApiMutation,useGetAllShopperApiQuery } = dashboardManageOrderApi;
+export const { useGetOrderApiQuery,useUpdateNewStatusOrderApiMutation,useGetAllShopperApiQuery, useUpdateShopperApiMutation} = dashboardManageOrderApi;

@@ -21,7 +21,7 @@ const Shoppers = () => {
     const { data: getShopper, refetch, isLoading } = useGetShopperApiQuery({ search: searchText, per_page: perPage, page: currentPage })
 
     const shopperData = getShopper?.data?.data
-    const totalShopper = getShopper?.data.total
+    const totalShopper = getShopper?.data.total_active_shoppers
     const totalPagination = getShopper?.data?.total
     // console.log(shopperData)
 
@@ -58,7 +58,7 @@ const Shoppers = () => {
             <div className="flex gap-60 my-8 items-center">
                 <div className="flex justify-center items-center px-4  h-16  gap-2">
                     <p className="w-3 h-3 rounded-full bg-primary"></p>
-                    <p className="font-bold text-lg text-black">{totalShopper} available shoppers</p>
+                    <p className="font-bold text-lg text-black">{getShopper?.total_active_shoppers} available shoppers</p>
                 </div>
 
                 <div className="flex items-center">

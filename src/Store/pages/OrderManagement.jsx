@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Card, Table, Space, Popconfirm, Pagination, Modal } from 'antd';
-import { useGetAllShopperApiQuery, useGetOrderApiQuery, useUpdateNewStatusOrderApiMutation } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
+import { useGetAllShopperApiQuery, useGetOrderApiQuery, useUpdateNewStatusOrderApiMutation, useUpdateShopperApiMutation } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
 import toast from 'react-hot-toast';
 import { Select } from 'antd';
 
@@ -38,9 +38,10 @@ const OrderManagement = () => {
     const allShopperData = getAllShoper?.data
 
 
-
-
     const [updateNewStatusOrderApi] = useUpdateNewStatusOrderApiMutation()
+    const [updateShopperApi] = useUpdateShopperApiMutation() // update shopper
+
+
 
     // single order details 
     const singleNewOrderData = allOrderData?.find((item) => item?.id === newDetailsId);
@@ -48,19 +49,33 @@ const OrderManagement = () => {
     const singleCompleteOrderData = allOrderData?.find((item) => item?.id === completeDetailsId);
 
 
-    const handleChange = async (e) => {
+    // allOrderData?.map((item) => console.log(typeof(item.shopper_id)));
+
+    // allShopperData?.map((item) => console.log(typeof(item.id)));
+
+
+
+
+
+
+
+
+
+
+    // UPDATE SHOPPER NAME
+    const handleChange = async (e, id) => {
         const formData = new FormData();
         formData.append("shopper_id", parseInt(e.target.value));
-        formData.append("order_id", values?.order_id);
+        formData.append("order_id", id);
 
 
 
         try {
-            const res = await addTermsApi(formData).unwrap();
+            const res = await updateShopperApi(formData).unwrap();
+            console.log(res)
             if (res?.status === true) {
                 toast.success(res?.message);
-                addForm.resetFields()
-                setIsModalAddOpen(false);
+                refetch()
             }
         } catch (error) {
             toast.error(error.data?.message)
@@ -112,20 +127,17 @@ const OrderManagement = () => {
             // render: (status, record) => <p className='text-primary text-xl font-medium'>{status} ========== {record?.id}</p>,
         },
         {
-            title: 'Order_Id',
-            dataIndex: 'id',
-            key: 'id',
-            render: (id, record) => <p className='text-primary text-xl font-medium'>{id}</p>,
-        },
-        {
             title: 'Assign shopper',
             dataIndex: 'shopper_name',
             key: 'shopper_name',
             align: "center",
-            render: () => <button className='border rounded px-2 py-[3px] cursor-pointer'>
+            render: (_, record) => <button className='border rounded px-2 py-[3px] cursor-pointer'>
                 <select
-                    onChange={handleChange}
-                    name="cars" id="cars" className='cursor-pointer'>
+                    onChange={(e) => handleChange(e, record?.id)}
+                    name="cars" id="cars" className='cursor-pointer'
+
+                >
+                    <option value="">{record?.shopper_name}</option>
                     {
                         allShopperData?.map((item) => {
                             // console.log(item)

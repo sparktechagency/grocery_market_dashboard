@@ -28,6 +28,7 @@ import AllProducts from "../Store/pages/AllProducts";
 import AllStore from "../Store/pages/AllStore";
 import PrivatRoutes from "./PrivatRoutes";
 import Transitions from "../Store/pages/Transitions";
+import DeliveryCharge from "../Store/pages/DeliveryCharge";
 
 export const router = createBrowserRouter([
 
@@ -72,6 +73,12 @@ export const router = createBrowserRouter([
                 path: "/promotions",
                 element: <PrivatRoutes>
                     <Promotions />
+                </PrivatRoutes>
+            },
+            {
+                path: "/deliveryCharge",
+                element: <PrivatRoutes>
+                    <DeliveryCharge />
                 </PrivatRoutes>
             },
             {
