@@ -91,7 +91,7 @@ const Shoppers = () => {
                                     alt="Theresa Webb"
                                     className="w-16 h-16 rounded-full object-cover"
                                 />
-                                <span className="absolute bottom-1 right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+                                <span className={`absolute bottom-1 right-1 w-3 h-3 ${item?.status === 'active' ? "bg-green-500" : "bg-red"} border-2 border-white rounded-full`}></span>
                             </div>
 
 

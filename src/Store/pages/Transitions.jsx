@@ -320,16 +320,16 @@ const Transitions = () => {
                     <h3 className="font-semibold text-xl text-gray-700 mb-2">Order Information</h3>
                     <div className="flex flex-col justify-end items-end">
                       <p className="text-sm text-gray-600">
-                        Order Number: <span className="font-medium">{singleTransitionData.order_number}</span>
+                        Order Number: <span className="font-medium">{singleTransitionData?.order_number}</span>
                       </p>
                       <p className="text-sm text-gray-600">
-                        Total Amount: <span className="font-medium text-green-600">${singleTransitionData.total}</span>
+                        Total Amount: <span className="font-medium text-green-600">${singleTransitionData?.total}</span>
                       </p>
                       <div className="mt-2">
                         <span
                           className={`inline-block px-3 py-1 rounded-full text-green-600 bg-green-100 text-xs font-medium `}
                         >
-                          {singleTransitionData.status}
+                          {singleTransitionData?.status}
                         </span>
                       </div>
                     </div>
@@ -370,7 +370,7 @@ const Transitions = () => {
                       <span
                         className={`font-medium capitalize `}
                       >
-                        {singleTransitionData?.payment?.amount}
+                        ${singleTransitionData?.payment?.amount}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
@@ -378,7 +378,7 @@ const Transitions = () => {
                       <span
                         className={`font-medium capitalize `}
                       >
-                        {singleTransitionData?.payment?.delivery_charges}
+                        ${singleTransitionData?.payment?.delivery_charges}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
@@ -386,7 +386,7 @@ const Transitions = () => {
                       <span
                         className={`font-medium capitalize `}
                       >
-                        {singleTransitionData?.payment?.tax}
+                        ${singleTransitionData?.payment?.tax}
                       </span>
                     </div>
                    

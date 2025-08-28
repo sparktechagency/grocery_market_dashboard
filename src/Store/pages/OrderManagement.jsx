@@ -21,12 +21,10 @@ const OrderManagement = () => {
     const [perPage, setPerPage] = useState(6);
     const [newDetailsId, setNewDetailsId] = useState('')
     const [pendingDetailsId, setPendingDetailsId] = useState('')
-    const [editNewId, setEditNewId] = useState('')
     const [completeDetailsId, setCompleteDetailsId] = useState('')
     const [isOpenNewDetails, setIsOpenNewDetails] = useState(false)
     const [isOpenPendingDetails, setIsOpenPendingDetails] = useState(false)
     const [isOpenCompleteDetails, setIsOpenCompleteDetails] = useState(false)
-    const [isOpenEditModal, setIsOpenEditModal] = useState(false)
 
 
 
@@ -50,7 +48,25 @@ const OrderManagement = () => {
     const singleCompleteOrderData = allOrderData?.find((item) => item?.id === completeDetailsId);
 
 
+    const handleChange = async (e) => {
+        const formData = new FormData();
+        formData.append("shopper_id", parseInt(e.target.value));
+        formData.append("order_id", values?.order_id);
 
+
+
+        try {
+            const res = await addTermsApi(formData).unwrap();
+            if (res?.status === true) {
+                toast.success(res?.message);
+                addForm.resetFields()
+                setIsModalAddOpen(false);
+            }
+        } catch (error) {
+            toast.error(error.data?.message)
+        }
+
+    };
 
 
 
@@ -95,6 +111,32 @@ const OrderManagement = () => {
             render: (shopper_name, record) => <p className='text-primary text-xl font-medium'>{shopper_name}</p>,
             // render: (status, record) => <p className='text-primary text-xl font-medium'>{status} ========== {record?.id}</p>,
         },
+        {
+            title: 'Order_Id',
+            dataIndex: 'id',
+            key: 'id',
+            render: (id, record) => <p className='text-primary text-xl font-medium'>{id}</p>,
+        },
+        {
+            title: 'Assign shopper',
+            dataIndex: 'shopper_name',
+            key: 'shopper_name',
+            align: "center",
+            render: () => <button className='border rounded px-2 py-[3px] cursor-pointer'>
+                <select
+                    onChange={handleChange}
+                    name="cars" id="cars" className='cursor-pointer'>
+                    {
+                        allShopperData?.map((item) => {
+                            // console.log(item)
+                            return (
+                                <option value={item.id}>{item.name}</option>
+                            )
+                        })
+                    }
+                </select>
+            </button>,
+        },
 
 
 
@@ -136,27 +178,7 @@ const OrderManagement = () => {
 
 
                         </div>
-                        <div
-                            onClick={() => showEditNewModal(record?.id)}
-                            className='cursor-pointer'
-                        >
-                            <svg
-                                width="37"
-                                height="37"
-                                viewBox="0 0 37 37"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <rect width="37" height="37" rx="5" fill="#E4FFEB" />
-                                <path
-                                    d="M21 13.1716L24 16.1716M19 27.1716H27M11 23.1716L10 27.1716L14 26.1716L25.586 14.5856C25.9609 14.2105 26.1716 13.7019 26.1716 13.1716C26.1716 12.6412 25.9609 12.1326 25.586 11.7576L25.414 11.5856C25.0389 11.2106 24.5303 11 24 11C23.4697 11 22.9611 11.2106 22.586 11.5856L11 23.1716Z"
-                                    stroke="#28A745"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
-                        </div>
+
                         <div className='cursor-pointer'>
                             <Popconfirm
                                 title="Are you sure to changes this order status?"
@@ -358,29 +380,6 @@ const OrderManagement = () => {
     const handleCancelCompleteModal = () => {
         setIsOpenCompleteDetails(false)
     }
-
-
-    //================== Edit new  order ================
-    const showEditNewModal = (id) => {
-        setEditNewId(id)
-        setIsOpenEditModal(true)
-    }
-
-    const handleOkEditNewModal = () => {
-        setIsOpenEditModal(false)
-    }
-
-    const handleCancelEditNewModal = () => {
-        setIsOpenEditModal(false)
-    }
-
-
-
-
-    const handleChange = value => {
-        console.log(`selected ${value}`);
-    };
-
 
 
 
@@ -888,52 +887,6 @@ const OrderManagement = () => {
                 </div>
             </Modal>
 
-
-
-
-            {/* NEW EDIT MODAL */}
-            {/* order_id, shopper_id ======================== */}
-            <Modal
-                centered
-                title={
-                    <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
-                        Edit Shopper
-                    </div>
-                }
-                open={isOpenEditModal}
-                onOk={handleOkEditNewModal}
-                onCancel={handleCancelEditNewModal}
-                footer={null}
-                width={600}
-                className='custom-service-modal'>
-
-
-                <div className="pb-4">
-                    <div className='px-4 pt-8'>
-                        <p>Edit new id : {editNewId} </p>
-                        <p>{allOrderData?.map((item) => item?.shopper_name)} ========shopperName</p>
-                        <div>
-                            <Select
-                                showSearch
-                                style={{ width: 200 }}
-                                placeholder="Select Shopper"
-                                optionFilterProp="label"
-                                onChange={handleChange}
-                                defaultValue={"kodom ali"}
-                                options={allShopperData?.map((item) => {
-                                    console.log(item)
-                                    return {
-                                        value: item.id,
-                                        label: item.name,
-                                    }
-                                })}
-                             
-                            />
-
-                        </div>
-                    </div>
-                </div>
-            </Modal>
         </div>
     );
 };
