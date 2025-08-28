@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useGetTransitionApiQuery } from "../../redux/dashboardFeatures/transition/dashboardTransitionApi"
-import { Pagination, Space, Table } from "antd";
+import { useGetTransitionApiQuery, useSingleGetTransitionApiQuery } from "../../redux/dashboardFeatures/transition/dashboardTransitionApi"
+import { Modal, Pagination, Space, Table } from "antd";
 import { IconSearch } from "../../assets/icon";
 
 
@@ -8,13 +8,21 @@ const Transitions = () => {
   const [searchText, setSearchText] = useState('')
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(8);
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [detailsId, setDetailsId] = useState('')
 
 
 
-  const { data: getAllTransition } = useGetTransitionApiQuery({ search:searchText ,per_page: perPage, page: currentPage, })
+  const { data: getAllTransition } = useGetTransitionApiQuery({ search: searchText, per_page: perPage, page: currentPage, })
   const allTransitionData = getAllTransition?.data?.data
   const totalPagination = getAllTransition?.data?.total
   // console.log(allTransitionData)
+
+
+  const { data: getsingleTansition } = useSingleGetTransitionApiQuery(detailsId)
+  const singleTransitionData = getsingleTansition?.data
+  console.log(singleTransitionData)
+
 
 
   // 🔹 Table Columns
@@ -93,10 +101,17 @@ const Transitions = () => {
 
 
   const showModal = (id) => {
-    console.log(id)
+    setDetailsId(id)
+    setIsModalOpen(true)
   }
 
+  const handleOk = () => {
+    setIsModalOpen(false)
+  }
 
+  const handleCancelModal = () => {
+    setIsModalOpen(false)
+  }
 
 
 
@@ -112,6 +127,96 @@ const Transitions = () => {
   const handleChange = (e) => {
     setSearchText(e.target.value);
   };
+
+
+
+
+
+  const orderData = {
+    order_number: "ORD-12345",
+    total_amount: "150.75",
+    status: "order_confirmed",
+    user: {
+      name: "John Doe",
+      email: "johndoe@example.com",
+      phone: "01712345678",
+    },
+    payment_method: "credit card",
+    payment_status: "completed",
+    transaction_id: "TXN-987654321",
+    payment_date: "2025-08-20T10:30:00Z",
+    total: "140.00",
+    tax: "5.75",
+    delivery_charges: "5.00",
+    return_amount: "0.00",
+    shopper_id: 7,
+    delivery_date: "2025-08-30T15:00:00Z",
+  };
+
+  // Fake timeline events
+  const timelineEvents = [
+    {
+      title: "Order Placed",
+      date: "2025-08-18T09:00:00Z",
+      completed: true,
+      icon: "📦",
+    },
+    {
+      title: "Order Confirmed",
+      date: "2025-08-19T11:00:00Z",
+      completed: true,
+      icon: "✅",
+    },
+    {
+      title: "Shipped",
+      date: "2025-08-20T15:00:00Z",
+      completed: false,
+      icon: "🚚",
+    },
+    {
+      title: "Delivered",
+      date: "2025-08-22T18:00:00Z",
+      completed: false,
+      icon: "🏠",
+    },
+  ];
+
+  // Example formatter
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    return new Date(dateString).toLocaleString();
+  };
+
+  // Example status handlers
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "order_confirmed":
+        return "border-green-400 text-green-600 bg-green-50";
+      case "pending":
+        return "border-yellow-400 text-yellow-600 bg-yellow-50";
+      case "cancelled":
+        return "border-red-400 text-red-600 bg-red-50";
+      default:
+        return "border-gray-400 text-gray-600 bg-gray-50";
+    }
+  };
+
+  const getStatusText = (status) => {
+    switch (status) {
+      case "order_confirmed":
+        return "Order Confirmed";
+      case "pending":
+        return "Pending";
+      case "cancelled":
+        return "Cancelled";
+      default:
+        return "Unknown";
+    }
+  };
+
+
+
+
 
   return (
     <div>
@@ -156,6 +261,146 @@ const Transitions = () => {
             setPerPage(pageSize)
           }} />
       </div>
+
+
+
+
+
+
+
+      <Modal
+        centered
+        title={
+          <div className="text-center bg-primary text-[#ffffff] py-4 font-degular text-[18px]  font-semibold rounded-t-lg">
+            Transition Details
+          </div>
+        }
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancelModal}
+        footer={null}
+        width={800}
+        className='custom-service-modal'>
+
+
+        <div className="pb-4">
+          <div className='px-4 pt-8'>
+
+            {/* Content */}
+            <div className="p-3 overflow-y-auto max-h-[calc(90vh-80px)]">
+              {/* Order Summary */}
+              <div className="bg-gray-50 rounded-lg p-4 ">
+                <div className="flex justify-between gap-4">
+
+                  {/* customer details */}
+                  <div>
+                    <h3 className="font-semibold text-xl text-gray-700 mb-2">Customer Details</h3>
+                    <div className="flex gap-4">
+                      <div>
+                        <img src={singleTransitionData?.user?.photo} alt="photo" className="w-[60px] h-[60px] rounded-full" />
+                      </div>
+
+
+                      <div>
+                        <p className="text-sm text-gray-600">
+                          Name: <span className="font-medium">{singleTransitionData?.user?.name}</span>
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Email: <span className="font-medium">{singleTransitionData?.user?.email}</span>
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Phone: <span className="font-medium">{singleTransitionData?.user?.phone}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* order information */}
+                  <div className="flex flex-col justify-end items-end">
+                    <h3 className="font-semibold text-xl text-gray-700 mb-2">Order Information</h3>
+                    <div className="flex flex-col justify-end items-end">
+                      <p className="text-sm text-gray-600">
+                        Order Number: <span className="font-medium">{singleTransitionData.order_number}</span>
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        Total Amount: <span className="font-medium text-green-600">${singleTransitionData.total}</span>
+                      </p>
+                      <div className="mt-2">
+                        <span
+                          className={`inline-block px-3 py-1 rounded-full text-green-600 bg-green-100 text-xs font-medium `}
+                        >
+                          {singleTransitionData.status}
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+              <div className="mt-8">
+                {/* Payment Details */}
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h3 className="font-semibold text-xl text-gray-700 mb-3">Payment Details</h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Method:</span>
+                      <span className="font-medium capitalize">{singleTransitionData?.payment?.payment_method}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Status:</span>
+                      <span
+                        className={`font-medium capitalize text-green-600`}
+                      >
+                        {singleTransitionData?.payment?.payment_status}
+                      </span>
+                    </div>
+                     <div className="flex justify-between text-sm">
+                      <span className="text-gray-600 ">Transaction ID:</span>
+                      <span className="font-medium text-xs">{singleTransitionData?.payment?.transaction_id}</span>
+                    </div>
+
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Amount:</span>
+                      <span
+                        className={`font-medium capitalize `}
+                      >
+                        {singleTransitionData?.payment?.amount}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Delivery Charge:</span>
+                      <span
+                        className={`font-medium capitalize `}
+                      >
+                        {singleTransitionData?.payment?.delivery_charges}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Tex Rate:</span>
+                      <span
+                        className={`font-medium capitalize `}
+                      >
+                        {singleTransitionData?.payment?.tax}
+                      </span>
+                    </div>
+                   
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Payment Date:</span>
+                      <span className="font-medium">{formatDate(singleTransitionData?.payment?.payment_date)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

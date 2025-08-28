@@ -12,9 +12,16 @@ const dashboardTransitionApi = baseApi.injectEndpoints({
             }),
             providesTags: ['transition'],
         }),
+        singleGetTransitionApi: builder.query({
+            query: (id) => ({
+                url: `/admin/allTransactions/${id}`,
+                method: "GET",
+            }),
+            providesTags: ['transition'],
+        }),
 
     })
 })
 
 
-export const { useGetTransitionApiQuery } = dashboardTransitionApi;
+export const { useGetTransitionApiQuery ,useSingleGetTransitionApiQuery} = dashboardTransitionApi;
