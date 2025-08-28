@@ -6,7 +6,7 @@ import ImageProfile from "../assets/images/profileImage.jpg";
 
 import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
-import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, StoreIconBlack, StoreIconWhite } from "../assets/icon";
+import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite } from "../assets/icon";
 import { useGetTotalNotificationApiQuery } from "../redux/dashboardFeatures/notification/dashboardNotificationApi";
 
 const { Header, Sider, Content } = Layout;
@@ -114,6 +114,12 @@ const shopperItems = [
         title: "Promotions",
         icon: IconPromotionsBlack,
         activeIcon: IconPromotionsWhite,
+    },
+    {
+        path: "/transition",
+        title: "Transitions",
+        icon: TransitionIconBlack,
+        activeIcon: TransitionIconWhite,
     },
         {
         path: "/allProducts",
@@ -252,6 +258,17 @@ const StoreDashboardSidebar = () => {
                         </h1>
                         <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
                             You can promotion your store/products through slider images from here.
+                        </p>
+                    </>
+                );
+            case "/transition":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                           Transition
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                           You can see all of the transactions of your site and app from here.
                         </p>
                     </>
                 );

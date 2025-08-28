@@ -27,6 +27,7 @@ export const baseApi = createApi({
     "shopper",
     "allProduct",
     "allStore",
+    "transition",
   ],
   endpoints: () => ({}),
 });

@@ -909,33 +909,24 @@ const OrderManagement = () => {
 
                 <div className="pb-4">
                     <div className='px-4 pt-8'>
-                        <p>Edit new id : {editNewId}</p>
-                        <p>{allOrderData.map((item)=>item?.shopper_name)} sss</p>
+                        <p>Edit new id : {editNewId} </p>
+                        <p>{allOrderData?.map((item) => item?.shopper_name)} ========shopperName</p>
                         <div>
                             <Select
-                                defaultValue={allOrderData.map((item)=>item?.shopper_name)}
+                                showSearch
                                 style={{ width: 200 }}
+                                placeholder="Select Shopper"
+                                optionFilterProp="label"
                                 onChange={handleChange}
-                                options={[
-                                    {
-                                        label: <span>manager</span>,
-                                        title: 'manager',
-                                        options: [
-                                            { label: <span>Jack</span>, value: 'Jack' },
-                                            { label: <span>Lucy</span>, value: 'Lucy' },
-                                        ],
-                                    },
-                                    {
-                                        label: <span>engineer</span>,
-                                        title: 'engineer',
-                                        options: [
-                                            { label: <span>Chloe</span>, value: 'Chloe' },
-                                            { label: <span>Lucas</span>, value: 'Lucas' },
-                                        ],
-                                    },
-                                ]}
+                                defaultValue={"kodom ali"}
+                                options={allShopperData?.map((item) => {
+                                    return {
+                                        value: item.id,
+                                        label: item.name,
+                                    }
+                                })}
+                             
                             />
-
 
                         </div>
                     </div>

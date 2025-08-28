@@ -27,6 +27,7 @@ import CreateNewPassword from "../Auth/CreateNewPassword";
 import AllProducts from "../Store/pages/AllProducts";
 import AllStore from "../Store/pages/AllStore";
 import PrivatRoutes from "./PrivatRoutes";
+import Transitions from "../Store/pages/Transitions";
 
 export const router = createBrowserRouter([
 
@@ -71,6 +72,12 @@ export const router = createBrowserRouter([
                 path: "/promotions",
                 element: <PrivatRoutes>
                     <Promotions />
+                </PrivatRoutes>
+            },
+            {
+                path: "/transition",
+                element: <PrivatRoutes>
+                    <Transitions />
                 </PrivatRoutes>
             },
             {
