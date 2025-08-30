@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Card, Table, Space, Popconfirm, Pagination, Modal } from 'antd';
 import { useGetAllShopperApiQuery, useGetOrderApiQuery, useUpdateNewStatusOrderApiMutation, useUpdateShopperApiMutation } from '../../redux/dashboardFeatures/manageOrder/dashboardManageOrder';
 import toast from 'react-hot-toast';
-import { Select } from 'antd';
 
 import { Avatar, } from "antd";
 import {
@@ -72,8 +71,7 @@ const OrderManagement = () => {
 
         try {
             const res = await updateShopperApi(formData).unwrap();
-            console.log(res)
-            if (res?.status === true) {
+            if (res?.success === true) {
                 toast.success(res?.message);
                 refetch()
             }

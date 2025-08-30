@@ -20,9 +20,9 @@ const Shoppers = () => {
 
     const { data: getShopper, refetch, isLoading } = useGetShopperApiQuery({ search: searchText, per_page: perPage, page: currentPage })
 
-    const shopperData = getShopper?.data?.data
-    const totalShopper = getShopper?.data.total_active_shoppers
-    const totalPagination = getShopper?.data?.total
+    const shopperData = getShopper?.data
+    // const totalShopper = getShopper?.data.total_active_shoppers
+    const totalPagination = getShopper?.total
     // console.log(shopperData)
 
 
@@ -52,6 +52,7 @@ const Shoppers = () => {
     }, [searchText, currentPage, perPage, refetch]);
 
 
+    console.log(shopperData)
 
     return (
         <div className="p-4">
