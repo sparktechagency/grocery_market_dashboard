@@ -28,6 +28,7 @@ export const baseApi = createApi({
     "allProduct",
     "allStore",
     "transition",
+    "verify_token",
   ],
   endpoints: () => ({}),
 });

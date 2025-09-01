@@ -52,7 +52,6 @@ const Shoppers = () => {
     }, [searchText, currentPage, perPage, refetch]);
 
 
-    console.log(shopperData)
 
     return (
         <div className="p-4">

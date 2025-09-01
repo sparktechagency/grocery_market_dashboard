@@ -21,7 +21,6 @@ const Transitions = () => {
 
   const { data: getsingleTansition } = useSingleGetTransitionApiQuery(detailsId)
   const singleTransitionData = getsingleTansition?.data
-  console.log(singleTransitionData)
 
 
 

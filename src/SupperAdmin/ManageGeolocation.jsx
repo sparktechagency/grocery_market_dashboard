@@ -34,7 +34,6 @@ const ManageGeolocation = () => {
 
 
 
-  console.log(singleGLocationData)
 
 
 

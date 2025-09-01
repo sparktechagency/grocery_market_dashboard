@@ -45,11 +45,16 @@ export const router = createBrowserRouter([
                     <StoreDashboard />
                 </PrivatRoutes>
             },
-            {
-                path: "/inventory",
-                element: <PrivatRoutes>
-                    <Inventory />
-                </PrivatRoutes>
+            // {
+            //     path: "/inventory",
+            //     element: <PrivatRoutes>
+            //         <Inventory />
+            //     </PrivatRoutes>
+            // },
+
+                {
+                path: "manage_category",
+                element: <ManageCategory />
             },
             {
                 path: "/orderManagement",
@@ -151,10 +156,10 @@ export const router = createBrowserRouter([
                 path: "admin_order_management",
                 element: <OrderManagementAdmin />
             },
-            {
-                path: "manage_category",
-                element: <ManageCategory />
-            },
+            // {
+            //     path: "manage_category",
+            //     element: <ManageCategory />
+            // },
             {
                 path: "admin_shopper",
                 element: <ShopperAdmin />
