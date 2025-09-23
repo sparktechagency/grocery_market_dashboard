@@ -56,7 +56,7 @@ const StoreDashboard = () => {
                                 <path d="M14.735 12.9588C14.7625 12.4562 14.9025 11.54 14.14 10.8424M14.14 10.8424C13.8491 10.5896 13.5102 10.3979 13.1437 10.2787C11.5724 9.72491 9.64361 11.5775 11.0087 13.2738C11.7424 14.1863 12.3087 14.4663 12.2537 15.5013C12.2162 16.2289 11.5012 16.9901 10.5586 17.2801C9.73986 17.5327 8.83609 17.1989 8.26482 16.5601C7.56605 15.7801 7.6373 15.0451 7.63105 14.7251M14.14 10.8424L15 9.98242M8.32482 16.6576L7.50854 17.4739" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                             <p className=" font-roboto font-bold text-xl">Total earnings</p>
-                            <h3 className="font-roboto font-bold text-[28px]">$ {dashboardCurdData?.total_earnings}</h3>
+                            <h3 className="font-roboto font-bold text-[28px]">{dashboardCurdData?.total_earnings}</h3>
                         </div>
                     </div>
 
@@ -70,7 +70,7 @@ const StoreDashboard = () => {
                             </svg>
 
                             <p className=" font-roboto font-bold text-xl">Total Store</p>
-                            <h3 className="font-roboto font-bold text-[28px]">${dashboardCurdData?.total_user}</h3>
+                            <h3 className="font-roboto font-bold text-[28px]">{dashboardCurdData?.total_user}</h3>
                         </div>
                     </div>
 
@@ -84,7 +84,7 @@ const StoreDashboard = () => {
                             </svg>
 
                             <p className=" font-roboto font-bold text-xl">Total User</p>
-                            <h3 className="font-roboto font-bold text-[28px]">${dashboardCurdData?.all_stores}</h3>
+                            <h3 className="font-roboto font-bold text-[28px]">{dashboardCurdData?.all_stores}</h3>
                         </div>
                     </div>
                 </div>

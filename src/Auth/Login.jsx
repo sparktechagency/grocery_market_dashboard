@@ -29,7 +29,7 @@ const Login = () => {
 
         try {
             const res = await postAuthApi(authInfo).unwrap()
-
+console.log("res-------> ",res)
 
             const token = res.token;
             const role = res?.user?.role
@@ -44,8 +44,7 @@ const Login = () => {
         } catch (error) {
             toast.error(error.message)
         }
-    };
-
+    }
 
 
 

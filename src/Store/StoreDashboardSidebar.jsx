@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, Layout, Menu } from "antd";
 import { Link, useNavigate, useLocation, Outlet } from "react-router-dom";
-import ImageLogo from "../assets/images/logo/logo.jpg"
+import ImageLogo from "../assets/images/logo/logo.png"
 import ImageProfile from "../assets/images/profileImage.jpg";
 
 import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
-import { DeliveryIconBlack, DeliveryIconWhite, IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite } from "../assets/icon";
+import { DeliveryIconBlack, DeliveryIconWhite, IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite, UserIconBlack, UserIconWhite } from "../assets/icon";
 import { useGetTotalNotificationApiQuery } from "../redux/dashboardFeatures/notification/dashboardNotificationApi";
 
 const { Header, Sider, Content } = Layout;
@@ -92,6 +92,18 @@ const shopperItems = [
         activeIcon: IconManageCategoryWhite,
     },
     {
+        path: "/manage_user",
+        title: "Manage User",
+        icon: UserIconBlack,
+        activeIcon: UserIconWhite, 
+    },
+    {
+        path: "/manage_shopper",
+        title: "Manage Shopper",
+        icon: IconManageCategoryBlack,
+        activeIcon: IconManageCategoryWhite,
+    },
+    {
         path: "/orderManagement",
         title: "Order management",
         icon: IconManageBlack,
@@ -123,7 +135,7 @@ const shopperItems = [
     },
     {
         path: "/transition",
-        title: "Transitions",
+        title: "Transition",
         icon: TransitionIconBlack,
         activeIcon: TransitionIconWhite,
     },

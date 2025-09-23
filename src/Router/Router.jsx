@@ -29,6 +29,8 @@ import AllStore from "../Store/pages/AllStore";
 import PrivatRoutes from "./PrivatRoutes";
 import Transitions from "../Store/pages/Transitions";
 import DeliveryCharge from "../Store/pages/DeliveryCharge";
+import ManageUser from "../Store/pages/manageUser/ManageUser";
+import ManageShopper from "../Store/pages/manageShopper/ManageShopper";
 
 export const router = createBrowserRouter([
 
@@ -52,9 +54,17 @@ export const router = createBrowserRouter([
             //     </PrivatRoutes>
             // },
 
-                {
+            {
                 path: "manage_category",
                 element: <ManageCategory />
+            },
+            {
+                path: "/manage_user",
+                element: <ManageUser />
+            },
+            {
+                path: "/manage_shopper",
+                element: <ManageShopper />
             },
             {
                 path: "/orderManagement",
