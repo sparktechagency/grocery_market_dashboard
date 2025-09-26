@@ -6,7 +6,7 @@ import ImageProfile from "../assets/images/profileImage.jpg";
 
 import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
-import { DeliveryIconBlack, DeliveryIconWhite, IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite, UserIconBlack, UserIconWhite } from "../assets/icon";
+import { DeliveryIconBlack, DeliveryIconWhite, IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, ShopperIconBlack, ShopperIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite, UserIconBlack, UserIconWhite } from "../assets/icon";
 import { useGetTotalNotificationApiQuery } from "../redux/dashboardFeatures/notification/dashboardNotificationApi";
 
 const { Header, Sider, Content } = Layout;
@@ -100,8 +100,8 @@ const shopperItems = [
     {
         path: "/manage_shopper",
         title: "Manage Shopper",
-        icon: IconManageCategoryBlack,
-        activeIcon: IconManageCategoryWhite,
+        icon: ShopperIconBlack,
+        activeIcon: ShopperIconWhite,
     },
     {
         path: "/orderManagement",
