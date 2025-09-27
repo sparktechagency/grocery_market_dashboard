@@ -235,6 +235,28 @@ const StoreDashboardSidebar = () => {
                         </p>
                     </>
                 );
+            case "/manage_user":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Manage user
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                           You can see all the registered users of your website and app from here.
+                        </p>
+                    </>
+                );
+            case "/manage_shopper":
+                return (
+                    <>
+                        <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
+                            Manage shopper
+                        </h1>
+                        <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
+                          See all your shoppers, manage their profiles, and keep track of their activity.
+                        </p>
+                    </>
+                );
             case "/orderManagement":
                 return (
                     <>
