@@ -135,7 +135,7 @@ const shopperItems = [
     },
     {
         path: "/transition",
-        title: "Transition",
+        title: "Transactions",
         icon: TransitionIconBlack,
         activeIcon: TransitionIconWhite,
     },
@@ -316,10 +316,10 @@ const StoreDashboardSidebar = () => {
                 return (
                     <>
                         <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
-                            Transition
+                            Transactions
                         </h1>
                         <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
-                            You can see all of the transactions of your site and app from here.
+                            You can see all of the Transactions of your site and app from here.
                         </p>
                     </>
                 );

@@ -24,7 +24,7 @@ const ManageUser = () => {
 
   const columns = [
     {
-      title: "Nmae",
+      title: "Name",
       dataIndex: "name",
       key: "name",
       align: "center",
