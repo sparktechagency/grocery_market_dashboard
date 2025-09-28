@@ -23,13 +23,17 @@ const ManageShopper = () => {
 
 
   const columns = [
-    {
-      title: "Image",
-      dataIndex: "photo",
-      key: "photo",
-      align: "center",
-      render: (text) => <img src={text} alt="image" className="w-[30px] h-[30px] rounded-full object-cover" />
-    },
+{
+  title: "Image",
+  dataIndex: "photo",
+  key: "photo",
+  align: "center",
+  render: (text) => (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <img src={text} alt="image" className="w-[30px] h-[30px] rounded-full object-cover" />
+    </div>
+  )
+},
     {
       title: "Name",
       dataIndex: "name",
