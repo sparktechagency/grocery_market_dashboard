@@ -1,11 +1,11 @@
 import { DownOutlined } from "@ant-design/icons";
 import React, { useState } from 'react'
 import { Select } from "antd";
-import InventoryTable from "../../components/inventrory/inventoryTable";
+import InventoryTable from "../../components/inventrory/InventoryTable";
 import { IconPlusWhite, IconSearch } from "../../assets/icon";
 import AddModalProduct from "../../components/inventrory/AddProductModal";
 
-const Inventory = () => {
+const InventoryPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
@@ -46,4 +46,4 @@ const Inventory = () => {
     )
 }
 
-export default Inventory
+export default InventoryPage
