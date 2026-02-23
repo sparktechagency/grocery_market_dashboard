@@ -21,6 +21,7 @@ const ForgetPass = () => {
         formData.append("email", values?.email);
         try {
             const res = await forgetPasswordApi(formData).unwrap()
+               console.log("response:", res);
             if (res.status === true) {
                 toast.success(res?.message)
                 navigate(`/otp?email=${values?.email}`);

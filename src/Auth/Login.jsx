@@ -29,8 +29,7 @@ const Login = () => {
 
         try {
             const res = await postAuthApi(authInfo).unwrap()
-
-
+        
             const token = res.token;
             const role = res?.user?.role
             if (res.status === true) {
@@ -38,8 +37,8 @@ const Login = () => {
                 localStorage.setItem("token", token);
                 localStorage.setItem("role", role);
                 navigate('/')
-            }else{
-                 toast.error("Network error. Unable to reach the server, please try again later.")
+            } else {
+                toast.error("Network error. Unable to reach the server, please try again later.")
             }
         } catch (error) {
             toast.error(error.message || "Network error. Unable to reach the server, please try again later.")
