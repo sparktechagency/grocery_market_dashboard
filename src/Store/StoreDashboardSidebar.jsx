@@ -452,7 +452,7 @@ const StoreDashboardSidebar = () => {
                         <span className="flex gap-3">
 
 
-                            <img src={ImageProfile} alt="profile" className=" w-8 h-8 rounded-full" />
+                            <img src={authData?.photo || ImageProfile} alt="profile" className=" w-8 h-8 rounded-full" />
                            {authData?.name}
                         </span>
                         <span>{IconRightBlackArrow}</span>
