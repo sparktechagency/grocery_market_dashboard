@@ -8,6 +8,7 @@ import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
 import { DeliveryIconBlack, DeliveryIconWhite, IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, ShopperIconBlack, ShopperIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite, UserIconBlack, UserIconWhite } from "../assets/icon";
 import { useGetTotalNotificationApiQuery } from "../redux/dashboardFeatures/notification/dashboardNotificationApi";
+import { useGetProfileApiQuery } from "../redux/authontication/authApi";
 
 const { Header, Sider, Content } = Layout;
 
@@ -192,7 +193,8 @@ const StoreDashboardSidebar = () => {
 
     const notificationCount = getAllNotifi?.total
 
-
+    const { data: getAuthData, isLoading } = useGetProfileApiQuery()
+    const authData = getAuthData?.user
 
 
     // ====================================================================== change state shopper and admin ============================
@@ -217,7 +219,7 @@ const StoreDashboardSidebar = () => {
                 return (
                     <>
                         <h1 className="text-white font-PoppinsSemiBold text-4xl mb-3">
-                            Hello, Rich
+                            Hello, {authData?.name}
                         </h1>
                         <p className="font-PoppinsRegular text-white text-lg -mt-3 mb-4">
                             You can see the total overview of your app from here.
@@ -517,7 +519,7 @@ const StoreDashboardSidebar = () => {
 
 
                             <img src={ImageProfile} alt="profile" className=" w-8 h-8 rounded-full" />
-                            Rich
+                           {authData?.name}
                         </span>
                         <span>{IconRightBlackArrow}</span>
                     </Button>

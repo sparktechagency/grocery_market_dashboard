@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-  baseUrl: "http://api.100.22.57.247.nip.io/api", // live url
-    // baseUrl: "http://103.186.20.114:8009/api",
+  // baseUrl: "http://api.100.22.57.247.nip.io/api", // live url
+    baseUrl: "http://10.10.10.90:8080/api",
     prepareHeaders: (headers, { getState }) => {
       const token = localStorage.getItem("token");
       // console.log("9 baseApi", token);
