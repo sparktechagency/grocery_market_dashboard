@@ -8,6 +8,7 @@ import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
 import { DeliveryIconBlack, DeliveryIconWhite, IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, ShopperIconBlack, ShopperIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite, UserIconBlack, UserIconWhite } from "../assets/icon";
 import { useGetTotalNotificationApiQuery } from "../redux/dashboardFeatures/notification/dashboardNotificationApi";
+import { useGetProfileApiQuery } from "../redux/authontication/authApi";
 
 const { Header, Sider, Content } = Layout;
 
@@ -191,6 +192,12 @@ const StoreDashboardSidebar = () => {
     });
 
     const notificationCount = getAllNotifi?.total
+
+
+        const { data: getAuthData, isLoading } = useGetProfileApiQuery()
+        const authData = getAuthData?.user
+
+        console.log('auth data',authData)
 
 
 
@@ -516,8 +523,8 @@ const StoreDashboardSidebar = () => {
                         <span className="flex gap-3">
 
 
-                            <img src={ImageProfile} alt="profile" className=" w-8 h-8 rounded-full" />
-                            Rich
+                            <img src={authData?.photo || ImageProfile} alt="profile" className=" w-8 h-8 rounded-full" />
+                         {authData?.name}
                         </span>
                         <span>{IconRightBlackArrow}</span>
                     </Button>
