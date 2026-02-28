@@ -6,77 +6,11 @@ import ImageProfile from "../assets/images/profileImage.jpg";
 
 import SubMenu from "antd/es/menu/SubMenu";
 import "./Styled_components.css";
-import { DeliveryIconBlack, DeliveryIconWhite, IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconInventoryBlack, IconInventoryWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShopBlack, IconShoppersBlack, IconShoppersWhite, IconShopWhite, IconStoreManagementBlack, IconStoreManagementWhite, IconSubscriptionsBlack, IconSubscriptionsWhite, ProductIconBlack, ProductIconWhite, ShopperIconBlack, ShopperIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite, UserIconBlack, UserIconWhite } from "../assets/icon";
+import { IconAboutBlack, IconAboutWhite, IconDashboardBlack, IconDashboardWhite, IconFAQBlack, IconFAQWhite, IconKeyBlack, IconKeyWhite, IconLogout, IconManageBlack, IconManageCategoryBlack, IconManageCategoryWhite, IconManageGeolocationBlack, IconManageGeolocationWhite, IconManageWhite, IconNotification, IconPromotionsBlack, IconPromotionsWhite, IconRightBlackArrow, IconSettingsBlack, IconSettingsWhite, IconShoppersBlack, IconShoppersWhite, ProductIconBlack, ProductIconWhite, ShopperIconBlack, ShopperIconWhite, StoreIconBlack, StoreIconWhite, TransitionIconBlack, TransitionIconWhite, UserIconBlack, UserIconWhite } from "../assets/icon";
 import { useGetTotalNotificationApiQuery } from "../redux/dashboardFeatures/notification/dashboardNotificationApi";
 import { useGetProfileApiQuery } from "../redux/authontication/authApi";
 
 const { Header, Sider, Content } = Layout;
-
-// const adminItems = [
-//     {
-//         path: "/supper_admin",
-//         title: "Dashboard",
-//         icon: IconDashboardBlack,
-//         activeIcon: IconDashboardWhite,
-//     },
-//     {
-//         path: "/supper_admin/store_management",
-//         title: "Store Management",
-//         icon: IconStoreManagementBlack,
-//         activeIcon: IconStoreManagementWhite,
-//     },
-//     {
-//         path: "/supper_admin/admin_order_management",
-//         title: "Order management",
-//         icon: IconManageBlack,
-//         activeIcon: IconManageWhite,
-//     },
-//     {
-//         path: "/manage_category",
-//         title: "Manage Category",
-//         icon: IconManageCategoryBlack,
-//         activeIcon: IconManageCategoryWhite,
-//     },
-//     {
-//         path: "/supper_admin/admin_shopper",
-//         title: "Shoppers",
-//         icon: IconShoppersBlack,
-//         activeIcon: IconShoppersWhite,
-//     },
-//     {
-//         path: "/supper_admin/admin_subscriptions",
-//         title: "Subscriptions",
-//         icon: IconSubscriptionsBlack,
-//         activeIcon: IconSubscriptionsWhite,
-//     },
-
-//     {
-//         path: "/settings",
-//         title: "Settings",
-//         icon: IconSettingsBlack,
-//         activeIcon: IconSettingsWhite,
-//         children: [
-//             {
-//                 path: "/settings/change_pass",
-//                 title: "Change Password",
-//                 icon: IconKeyBlack,
-//                 activeIcon: IconKeyWhite,
-//             },
-//             {
-//                 path: "/settings/about_us",
-//                 title: "About Us",
-//                 icon: IconAboutBlack,
-//                 activeIcon: IconAboutWhite,
-//             },
-//             {
-//                 path: "/settings/faq",
-//                 title: "FAQ",
-//                 icon: IconFAQBlack,
-//                 activeIcon: IconFAQWhite,
-//             },
-//         ],
-//     },
-// ];
 
 
 const shopperItems = [
