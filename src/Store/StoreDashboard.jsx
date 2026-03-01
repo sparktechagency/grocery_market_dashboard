@@ -70,7 +70,7 @@ const StoreDashboard = () => {
                             </svg>
 
                             <p className=" font-roboto font-bold text-xl">Total Store</p>
-                            <h3 className="font-roboto font-bold text-[28px]">{dashboardCurdData?.total_user}</h3>
+                            <h3 className="font-roboto font-bold text-[28px]">{dashboardCurdData?.all_stores}</h3>
                         </div>
                     </div>
 
@@ -84,7 +84,7 @@ const StoreDashboard = () => {
                             </svg>
 
                             <p className=" font-roboto font-bold text-xl">Total User</p>
-                            <h3 className="font-roboto font-bold text-[28px]">{dashboardCurdData?.all_stores}</h3>
+                            <h3 className="font-roboto font-bold text-[28px]">{dashboardCurdData?.total_user}</h3>
                         </div>
                     </div>
                 </div>
