@@ -121,9 +121,7 @@ const shopperItems = [
 ];
 
 const StoreDashboardSidebar = () => {
-    const { data: getAllNotifi } = useGetTotalNotificationApiQuery(undefined, {
-        pollingInterval: 3000,
-    });
+    const { data: getAllNotifi } = useGetTotalNotificationApiQuery({});
 
     const notificationCount = getAllNotifi?.total
 
